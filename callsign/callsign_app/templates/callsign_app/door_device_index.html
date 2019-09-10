@@ -1,0 +1,6 @@
+{% for device in devices %}
+    {{device.pairing_code}} -
+    {{device.pairing_code_expire_at}} -
+    {{device.company}}
+<br>
+{% endfor %}

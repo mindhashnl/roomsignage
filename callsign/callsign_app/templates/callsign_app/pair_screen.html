@@ -1,0 +1,6 @@
+<form action="/screen/" method="get">
+    {% csrf_token %}
+    <label for="pairing_code">Pairing code:</label>
+    <input id="pairing_code" type="text" name="pairing_code" maxlength="4" required>
+    <input type="submit" value="Pair">
+</form>
