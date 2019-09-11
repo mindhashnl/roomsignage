@@ -4,7 +4,7 @@ from datetime import datetime, timedelta
 
 from django.core.validators import RegexValidator
 from django.db import models
-from django.db.models import OneToOneField
+from django.db.models import OneToOneField, ForeignKey
 
 phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$',
                              message="Phone number must be entered in the format: '+999999999'. Up to 15 digits allowed.")
@@ -32,6 +32,11 @@ class Company(models.Model):
     email = models.CharField(max_length=50)
     website = models.CharField(max_length=50)
 
+    def add_door_device(self):
+        device = DoorDevice()
+        device.company = self
+        device.save()
+
     def __str__(self):
         return self.name
 
@@ -40,7 +45,7 @@ class Company(models.Model):
 
 
 class DoorDevice(models.Model):
-    company = OneToOneField('Company', on_delete=models.CASCADE)
+    company = ForeignKey('Company', on_delete=models.CASCADE)
 
     # Read only fields
     pairing_code = models.CharField(validators=[pairing_code_regex], max_length=4, unique=True,
