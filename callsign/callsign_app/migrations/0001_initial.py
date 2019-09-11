@@ -21,7 +21,7 @@ class Migration(migrations.Migration):
                 ('name', models.CharField(max_length=50)),
                 ('phone_number', models.CharField(max_length=15, validators=[django.core.validators.RegexValidator(message="Phone number must be entered in the format: '+999999999'. Up to 15 digits allowed.", regex='^\\+?1?\\d{9,15}$')])),
                 ('email', models.EmailField(max_length=50)),
-                ('website', models.CharField(max_length=50)),
+                ('website', models.URLField(max_length=50)),
             ],
             options={
                 'verbose_name_plural': 'Companies',
