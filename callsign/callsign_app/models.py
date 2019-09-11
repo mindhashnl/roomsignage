@@ -2,6 +2,7 @@ import random
 import string
 from datetime import datetime, timedelta
 
+from django.core.exceptions import ValidationError
 from django.core.validators import RegexValidator
 from django.db import models
 from django.db.models import OneToOneField, ForeignKey
@@ -27,15 +28,10 @@ def expire_default():
 
 
 class Company(models.Model):
-    name = models.CharField(max_length=50)
+    name = models.CharField(max_length=50, null=False)
     phone_number = models.CharField(validators=[phone_regex], max_length=15)
-    email = models.CharField(max_length=50)
+    email = models.CharField(max_length=50, null=False)
     website = models.CharField(max_length=50)
-
-    def add_door_device(self):
-        device = DoorDevice()
-        device.company = self
-        device.save()
 
     def __str__(self):
         return self.name
@@ -46,12 +42,13 @@ class Company(models.Model):
 
 class DoorDevice(models.Model):
     company = ForeignKey('Company', on_delete=models.CASCADE)
+    room_number = models.IntegerField(null=False)
 
     # Read only fields
     pairing_code = models.CharField(validators=[pairing_code_regex], max_length=4, unique=True,
                                     default=generate_pairing_code)
     pairing_code_expire_at = models.DateTimeField(default=expire_default)
-    secret = models.CharField(default=generate_secret, max_length=32)
+    secret = models.CharField(default=generate_secret, max_length=32, null=False)
 
     def regenerate_codes(self):
         self.pairing_code = generate_pairing_code()
@@ -61,5 +58,4 @@ class DoorDevice(models.Model):
         self.save()
 
     def __str__(self):
-        return self.company.name
-
+        return f"{self.room_number} - {self.company.name}"
