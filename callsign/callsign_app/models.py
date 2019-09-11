@@ -48,6 +48,13 @@ class DoorDevice(models.Model):
     pairing_code_expire_at = models.DateTimeField(default=expire_default)
     secret = models.CharField(default=generate_secret, max_length=32)
 
+    def regenerate_codes(self):
+        self.pairing_code = generate_pairing_code()
+        self.pairing_code_expire_at = expire_default()
+        self.secret = generate_secret()
+
+        self.save()
+
     def __str__(self):
         return self.company.name
 
