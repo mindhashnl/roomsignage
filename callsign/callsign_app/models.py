@@ -30,7 +30,7 @@ def expire_default():
 class Company(models.Model):
     name = models.CharField(max_length=50, null=False)
     phone_number = models.CharField(validators=[phone_regex], max_length=15)
-    email = models.CharField(max_length=50, null=False)
+    email = models.EmailField(max_length=50, null=False)
     website = models.CharField(max_length=50)
 
     def __str__(self):
@@ -42,7 +42,7 @@ class Company(models.Model):
 
 class DoorDevice(models.Model):
     company = ForeignKey('Company', on_delete=models.CASCADE)
-    room_number = models.IntegerField(null=False)
+    room_number = models.IntegerField(null=False, unique=True)
 
     # Read only fields
     pairing_code = models.CharField(validators=[pairing_code_regex], max_length=4, unique=True,
