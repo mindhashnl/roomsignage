@@ -30,7 +30,7 @@ def screen(request):
     if request.COOKIES.get('screen_secret'):
         device = DoorDevice.objects.filter(secret=request.COOKIES.get('screen_secret')).first()
         if not device:
-            raise Http404('Wrong screen secret provided')
+            return HttpResponseRedirect('/unpair')
         else:
             return _screen_response(device, request)
 
