@@ -32,6 +32,7 @@ class Company(models.Model):
     phone_number = models.CharField(validators=[phone_regex], max_length=15)
     email = models.EmailField(max_length=50, null=False)
     website = models.URLField(max_length=50)
+    logo = models.ImageField(null=True)
 
     def __str__(self):
         return self.name

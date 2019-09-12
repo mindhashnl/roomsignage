@@ -1,5 +1,7 @@
 {% if company %}
     <ul>
+        {{settings.MEDIA_URL}}
+    <p><img src="{{ company.logo.url }}" width="300px"></p>
     {{company.name}}
     </ul>
 {% else %}
