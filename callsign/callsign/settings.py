@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'django_admin_row_actions',
+    'colorfield',
     'callsign_app.apps.CallsignAppConfig',
     'django.contrib.admin',
     'django.contrib.auth',

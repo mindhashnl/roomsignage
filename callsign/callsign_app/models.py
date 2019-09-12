@@ -1,11 +1,14 @@
 import random
 import string
+import uuid
 from datetime import datetime, timedelta
 
+from colorfield.fields import ColorField
 from django.core.exceptions import ValidationError
 from django.core.validators import RegexValidator
 from django.db import models
 from django.db.models import OneToOneField, ForeignKey
+
 
 phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$',
                              message="Phone number must be entered in the format: '+999999999'. Up to 15 digits allowed.")
@@ -32,7 +35,8 @@ class Company(models.Model):
     phone_number = models.CharField(validators=[phone_regex], max_length=15)
     email = models.EmailField(max_length=50, null=False)
     website = models.URLField(max_length=50)
-    logo = models.ImageField(null=True)
+    logo = models.ImageField(null=True, upload_to=f'logos/{uuid.uuid4()}')
+    color = ColorField()
 
     def __str__(self):
         return self.name
