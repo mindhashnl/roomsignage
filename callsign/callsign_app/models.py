@@ -9,7 +9,6 @@ from django.core.validators import RegexValidator
 from django.db import models
 from django.db.models import OneToOneField, ForeignKey
 
-
 phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$',
                              message="Phone number must be entered in the format: '+999999999'. Up to 15 digits allowed.")
 
@@ -46,21 +45,6 @@ class Company(models.Model):
 
 
 class DoorDevice(models.Model):
-    company = ForeignKey('Company', on_delete=models.CASCADE)
-    room_number = models.IntegerField(null=False, unique=True)
-
-    # Read only fields
-    pairing_code = models.CharField(validators=[pairing_code_regex], max_length=4, unique=True,
-                                    default=generate_pairing_code)
-    pairing_code_expire_at = models.DateTimeField(default=expire_default)
+    company = ForeignKey('Company', on_delete=models.CASCADE, null=True)
+    room_number = models.IntegerField(unique=True, null=True)
     secret = models.CharField(default=generate_secret, max_length=32, null=False)
-
-    def regenerate_codes(self):
-        self.pairing_code = generate_pairing_code()
-        self.pairing_code_expire_at = expire_default()
-        self.secret = generate_secret()
-
-        self.save()
-
-    def __str__(self):
-        return f"{self.room_number} - {self.company.name}"

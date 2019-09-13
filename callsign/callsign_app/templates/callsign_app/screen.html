@@ -1,9 +1,40 @@
-{% if company %}
-    <ul>
-        {{company.color}}
-    <p><img src="{{ company.logo.url }}" width="300px"></p>
-    {{company.name}}
-    </ul>
+{% extends 'callsign_app/base.html' %}
+
+{% block content %}
+{% if device.company %}
+<div class="container-fluid" style="max-height: 100vh; height: 100vh; min-height: 100vh;">
+    <div class="row h-100" style="background:#faf5f5;">
+        <div class="col-md-5" style="background: #0b1f4b;">
+            <div class="row">
+                <img src="{{device.company.logo.url}}">
+            </div>
+            <div class="row h-50  align-items-center"
+                 style="color: white; font-size: 20px; font-weight: bold; line-height: 3;">
+                <div class="offset-md-2">
+                    <i class="fa fa-2x fa-building" style="margin-right: 15px;"></i>Room {{device.room_number}}<br/>
+                    <i class="fa fa-2x fa-phone" style="margin-right: 15px;"></i>{{device.company.phone_number}}
+                    <button class="btn btn-warning"><i class="fa fa-video"></i> Start video call</button>
+                    <br/>
+                    <i class="fa fa-2x fa-envelope" style="margin-right: 15px;"></i>{{device.company.email}}<br/>
+                    <i class="fa fa-2x fa-globe" style="margin-right: 15px;"></i>{{device.company.website}}<br/>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-7">
+            <div class="row h-100 align-items-center" style="max-height: 100vh; overflow: hidden">
+                <img src="image2.png" style="width: 100%;">
+            </div>
+        </div>
+    </div>
+</div>
 {% else %}
-    <p>Company doesn't exists. Please make sure that device is paired correct.</p>
+<div class="container-fluid" style="max-height: 100vh; height: 100vh; min-height: 100vh;">
+    <div class="row h-100  align-items-center" style="background: #0b1f4b;">
+        <div class="col-md-12 text-center" style="color:white;">
+            <h1>There is currently no company attached to this device.</h1>
+            <h3>Please go to the administration panel and couple a company to this device. Device id {{device.id}}</h3>
+        </div>
+    </div>
+</div>
 {% endif %}
+{% endblock %}
