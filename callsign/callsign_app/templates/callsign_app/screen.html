@@ -1,10 +1,11 @@
 {% extends 'callsign_app/base.html' %}
+{% load static %}
 
 {% block content %}
 {% if device.company %}
 <div class="container-fluid" style="max-height: 100vh; height: 100vh; min-height: 100vh;">
     <div class="row h-100" style="background:#faf5f5;">
-        <div class="col-md-5" style="background: #0b1f4b;">
+        <div class="col-md-5" style="background: {{device.company.color}};">
             <div class="row">
                 <img src="{{device.company.logo.url}}">
             </div>
@@ -28,11 +29,18 @@
     </div>
 </div>
 {% else %}
-<div class="container-fluid" style="max-height: 100vh; height: 100vh; min-height: 100vh;">
-    <div class="row h-100  align-items-center" style="background: #0b1f4b;">
-        <div class="col-md-12 text-center" style="color:white;">
-            <h1>There is currently no company attached to this device.</h1>
-            <h3>Please go to the administration panel and couple a company to this device. Device id {{device.id}}</h3>
+<div class="container-fluid" style="max-height: 100vh; height: 100vh; min-height: 100vh; background: #faf5f5;">
+    <div class="row h-75 align-items-center">
+        <div class="col-md-12">
+            <div class="row">
+                <img class="mx-auto" src='{% static "callsign_app/gebouw-n.png" %}'>
+            </div>
+        </div>
+    </div>
+    <div class="row h-25">
+        <div class="col-md-12 text-center">
+            <h3>There is currently no company attached to this device.</h3>
+            <h5>Please go to the administration panel and couple a company to this device. Device id 3</h5>
         </div>
     </div>
 </div>
