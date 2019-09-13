@@ -27,7 +27,7 @@ class Company(models.Model):
     phone_number = models.CharField(validators=[phone_regex], max_length=15)
     email = models.EmailField(max_length=50, null=False)
     website = models.URLField(max_length=50)
-    logo = models.ImageField(null=True, upload_to=logo_upload)
+    logo = models.ImageField(upload_to=logo_upload)
     color = ColorField()
 
     def __str__(self):
