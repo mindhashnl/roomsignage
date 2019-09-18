@@ -77,8 +77,12 @@ WSGI_APPLICATION = 'mysign.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.environ.get('POSTGRES_DATABASE'),
+        'USER': os.environ.get('POSTGRES_USER'),
+        'PASSWORD': os.environ.get('POSTGRES_PASSWORD'),
+        'HOST': os.environ.get('POSTGRES_HOST'),
+        'PORT': '5432',
     }
 }
 
@@ -122,3 +126,10 @@ USE_TZ = True
 STATIC_URL = '/static/'
 MEDIA_ROOT = 'uploads'
 MEDIA_URL = '/uploads/'
+
+required_envs = ['POSTGRES_PASSWORD', 'POSTGRES_USER', 'POSTGRES_DATABASE', 'POSTGRES_HOST']
+for item in required_envs:
+    if item not in os.environ:
+        raise EnvironmentError(
+            "{} should be specified in environment variables".format(item)
+        )
