@@ -3,5 +3,5 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('screen/', views.screen, name='screen'),
+    path('', views.screen, name='screen'),
 ]
