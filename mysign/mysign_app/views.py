@@ -21,7 +21,7 @@ def screen(request):
         'device': device
     }
     if device.company:
-        context['title'] = f'Callsign - {device.company}'
+        context['title'] = f'MySign - {device.company}'
     response = HttpResponse(template.render(context, request))
     response.set_cookie('screen_secret', device.secret, max_age=60*60*24*365*5)
     return response
