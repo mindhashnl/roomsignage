@@ -126,10 +126,3 @@ USE_TZ = True
 STATIC_URL = '/static/'
 MEDIA_ROOT = 'uploads'
 MEDIA_URL = '/uploads/'
-
-required_envs = ['POSTGRES_PASSWORD', 'POSTGRES_USER', 'POSTGRES_DATABASE', 'POSTGRES_HOST']
-for item in required_envs:
-    if item not in os.environ:
-        raise EnvironmentError(
-            "{} should be specified in environment variables".format(item)
-        )
