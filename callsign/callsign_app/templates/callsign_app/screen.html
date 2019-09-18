@@ -8,21 +8,20 @@
         <div class="col-md-5" style="background: {{device.company.color}};">
             <div class="row h-50 align-items-center">
                 <div class="col-md-12 text-center">
-                    <img src="{{device.company.logo.url}}" style="max-width:100%;">
+                    <img onclick="fullScreen()" src="{{device.company.logo.url}}" style="max-width:100%;">
                 </div>
 
             </div>
             <div class="row h-50  align-items-center"
-                 style="color: white; font-size: 20px; font-weight: bold; line-height: 3;">
-                <div class="offset-md-2">
+                 style="color: white; font-size: 25px; font-weight: bold; line-height: 3;">
+                <div class="mx-autodelijk">
                     {% if device.room_number %}
-                    <i class="fa fa-2x fa-building" style="margin-right: 15px;"></i>Room {{device.room_number}}<br/>
+                    <i class="fa fa-fw fa-2x fa-building" style="margin-right: 15px;"></i>Office {{device.room_number}}<br/>
                     {% endif %}
-                    <i class="fa fa-2x fa-phone" style="margin-right: 15px;"></i>{{device.company.phone_number}}
-                    <button class="btn btn-warning"><i class="fa fa-video"></i> Start video call</button>
+                    <i class="fa fa-fw fa-2x fa-phone" style="margin-right: 15px;"></i>{{device.company.phone_number}}
                     <br/>
-                    <i class="fa fa-2x fa-envelope" style="margin-right: 15px;"></i>{{device.company.email}}<br/>
-                    <i class="fa fa-2x fa-globe" style="margin-right: 15px;"></i>{{device.company.website}}<br/>
+                    <i class="fa fa-fw fa-2x fa-envelope" style="margin-right: 15px;"></i>{{device.company.email}}<br/>
+                    <i class="fa fa-fw fa-2x fa-globe" style="margin-right: 15px;"></i>{{device.company.website}}<br/>
                 </div>
             </div>
         </div>
