@@ -16,7 +16,7 @@ def screen(request):
         device = DoorDevice()
         device.save()
 
-    template = loader.get_template('callsign_app/screen.html')
+    template = loader.get_template('mysign_app/screen.html')
     context = {
         'device': device
     }
