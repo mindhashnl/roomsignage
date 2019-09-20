@@ -9,6 +9,7 @@ In order to make this project run make sure that you have the follow pre-require
 Now follow those steps to get everything working
 
 1. Install requirements `pip3 install -r requirements.txt`
+1. Start the database `cp .env.example .env`
 1. Start the database `docker-compose up -d db`
 1. Setup the database `python3 manage.py migrate`
 1. Add data to database `python3 manage.py seed`
