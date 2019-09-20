@@ -19,16 +19,16 @@ def generate_secret():
 
 def logo_upload(instance, filename):
     name, extension = filename.split('.', 1)
-    return f"companies/{instance.id}/logos/{uuid.uuid4()}.{extension}"
+    return f"companies/logos/{uuid.uuid4()}.{extension}"
 
 
 class Company(models.Model):
-    name = models.CharField(max_length=50, null=False)
+    name = models.CharField(max_length=50)
     phone_number = models.CharField(validators=[phone_regex], max_length=15)
-    email = models.EmailField(max_length=50, null=False)
+    email = models.EmailField(max_length=50)
     website = models.URLField(max_length=50)
-    logo = models.ImageField(upload_to=logo_upload)
-    color = ColorField()
+    logo = models.ImageField(upload_to=logo_upload, blank=True)
+    color = ColorField(blank=True)
 
     def __str__(self):
         return self.name
