@@ -16,7 +16,7 @@ def test_create():
 
 @mark.django_db
 def test_phone_number():
-    company = CompanyFactory(phone_number='belmij!')
+    company = CompanyFactory.build(phone_number='belmij!')
 
     with pytest.raises(ValidationError):
         assert not company.full_clean()
