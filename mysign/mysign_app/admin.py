@@ -4,7 +4,13 @@ from django_admin_row_actions import AdminRowActionsMixin
 
 from .models import Company, DoorDevice, User
 
-admin.site.register(User, UserAdmin)
+
+class CustomUserAdmin(UserAdmin):
+    fieldsets = ((None, {'fields': ('company',)}),
+                 ) + UserAdmin.fieldsets
+
+
+admin.site.register(User, CustomUserAdmin)
 
 
 class DoorDeviceInline(admin.TabularInline):
