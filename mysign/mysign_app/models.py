@@ -3,6 +3,7 @@ import string
 import uuid
 
 from colorfield.fields import ColorField
+from django.contrib.auth.models import AbstractUser
 from django.core.validators import RegexValidator
 from django.db import models
 from django.db.models import ForeignKey
@@ -21,6 +22,10 @@ def logo_upload(instance, filename):
     return f"companies/logos/{uuid.uuid4()}.{extension}"
 
 
+class User(AbstractUser):
+    company = ForeignKey('Company', on_delete=models.DO_NOTHING)
+
+
 class Company(models.Model):
     name = models.CharField(max_length=50)
     phone_number = models.CharField(validators=[phone_regex], max_length=15)
@@ -37,5 +42,5 @@ class Company(models.Model):
 
 
 class DoorDevice(models.Model):
-    company = ForeignKey('Company', on_delete=models.CASCADE, blank=True, null=True)
+    company = ForeignKey(Company, on_delete=models.CASCADE, blank=True, null=True)
     secret = models.CharField(default=generate_secret, max_length=32, null=False)

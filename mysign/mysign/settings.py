@@ -36,6 +36,7 @@ ALLOWED_HOSTS = ['*']
 INSTALLED_APPS = [
     'django_admin_row_actions',
     'colorfield',
+    'django_seed',
     'mysign_app.apps.MysignAppConfig',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -44,6 +45,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 ]
+
+AUTH_USER_MODEL = 'mysign_app.User'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

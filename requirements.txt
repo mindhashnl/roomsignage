@@ -1,6 +1,7 @@
 Django==2.2.5
 django-admin-row-actions==0.0.5
 django-colorfield
+django-seed
 python-dotenv==0.10.1
 psycopg2-binary
 pytest
