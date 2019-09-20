@@ -23,7 +23,7 @@ def logo_upload(instance, filename):
 
 
 class User(AbstractUser):
-    company = ForeignKey('Company', on_delete=models.DO_NOTHING)
+    company = ForeignKey('Company', on_delete=models.DO_NOTHING, null=True)
 
 
 class Company(models.Model):

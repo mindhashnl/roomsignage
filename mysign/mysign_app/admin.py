@@ -1,7 +1,10 @@
 from django.contrib import admin
+from django.contrib.auth.admin import UserAdmin
 from django_admin_row_actions import AdminRowActionsMixin
 
-from .models import Company, DoorDevice
+from .models import Company, DoorDevice, User
+
+admin.site.register(User, UserAdmin)
 
 
 class DoorDeviceInline(admin.TabularInline):
