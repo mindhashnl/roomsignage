@@ -14,9 +14,14 @@ def test_create():
     assert Company.objects.first().name == company.name
 
 
-@mark.django_db
 def test_phone_number():
     company = CompanyFactory.build(phone_number='belmij!')
 
     with pytest.raises(ValidationError):
         assert not company.full_clean()
+
+
+def test_str():
+    company = CompanyFactory.build(name="test")
+
+    assert str(company) == "test"

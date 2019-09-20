@@ -15,5 +15,5 @@ Now follow those steps to get everything working
 1. Run the server `python3 manage.py runserver` (or `docker-compose up web`)
 
 ## Testing
-1. Run tests `pytest --cov=mysign_app`
+1. Run tests `pytest`
 1. Run linter `flake8`
