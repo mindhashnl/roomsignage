@@ -19,7 +19,7 @@ admin.site.register(Company, CompanyAdmin)
 
 class DoorDeviceAdmin(AdminRowActionsMixin, admin.ModelAdmin):
     exclude = ('secret',)
-    list_display = ('id', 'room_number', 'company')
+    list_display = ('id', 'company')
 
 
 admin.site.register(DoorDevice, DoorDeviceAdmin)
