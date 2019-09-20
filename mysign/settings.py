@@ -33,7 +33,6 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
-    'django_admin_row_actions',
     'colorfield',
     'mysign_app.apps.MysignAppConfig',
     'django.contrib.admin',
