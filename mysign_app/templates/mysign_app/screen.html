@@ -1,0 +1,52 @@
+{% extends 'mysign_app/base.html' %}
+{% load static %}
+
+{% block content %}
+{% if device.company %}
+<div class="container-fluid" style="max-height: 100vh; height: 100vh; min-height: 100vh;">
+    <div class="row h-100" style="background:#faf5f5;">
+        <div class="col-md-5" style="background: {{device.company.color}};">
+            <div class="row h-50 align-items-center">
+                <div class="col-md-12 text-center">
+                    <img onclick="fullScreen()" src="{{device.company.logo.url}}" style="max-width:100%;">
+                </div>
+
+            </div>
+            <div class="row h-50  align-items-center"
+                 style="color: white; font-size: 25px; font-weight: bold; line-height: 3;">
+                <div class="mx-autodelijk">
+                    {% if device.room_number %}
+                    <i class="fa fa-fw fa-2x fa-building" style="margin-right: 15px;"></i>Office {{device.room_number}}<br/>
+                    {% endif %}
+                    <i class="fa fa-fw fa-2x fa-phone" style="margin-right: 15px;"></i>{{device.company.phone_number}}
+                    <br/>
+                    <i class="fa fa-fw fa-2x fa-envelope" style="margin-right: 15px;"></i>{{device.company.email}}<br/>
+                    <i class="fa fa-fw fa-2x fa-globe" style="margin-right: 15px;"></i>{{device.company.website}}<br/>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-7">
+            <div class="row h-100 align-items-center" style="max-height: 100vh; overflow: hidden">
+                <img src='{% static "mysign_app/promo-fallback.png" %}' style="width: 100%;">
+            </div>
+        </div>
+    </div>
+</div>
+{% else %}
+<div class="container-fluid" style="max-height: 100vh; height: 100vh; min-height: 100vh; background: #faf5f5;">
+    <div class="row h-75 align-items-center">
+        <div class="col-md-12">
+            <div class="row">
+                <img class="mx-auto" src='{% static "mysign_app/gebouw-n.png" %}'>
+            </div>
+        </div>
+    </div>
+    <div class="row h-25">
+        <div class="col-md-12 text-center">
+            <h3>There is currently no company attached to this device.</h3>
+            <h5>Please go to the administration panel and couple a company to this device. Device id {{device.id}}</h5>
+        </div>
+    </div>
+</div>
+{% endif %}
+{% endblock %}

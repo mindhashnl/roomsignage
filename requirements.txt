@@ -7,7 +7,6 @@ psycopg2-binary
 pytest
 pytest-django
 pytest-cov
-pytest-flake8
 factory_boy
 faker
 Pillow
