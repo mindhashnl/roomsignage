@@ -3,7 +3,7 @@ from django.core.exceptions import ValidationError
 from pytest import mark
 
 from mysign_app.tests.factories import CompanyFactory
-from mysign_app.models import Company
+from mysign_app.models import Company, logo_upload
 
 
 @mark.django_db
@@ -25,3 +25,10 @@ def test_str():
     company = CompanyFactory.build(name="test")
 
     assert str(company) == "test"
+
+
+def test_logo_upload_helper():
+    path = logo_upload(None, 'file.png')
+
+    assert path.endswith('.png')
+    assert path.startswith('companies/logos/')

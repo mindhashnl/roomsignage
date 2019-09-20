@@ -1,10 +1,10 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader
 
-from .models import DoorDevice
+from mysign_app.models import DoorDevice
 
 
-def screen(request):
+def index(request):
     if request.COOKIES.get('screen_secret'):
         device = DoorDevice.objects.filter(secret=request.COOKIES.get('screen_secret')).first()
         if not device:
@@ -20,8 +20,6 @@ def screen(request):
     context = {
         'device': device
     }
-    if device.company:
-        context['title'] = f'MySign - {device.company}'
     response = HttpResponse(template.render(context, request))
-    response.set_cookie('screen_secret', device.secret, max_age=60*60*24*365*5)
+    response.set_cookie('screen_secret', device.secret, max_age=60 * 60 * 24 * 365 * 5)
     return response

@@ -1,6 +1,6 @@
 from pytest import mark
 
-from mysign_app.management.commands.seed import seed
+from mysign_app.management.commands.seed import seed, clear_data
 from mysign_app.models import Company, DoorDevice, User
 
 
@@ -33,3 +33,13 @@ def test_user_is_seeded():
     assert User.objects.filter(username='developer').first().check_password('123456')
     assert User.objects.filter(username='developer').first().is_staff
     assert User.objects.filter(username='developer').first().is_superuser
+
+
+@mark.django_db
+def test_database_is_cleared():
+    seed()
+    clear_data()
+
+    assert Company.objects.count() == 0
+    assert DoorDevice.objects.count() == 0
+    assert User.objects.count() == 0

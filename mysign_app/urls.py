@@ -1,7 +1,7 @@
 from django.urls import path
 
-from . import views
+from .routes.screen import index as screen_index
 
 urlpatterns = [
-    path('', views.screen, name='screen'),
+    path('', screen_index, name='screen'),
 ]
