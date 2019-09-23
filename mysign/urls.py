@@ -20,6 +20,6 @@ from django.urls import path, include
 from mysign import settings
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('django_admin/', admin.site.urls),
     path('', include('mysign_app.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

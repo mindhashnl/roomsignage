@@ -34,6 +34,7 @@ ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
     'colorfield',
+    'crispy_forms',
     'mysign_app.apps.MysignAppConfig',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -43,7 +44,12 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 ]
 
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 AUTH_USER_MODEL = 'mysign_app.User'
+
+LOGIN_URL = '/admin/login'
+LOGIN_REDIRECT_URL = '/admin'
+# LOGOUT_REDIRECT_URL = '/admin'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
