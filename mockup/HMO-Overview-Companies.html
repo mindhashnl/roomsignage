@@ -45,7 +45,7 @@
         <ul class="nav nav-pills">
             <form class="form-inline">
                 <input class="form-control" type="search" placeholder="Company" aria-label="Search">
-                <div class="fa fa-search" style="margin: 8px; color:white"></div>
+                <div class="fa fa-search fa-secondary" style="margin: 8px; "></div>
                 <label class="btn btn-secondary mr-3">
                     <input type="checkbox" autocomplete="off" style="margin-right: 5px; "> is active
                 </label>
@@ -118,7 +118,7 @@
 
             <div class="col-md-4 border-left">
                 <div class="row">
-                    <div class="col align-self-start">
+                    <div class="col mt-3">
                         <form>
                             <div class="form-group">
                                 <label for="exampleInputEmail1"><h3>Name</h3></label>
@@ -135,31 +135,36 @@
                             <div class="form-group">
                                 <label for="exampleInputEmail1"><h3>Devices</h3></label>
                                 <div class="row">
-                                    <div class="col"><input type="email" class="form-control disabled"
-                                                            id="Devices"
-                                                            aria-describedby="emailHelp" placeholder="ID: 1"
+                                    <div class="col"><input class="form-control disabled"
+                                                            placeholder="ID: 1"
+                                                            readonly>
+                                        <input class="form-control disabled"
+
+                                                            placeholder="ID: 2"
                                                             readonly>
                                     </div>
                                 </div>
                             </div>
+                            <!-- //TODO: decide if needed or not
                             <div class="form-group">
                                 <a href="#" class="btn btn-primary" role="button" style="width: 100%">
                                     <i class="fas fa-plus" style="margin-right: 8px"></i>
                                     Add device
                                 </a>
                             </div>
+                            -->
                         </form>
                     </div>
                 </div>
-                <div class="row align-items-end">
+                <div class="row align-bottom">
                     <div class="col">
-                        <a href="#" class="btn btn-success align-self-bottom" role="button"
+                        <a href="#" class="btn btn-primary align-self-bottom" role="button"
                            style="width: 100%; margin-bottom: 16px">
-                            <i class="fas fa-plus" style="margin-right: 8px" ;></i>
+                            <i class="fas fa-save" style="margin-right: 8px" ;></i>
                             save changes
                         </a>
                         <a href="#" class="btn btn-danger" role="button" style="width: 100%">
-                            <i class="fas fa-plus" style="margin-right: 8px"></i>
+                            <i class="fas fa-trash" style="margin-right: 8px"></i>
                             delete company
                         </a>
                     </div>
