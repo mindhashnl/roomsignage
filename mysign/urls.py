@@ -21,6 +21,5 @@ from mysign import settings
 
 urlpatterns = [
     path('django_admin/', admin.site.urls),
-    path('admin/', include('django.contrib.auth.urls')),
     path('', include('mysign_app.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
