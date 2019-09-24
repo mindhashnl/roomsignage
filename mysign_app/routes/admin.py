@@ -21,7 +21,7 @@ def logout(request):
 
 @admin_required
 def door_devices(request):
-    template = loader.get_template('mysign_app/admin/HMO-Overview-Devices.html')
+    template = loader.get_template('mysign_app/admin/door_devices.html')
     devices = DoorDevice.objects.all()
     context = {
         'device_list': devices
@@ -30,7 +30,7 @@ def door_devices(request):
 
 @admin_required
 def companies(request):
-    template = loader.get_template('mysign_app/admin/HMO-Overview-Companies.html')
+    template = loader.get_template('mysign_app/admin/companies.html')
     companies = Company.objects.all()
     context = {
         'companies': companies

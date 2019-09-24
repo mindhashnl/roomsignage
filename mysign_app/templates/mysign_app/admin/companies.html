@@ -63,22 +63,17 @@
     <div class="container-fluid" style="height: 90vh">
         <div class="row offset-md-1" style="height: 90vh">
             <div class="col-md-8">
-                {% for company in companies %}
-                {% if forloop.counter0|divisibleby:4 %}
                 <div class="row">
-                {% endif %}
+                {% for company in companies %}
                     <div class="col-3 mb-3 mt-3">
                         <div class="card" style=" height: 100%;">
                             <img class="card-img-top" style="height: 8vw; object-fit: cover;" src='../../../static/mysign_app/gebouw-n.png'>
                             <div class="card-body d-flex flex-column">
                                 <h5 class="card-text align-self-center">
-                                    {{company.name}}
+                                    {{company.name}}</h5>
                             </div>
                         </div>
                     </div>
-                {% if forloop.counter|divisibleby:4 %}
-                </div>
-                {% endif %}
                 {% endfor %}
             </div>
 
@@ -89,19 +84,19 @@
                     <div class="col mt-3">
                         <form>
                             <div class="form-group">
-                                <label for="exampleInputEmail1">Name</label>
+                                <label>Name</label>
                                 <input type="name" class="form-control" id="CompanyName"
                                        aria-describedby="emailHelp" placeholder="Mindhash">
                             </div>
 
                             <div class="form-group">
-                                <label for="exampleInputEmail1">Email address</label>
+                                <label>Email address</label>
                                 <input type="email" class="form-control" id="exampleInputEmail1"
                                        aria-describedby="emailHelp" placeholder="Joop@mindhash.com">
                             </div>
 
                             <div class="form-group">
-                                <label for="exampleInputEmail1">Devices</label>
+                                <label>Devices</label>
                                 <div class="row">
                                     <div class="col"><input class="form-control disabled"
                                                             placeholder="ID: 1"
@@ -113,28 +108,22 @@
                                     </div>
                                 </div>
                             </div>
-                            <!-- //TODO: decide if needed or not
-                            <div class="form-group">
-                                <a href="#" class="btn btn-primary" role="button" style="width: 100%">
-                                    <i class="fas fa-plus" style="margin-right: 8px"></i>
-                                    Add device
-                                </a>
-                            </div>
-                            -->
                         </form>
                     </div>
                 </div>
                 <div class="row align-items-end" style="height: 20%">
-                    <div class="col">
-                        <a href="#" class="btn btn-primary align-self-bottom" role="button"
-                           style="width: 100%; margin-bottom: 16px">
-                            <i class="fas fa-save" style="margin-right: 8px" ;></i>
+                    <div class="col-md-12">
+                        <a href="#" class="btn btn-primary btn-block align-self-bottom" role="button">
+                            <i class="fas fa-save" style="margin-right: 8px" ></i>
                             save changes
                         </a>
-                        <a href="#" class="btn btn-danger" role="button" style="width: 100%">
+                    </div>
+                    <div class="col-md-12">
+                        <a href="#" class="btn btn-danger btn-block " role="button">
                             <i class="fas fa-trash" style="margin-right: 8px"></i>
                             delete company
                         </a>
+                    </div>
                     </div>
                 </div>
             </div>
