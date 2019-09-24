@@ -20,6 +20,11 @@ def test_companies(client):
 
 
 @mark.django_db
+def test_users(client):
+    is_admin_route(client, reverse('admin_users'))
+
+
+@mark.django_db
 def test_logout(client):
     """ User is logged out """
     client_login(client)
