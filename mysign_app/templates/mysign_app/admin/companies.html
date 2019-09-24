@@ -1,12 +1,12 @@
 {% extends 'mysign_app/admin/base.html' %}
 {% block content %}
-<div class="row offset-md-1" style="height: 90vh">
+<div class="row offset-md-1 vh-90">
     <div class="col-md-8">
         <div class="row">
             {% for company in companies %}
             <div class="col-3 mb-3 mt-3">
-                <div class="card" style=" height: 100%;">
-                    <img class="card-img-top" style="height: 8vw; object-fit: cover;"
+                <div class="card h-100">
+                    <img class="card-img-top vh-15"
                          src='../../../static/mysign_app/gebouw-n.png'>
                     <div class="card-body d-flex flex-column">
                         <h5 class="card-text align-self-center">
@@ -20,7 +20,7 @@
     </div>
 
     <div class="col-md-4 border-left">
-        <div class="row" style="height: 75%">
+        <div class="row h-75">
             <div class="col mt-3">
                 <form>
                     <div class="form-group">
@@ -51,16 +51,16 @@
                 </form>
             </div>
         </div>
-        <div class="row align-items-end" style="height: 20%">
-            <div class="col-md-12">
-                <a href="#" class="btn btn-primary btn-block align-self-bottom" role="button">
-                    <i class="fas fa-save" style="margin-right: 8px"></i>
+        <div class="row align-items-end h-25 pb-5">
+            <div class="col-md-12 align-items-bottom">
+                <a href="#" class="btn btn-primary btn-block" role="button">
+                    <i class="fas fa-save" style=""></i>
                     save changes
                 </a>
             </div>
             <div class="col-md-12">
                 <a href="#" class="btn btn-danger btn-block " role="button">
-                    <i class="fas fa-trash" style="margin-right: 8px"></i>
+                    <i class="fas fa-trash"></i>
                     delete company
                 </a>
             </div>
