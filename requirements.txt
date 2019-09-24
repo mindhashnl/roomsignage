@@ -7,5 +7,6 @@ pytest==5.1.2
 pytest-cov==2.7.1
 pytest-django==3.5.1
 factory-boy==2.12.0
+flake8
 django-crispy-forms
 Pillow==6.1.0
