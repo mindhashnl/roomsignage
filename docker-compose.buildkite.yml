@@ -11,8 +11,8 @@ services:
     build: .
     depends_on:
       - db
-    - environment:
-        - POSTGRES_USER=test
-        - POSTGRES_DATABASE=test
-        - POSTGRES_PASSWORD=test
-        - POSTGRES_HOST=db
+    environment:
+      - POSTGRES_USER=test
+      - POSTGRES_DATABASE=test
+      - POSTGRES_PASSWORD=test
+      - POSTGRES_HOST=db
