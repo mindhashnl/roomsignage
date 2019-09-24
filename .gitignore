@@ -39,3 +39,6 @@ venv.bak/
 
 # Custom
 uploads
+
+#IntelliJ
+.idea

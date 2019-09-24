@@ -50,6 +50,7 @@ AUTH_USER_MODEL = 'mysign_app.User'
 LOGIN_URL = '/admin/login'
 LOGIN_REDIRECT_URL = '/admin'
 # LOGOUT_REDIRECT_URL = '/admin'
+HMO_DOOR_DEVICES = '/admin/door_devices'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

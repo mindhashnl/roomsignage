@@ -23,3 +23,12 @@ def login(request):
 def logout(request):
     messages.success(request, 'You were successfully logged-out.')
     return logout_then_login(request)
+
+
+def index(request):
+    template = loader.get_template('mysign_app/admin/HMO-Overview-Devices.html')
+    devices = DoorDevice.objects.all()
+    context = {
+        'device_list': devices
+    }
+    return HttpResponse(template.render(context, request))
