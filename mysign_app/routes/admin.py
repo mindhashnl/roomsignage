@@ -6,7 +6,7 @@ from django.contrib.auth.views import logout_then_login
 from django.http import HttpResponse
 from django.template import loader
 
-from mysign_app.routes.helpers import admin_required, company_required
+from mysign_app.routes.helpers import admin_required
 
 
 @login_required
@@ -15,9 +15,11 @@ def index(request):
     template = loader.get_template('mysign_app/admin/index.html')
     return HttpResponse(template.render({}, request))
 
+
 def logout(request):
     messages.success(request, 'You were successfully logged-out.')
     return logout_then_login(request)
+
 
 @admin_required
 def door_devices(request):
@@ -28,6 +30,7 @@ def door_devices(request):
     }
     return HttpResponse(template.render(context, request))
 
+
 @admin_required
 def companies(request):
     template = loader.get_template('mysign_app/admin/companies.html')
@@ -37,6 +40,7 @@ def companies(request):
     }
     return HttpResponse(template.render(context, request))
 
+
 @admin_required
 def users(request):
     template = loader.get_template('mysign_app/admin/users.html')
@@ -45,4 +49,3 @@ def users(request):
         'users': users
     }
     return HttpResponse(template.render(context, request))
-
