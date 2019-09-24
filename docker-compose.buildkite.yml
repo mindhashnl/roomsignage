@@ -7,4 +7,3 @@ services:
     build: .
     depends_on:
       - db
-    entrypoint: ["./.buildkite/wait-for-it.sh", "db:5432"]
