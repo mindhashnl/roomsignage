@@ -1,6 +1,6 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from mysign_app.models import DoorDevice, Company
+from mysign_app.models import DoorDevice, Company, User
 
 from django.contrib.auth.views import logout_then_login
 from django.http import HttpResponse
@@ -36,3 +36,13 @@ def companies(request):
         'companies': companies
     }
     return HttpResponse(template.render(context, request))
+
+@admin_required
+def users(request):
+    template = loader.get_template('mysign_app/admin/users.html')
+    users = User.objects.all()
+    context = {
+        'users': users
+    }
+    return HttpResponse(template.render(context, request))
+
