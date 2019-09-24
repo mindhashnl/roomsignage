@@ -4,9 +4,10 @@ import uuid
 
 from colorfield.fields import ColorField
 from django.contrib.auth.models import AbstractUser
+from django.core.exceptions import ValidationError
 from django.core.validators import RegexValidator
 from django.db import models
-from django.db.models import ForeignKey
+from django.db.models import ForeignKey, BooleanField
 
 phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$',
                              message="Phone number must be entered in the format: "
@@ -24,7 +25,19 @@ def logo_upload(instance, filename):
 
 
 class User(AbstractUser):
-    company = ForeignKey('Company', on_delete=models.DO_NOTHING, null=True)
+    company = ForeignKey('Company', on_delete=models.DO_NOTHING, null=True, blank=True)
+    is_admin = BooleanField(default=False)
+
+    def clean(self, *args, **kwargs):
+        # Validate company xor is_admin
+        if self.company and self.is_admin:
+            raise ValidationError("Company and is_admin cannot set both")
+        if not self.company and not self.is_admin:
+            raise ValidationError("Company or is_admin should be set")
+
+    def save(self, *args, **kwargs):
+        self.full_clean()
+        super().save(*args, **kwargs)
 
 
 class Company(models.Model):

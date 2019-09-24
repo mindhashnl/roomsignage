@@ -2,11 +2,22 @@ import random
 import string
 
 import factory
+
+from mysign_app.models import User
 from .. import models
 
 
 def fake_phone_number():
     return '+31' + ''.join(random.choice(string.digits) for i in range(8))
+
+
+class UserFactory(factory.DjangoModelFactory):
+    class Meta:
+        model = User
+
+    username = factory.Faker('first_name')
+    password = factory.Faker('password')
+    is_admin = False
 
 
 class CompanyFactory(factory.DjangoModelFactory):
