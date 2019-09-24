@@ -1,5 +1,6 @@
 from django.core.management.base import BaseCommand
 from django_seed import Seed
+from faker import Faker
 
 from mysign_app.models import Company, DoorDevice, User
 
@@ -25,8 +26,13 @@ def seed():
     users = [{'username': 'developer', 'is_staff': True, 'is_superuser': True},
              {'username': 'HMO', 'is_admin': True},
              {'username': 'company', 'company': Company.objects.first()}]
+
+    fake = Faker()
     for u in users:
         us = User(**u)
+        us.first_name = fake.first_name()
+        us.last_name = fake.last_name()
+        us.email = fake.email()
         us.set_password('123456')
         us.save()
 
