@@ -3,13 +3,8 @@ version: '3'
 services:
   db:
     image: postgres:12
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
   app:
     build: .
     depends_on:
-      - db:
-          condition: service_healthy
+      - db
+    entrypoint: ["./.buildkite/wait-for-it.sh", "db:5432"]
