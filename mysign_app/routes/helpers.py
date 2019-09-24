@@ -1,10 +1,6 @@
-from django.contrib import messages
 from django.contrib.auth import REDIRECT_FIELD_NAME
-from django.contrib.auth.decorators import login_required, user_passes_test
-from django.contrib.auth.views import logout_then_login
+from django.contrib.auth.decorators import user_passes_test
 from django.core.exceptions import PermissionDenied
-from django.http import HttpResponse
-from django.template import loader
 
 
 def login_test(test, function=None, redirect_field_name=REDIRECT_FIELD_NAME, login_url=None):

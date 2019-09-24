@@ -3,20 +3,20 @@ from django.core.exceptions import ValidationError
 from pytest import mark
 
 from mysign_app.tests.factories import CompanyFactory, UserFactory
-from mysign_app.models import Company, logo_upload, User
+from mysign_app.models import User
 
 
 @mark.django_db
 def test_admin_create():
-    user = UserFactory(is_admin=True)
+    UserFactory(is_admin=True)
     assert User.objects.count() == 1
-    assert User.objects.first().is_admin == True
+    assert User.objects.first().is_admin
 
 
 @mark.django_db
 def test_company_create():
     company = CompanyFactory()
-    user = UserFactory(company=company)
+    UserFactory(company=company)
 
     assert User.objects.count() == 1
     assert User.objects.first().company_id == company.id

@@ -1,6 +1,3 @@
-from django.urls import reverse
-from pytest import mark
-
 from mysign_app.models import User
 from mysign_app.tests.factories import CompanyFactory
 
@@ -13,9 +10,9 @@ def client_login(client, **user_kwargs):
     client.login(username='test_user', password='1234')
 
 
-def is_authenticated_route(client, route):
+def _test_unauthenticated(client, route):
     """
-        Test that the route is only accessible with a logged in user
+      Test that the route is redirected to login when not logged in
     """
     response = client.get(route)
 
@@ -23,11 +20,23 @@ def is_authenticated_route(client, route):
     assert response.url.startswith('/admin/login')
 
 
+def is_authenticated_route(client, route):
+    """
+        Test that the route is only accessible with a logged in user
+    """
+    _test_unauthenticated(client, route)
+
+    client_login(client)
+    response = client.get(route)
+
+    assert response.status_code == 200
+
+
 def is_admin_route(client, route):
     """
         Test that the route is only accessible with a admin user
     """
-    is_authenticated_route(client, route)
+    _test_unauthenticated(client, route)
 
     client_login(client)
     response = client.get(route)
@@ -44,7 +53,7 @@ def is_company_route(client, route):
     """
         Test that the route is only accessible with a company user
     """
-    is_authenticated_route(client, route)
+    _test_unauthenticated(client, route)
 
     client_login(client)
     response = client.get(route)
