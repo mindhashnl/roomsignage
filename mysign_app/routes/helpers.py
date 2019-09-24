@@ -31,7 +31,7 @@ def admin_required(*args, **kwargs):
 
 def company_required(*args, **kwargs):
     """
-    Decorator for views that checks that the user is logged in and is an company user
+    Decorator for views that checks that the user is logged in and is a company user
     """
 
     def check_is_company(u):

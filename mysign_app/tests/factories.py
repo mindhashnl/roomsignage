@@ -17,7 +17,6 @@ class UserFactory(factory.DjangoModelFactory):
 
     username = factory.Faker('first_name')
     password = factory.Faker('password')
-    is_admin = False
 
 
 class CompanyFactory(factory.DjangoModelFactory):
