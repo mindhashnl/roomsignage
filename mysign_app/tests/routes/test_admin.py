@@ -10,13 +10,13 @@ def test_index(client):
 
 
 @mark.django_db
-def test_admin(client):
-    is_admin_route(client, reverse('admin_admin'))
+def test_door_devices(client):
+    is_admin_route(client, reverse('admin_door_devices'))
 
 
 @mark.django_db
-def test_company(client):
-    is_company_route(client, reverse('admin_company'))
+def test_companies(client):
+    is_admin_route(client, reverse('admin_companies'))
 
 
 @mark.django_db
