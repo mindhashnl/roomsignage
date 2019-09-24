@@ -20,5 +20,3 @@ steps:
           run: app
           config: docker-compose.buildkite.yml
           command: ["./.buildkite/wait-for-it.sh", "db:5432", '--', 'pytest']
-          env:
-            - POSTGRES_HOST=db
