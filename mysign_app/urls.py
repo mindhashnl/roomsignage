@@ -11,4 +11,5 @@ urlpatterns = [
     path('admin', IndexView.as_view(), name='admin_index'),
     path('admin/login', auth_views.auth_login, name='admin_login'),
     path('admin/door_devices', admin.index, name='admin_door_device'),
+    path('admin/companies', admin.companies, name='admin_companies'),
 ]

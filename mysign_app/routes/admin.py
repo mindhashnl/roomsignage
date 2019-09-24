@@ -7,7 +7,7 @@ from django.shortcuts import redirect
 from django.template import loader
 from django.views import generic
 
-from mysign_app.models import DoorDevice
+from mysign_app.models import DoorDevice, Company
 
 
 class IndexView(LoginRequiredMixin, generic.ListView):
@@ -30,5 +30,13 @@ def index(request):
     devices = DoorDevice.objects.all()
     context = {
         'device_list': devices
+    }
+    return HttpResponse(template.render(context, request))
+
+def companies(request):
+    template = loader.get_template('mysign_app/admin/HMO-Overview-Companies.html')
+    companies = Company.objects.all()
+    context = {
+        'companies': companies
     }
     return HttpResponse(template.render(context, request))

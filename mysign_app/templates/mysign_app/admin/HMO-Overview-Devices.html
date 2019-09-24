@@ -22,7 +22,7 @@
 <div class="containter-fluid " style="max-height: 100vh; height: 100vh; min-height: 100vh;">
 
     <!-- TODO: Fix height of everything!!-->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light" style="height: 8vh">
         <a class="navbar-brand" href="#">MySign</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -56,9 +56,9 @@
         </div>
     </nav>
 
-    <nav id="navbar-example2" class="navbar navbar-light bg-dark navbar-fixed-top">
+    <nav id="navbar-example2" class="navbar navbar-light bg-dark navbar-fixed-top" style="height: 2vh">
     </nav>
-    <div class="container-fluid">
+    <div class="container-fluid" style="height: 90vh">
 
         {% for device in device_list %}
         {% if forloop.counter0|divisibleby:6 %}
