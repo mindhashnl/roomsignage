@@ -8,7 +8,7 @@ RUN apk add jpeg-dev zlib-dev
 COPY requirements.txt /app/requirements.txt
 RUN pip install --no-cache-dir -r /app/requirements.txt
 
-ADD mysign /app
+ADD . /app
 WORKDIR /app
 
 EXPOSE 8000
