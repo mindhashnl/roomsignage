@@ -29,11 +29,9 @@ class User(AbstractUser):
     is_admin = BooleanField(default=False)
 
     def clean(self, *args, **kwargs):
-        # Validate company xor is_admin
+        # Validate company and is_admin not both set
         if self.company and self.is_admin:
             raise ValidationError("Company and is_admin cannot set both")
-        if not self.company and not self.is_admin:
-            raise ValidationError("Company or is_admin should be set")
 
     def save(self, *args, **kwargs):
         self.full_clean()

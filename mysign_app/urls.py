@@ -8,7 +8,7 @@ urlpatterns = [
 
     path('admin/', admin.index, name='admin_index'),
     path('admin/admin', admin.admin, name='admin_admin'),
-    path('admin/company', admin.company, name='admin_admin'),
+    path('admin/company', admin.company, name='admin_company'),
 
     path('admin/login/', LoginView.as_view(), name='login'),
     path('admin/logout/', admin.logout, name='logout'),

@@ -1,31 +1,32 @@
 from django.urls import reverse
 from pytest import mark
 
-
-@mark.django_db
-def test_index_unauthenticated(client):
-    """ Redirect to login when not authenticated"""
-    response = client.get(reverse('admin_index'))
-
-    assert response.status_code == 302
-    assert response.url == '/admin/login?next=/admin/'
+from mysign_app.tests.routes.helpers import is_authenticated_route, is_admin_route, is_company_route, client_login
 
 
 @mark.django_db
-def test_index_authenticated(authenticated_client):
-    """ Load the path when authenticated"""
-    response = authenticated_client.get(reverse('admin_index'))
-
-    assert response.status_code == 200
+def test_index(client):
+    is_authenticated_route(client, reverse('admin_index'))
 
 
 @mark.django_db
-def test_logout(authenticated_client):
+def test_admin(client):
+    is_admin_route(client, reverse('admin_admin'))
+
+
+@mark.django_db
+def test_company(client):
+    is_company_route(client, reverse('admin_company'))
+
+
+@mark.django_db
+def test_logout(client):
     """ User is logged out """
-    assert '_auth_user_id' in authenticated_client.session
+    client_login(client)
+    assert '_auth_user_id' in client.session
 
-    response = authenticated_client.get(reverse('logout'))
+    response = client.get(reverse('logout'))
 
     assert response.status_code == 302
     assert response.url == '/admin/login'
-    assert '_auth_user_id' not in authenticated_client.session
+    assert '_auth_user_id' not in client.session

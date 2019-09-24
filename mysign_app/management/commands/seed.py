@@ -22,7 +22,7 @@ def seed():
     seeder.add_entity(DoorDevice, 10)
     seeder.execute()
 
-    users = [{'username': 'developer', 'is_staff': True, 'is_superuser': True, 'is_admin': True},
+    users = [{'username': 'developer', 'is_staff': True, 'is_superuser': True},
              {'username': 'HMO', 'is_admin': True},
              {'username': 'company', 'company': Company.objects.first()}]
     for u in users:

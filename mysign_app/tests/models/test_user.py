@@ -29,11 +29,3 @@ def test_company_and_admin():
 
     with pytest.raises(ValidationError):
         user.save()
-
-
-@mark.django_db
-def test_empty():
-    user = UserFactory.build(company=None, is_admin=False)
-
-    with pytest.raises(ValidationError):
-        user.save()
