@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 
 import os
 
+from django.contrib import messages
 from dotenv import load_dotenv, find_dotenv
 
 load_dotenv(find_dotenv())
@@ -43,14 +44,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 ]
-
-CRISPY_TEMPLATE_PACK = 'bootstrap4'
-AUTH_USER_MODEL = 'mysign_app.User'
-
-LOGIN_URL = '/admin/login'
-LOGIN_REDIRECT_URL = '/admin'
-# LOGOUT_REDIRECT_URL = '/admin'
-HMO_DOOR_DEVICES = '/admin/door_devices'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -116,20 +109,27 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
-
-LANGUAGE_CODE = 'en-us'
-
 TIME_ZONE = 'Europe/Amsterdam'
-
-USE_I18N = True
-
-USE_L10N = True
-
-USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
-
 STATIC_URL = '/static/'
 MEDIA_ROOT = 'uploads'
 MEDIA_URL = '/uploads/'
+
+# Custom settings
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+AUTH_USER_MODEL = 'mysign_app.User'
+
+LOGIN_URL = '/admin/login'
+LOGIN_REDIRECT_URL = '/admin'
+LOGOUT_REDIRECT_URL = '/admin/login'
+
+MESSAGE_TAGS = {
+    messages.DEBUG: 'alert-info',
+    messages.INFO: 'alert-info',
+    messages.SUCCESS: 'alert-success',
+    messages.WARNING: 'alert-warning',
+    messages.ERROR: 'alert-danger',
+}
