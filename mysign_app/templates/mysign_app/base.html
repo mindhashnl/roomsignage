@@ -18,7 +18,7 @@
             crossorigin="anonymous"></script>
 
     <script>
-        function fullScreen(){
+        function fullScreen() {
             var docElm = document.documentElement;
             if (docElm.requestFullscreen) {
                 docElm.requestFullscreen();
@@ -33,7 +33,12 @@
     </script>
 </head>
 <body>
-{% block content %}
-{% endblock %}
+<div class="container-fluid" style="max-height: 100vh; height: 100vh; min-height: 100vh; background: #faf5f5;">
+    {% include 'partials/messages.html' %}
+    {% block content %}
+    {% endblock %}
+</div>
+
+
 </body>
 </html>
