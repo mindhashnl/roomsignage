@@ -1,7 +1,7 @@
 from django.urls import reverse
 from pytest import mark
 
-from mysign_app.tests.routes.helpers import is_authenticated_route, is_admin_route, is_company_route, client_login
+from mysign_app.tests.routes.helpers import is_authenticated_route, is_admin_route, client_login
 
 
 @mark.django_db
@@ -17,6 +17,11 @@ def test_door_devices(client):
 @mark.django_db
 def test_companies(client):
     is_admin_route(client, reverse('admin_companies'))
+
+
+@mark.django_db
+def test_users(client):
+    is_admin_route(client, reverse('admin_users'))
 
 
 @mark.django_db
