@@ -1,15 +1,16 @@
 from django.contrib.auth.views import LoginView
 from django.urls import path
-
 from .routes import screen_index, admin
 
 urlpatterns = [
     path('', screen_index, name='screen'),
 
-    path('admin/', admin.index, name='admin_index'),
-    path('admin/admin/', admin.admin, name='admin_admin'),
-    path('admin/company/', admin.company, name='admin_company'),
-
     path('admin/login/', LoginView.as_view(), name='login'),
     path('admin/logout/', admin.logout, name='logout'),
+
+    path('admin/', admin.index, name='admin_index'),
+
+    path('admin/door_devices', admin.door_devices, name='admin_door_devices'),
+    path('admin/companies', admin.companies, name='admin_companies'),
+
 ]
