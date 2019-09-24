@@ -1,138 +1,70 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <script src="https://kit.fontawesome.com/dad11242c0.js"></script>
-    <!-- Popper JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-            crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-            crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-            crossorigin="anonymous"></script>
-    <title>HMO Company Overview</title>
-</head>
-</head>
-<body>
-<div class="containter-fluid " style="max-height: 100vh; height: 100%; min-height: 100vh;">
-    <!-- TODO: Fix height of everything!!-->
-
-    <nav class="navbar navbar-expand-lg navbar-light bg-light" style="height: 8vh">
-        <a class="navbar-brand" href="#">MySign</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Devices overview </a>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">Companies <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Users</a>
-                </li>
-            </ul>
+{% extends 'mysign_app/admin/base.html' %}
+{% block content %}
+<div class="row offset-md-1" style="height: 90vh">
+    <div class="col-md-8">
+        <div class="row">
+            {% for company in companies %}
+            <div class="col-3 mb-3 mt-3">
+                <div class="card" style=" height: 100%;">
+                    <img class="card-img-top" style="height: 8vw; object-fit: cover;"
+                         src='../../../static/mysign_app/gebouw-n.png'>
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-text align-self-center">
+                            {{company.name}}</h5>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
         </div>
-        <ul class="nav nav-pills">
-            <form class="form-inline">
-                <input class="form-control" type="search" placeholder="Company" aria-label="Search">
-                <div class="fa fa-search fa-secondary" style="margin: 8px; "></div>
-                <label class="btn btn-secondary mr-3">
-                    <input type="checkbox" autocomplete="off" style="margin-right: 5px; "> is active
-                </label>
-                <a href="#" class="btn btn-secondary mt-auto" role="button">
-                    <i class="fas fa-plus"></i>
-                    Add company
-                </a>
-            </form>
-        </ul>
-    </nav>
 
-    <nav class="navbar navbar-light bg-dark navbar-fixed-top" style="height: 2vh">
-    </nav>
+    </div>
 
-    <div class="container-fluid" style="height: 90vh">
-        <div class="row offset-md-1" style="height: 90vh">
-            <div class="col-md-8">
-                <div class="row">
-                {% for company in companies %}
-                    <div class="col-3 mb-3 mt-3">
-                        <div class="card" style=" height: 100%;">
-                            <img class="card-img-top" style="height: 8vw; object-fit: cover;" src='../../../static/mysign_app/gebouw-n.png'>
-                            <div class="card-body d-flex flex-column">
-                                <h5 class="card-text align-self-center">
-                                    {{company.name}}</h5>
+    <div class="col-md-4 border-left">
+        <div class="row" style="height: 75%">
+            <div class="col mt-3">
+                <form>
+                    <div class="form-group">
+                        <label>Name</label>
+                        <input type="name" class="form-control" id="CompanyName"
+                               aria-describedby="emailHelp" placeholder="Mindhash">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Email address</label>
+                        <input type="email" class="form-control" id="exampleInputEmail1"
+                               aria-describedby="emailHelp" placeholder="Joop@mindhash.com">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Devices</label>
+                        <div class="row">
+                            <div class="col"><input class="form-control disabled"
+                                                    placeholder="ID: 1"
+                                                    readonly>
+                                <input class="form-control disabled"
+
+                                       placeholder="ID: 2"
+                                       readonly>
                             </div>
                         </div>
                     </div>
-                {% endfor %}
+                </form>
             </div>
-
+        </div>
+        <div class="row align-items-end" style="height: 20%">
+            <div class="col-md-12">
+                <a href="#" class="btn btn-primary btn-block align-self-bottom" role="button">
+                    <i class="fas fa-save" style="margin-right: 8px"></i>
+                    save changes
+                </a>
             </div>
-
-            <div class="col-md-4 border-left">
-                <div class="row" style="height: 75%">
-                    <div class="col mt-3">
-                        <form>
-                            <div class="form-group">
-                                <label>Name</label>
-                                <input type="name" class="form-control" id="CompanyName"
-                                       aria-describedby="emailHelp" placeholder="Mindhash">
-                            </div>
-
-                            <div class="form-group">
-                                <label>Email address</label>
-                                <input type="email" class="form-control" id="exampleInputEmail1"
-                                       aria-describedby="emailHelp" placeholder="Joop@mindhash.com">
-                            </div>
-
-                            <div class="form-group">
-                                <label>Devices</label>
-                                <div class="row">
-                                    <div class="col"><input class="form-control disabled"
-                                                            placeholder="ID: 1"
-                                                            readonly>
-                                        <input class="form-control disabled"
-
-                                                            placeholder="ID: 2"
-                                                            readonly>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-                <div class="row align-items-end" style="height: 20%">
-                    <div class="col-md-12">
-                        <a href="#" class="btn btn-primary btn-block align-self-bottom" role="button">
-                            <i class="fas fa-save" style="margin-right: 8px" ></i>
-                            save changes
-                        </a>
-                    </div>
-                    <div class="col-md-12">
-                        <a href="#" class="btn btn-danger btn-block " role="button">
-                            <i class="fas fa-trash" style="margin-right: 8px"></i>
-                            delete company
-                        </a>
-                    </div>
-                    </div>
-                </div>
+            <div class="col-md-12">
+                <a href="#" class="btn btn-danger btn-block " role="button">
+                    <i class="fas fa-trash" style="margin-right: 8px"></i>
+                    delete company
+                </a>
             </div>
         </div>
     </div>
 </div>
-
-</div>
-
-
-</body>
-</html>
+{% endblock %}

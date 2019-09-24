@@ -1,85 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <script src="https://kit.fontawesome.com/dad11242c0.js"></script>
-    <!-- Popper JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-            crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-            crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-            crossorigin="anonymous"></script>
-    <title>HMO Device Overview</title>
-</head>
-<body>
-<div class="containter-fluid " style="max-height: 100vh; height: 100vh; min-height: 100vh;">
+{% extends 'mysign_app/admin/base.html' %}
+{% block content %}
+<div class="row  offset-md-1 col-md-10">
+    {% for device in device_list %}
 
-    <!-- TODO: Fix height of everything!!-->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light" style="height: 8vh">
-        <a class="navbar-brand" href="#">MySign</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                    <a class="nav-link active" href="#">Devices overview </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Companies <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Users</a>
-                </li>
-            </ul>
-            <ul class="nav nav-pills">
-            <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="search" placeholder="Company" aria-label="Search">
-                <!-- ROOM NEEDED??
-                <input class="form-control mr-sm-2" type="search" placeholder="Room" aria-label="Search">
-                -->
-                <input class="form-control mr-sm-2" type="search" placeholder="Device" aria-label="Search">
-                <label class="btn btn-primary">
-                    <input type="checkbox" autocomplete="off" style="margin-right: 6px;">  is active
-                </label>
-
-            </form>
-        </ul>
-        </div>
-    </nav>
-
-    <nav id="navbar-example2" class="navbar navbar-light bg-dark navbar-fixed-top" style="height: 2vh">
-    </nav>
-    <div class="container-fluid" style="height: 90vh">
-
-        <div class="row  offset-md-1 col-md-10">
-        {% for device in device_list %}
-
-            <div class="col-2 mb-3 mt-3">
-                <div class="card mb-4" style="height: 100%">
-                    <div class="card-body d-flex flex-column">
-                        <h5 class="card-title">{{device.company.name}}</h5>
-                        <p class="card-text">Device ID: {{device.id}}</p>
-                        <a href="#" class="btn btn-primary mt-auto" role="button"
-                           style="margin-top: auto">
-                            <i class="fas fa-unlink"></i>
-                            Disconnect
-                        </a>
-                    </div>
-                </div>
+    <div class="col-2 mb-3 mt-3">
+        <div class="card mb-4" style="height: 100%">
+            <div class="card-body d-flex flex-column">
+                <h5 class="card-title">{{device.company.name}}</h5>
+                <p class="card-text">Device ID: {{device.id}}</p>
+                <a href="#" class="btn btn-primary mt-auto" role="button"
+                   style="margin-top: auto">
+                    <i class="fas fa-unlink"></i>
+                    Disconnect
+                </a>
             </div>
-
-        {% endfor %}
         </div>
     </div>
+
+    {% endfor %}
 </div>
-</body>
-</html>
+{% endblock %}
