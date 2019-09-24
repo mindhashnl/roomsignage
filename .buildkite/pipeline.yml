@@ -1,0 +1,22 @@
+steps:
+  - label: ":docker: Build test image"
+    plugins:
+      - docker-compose#v2.6.0:
+          build: app
+          config: docker-compose.buildkite.yml
+
+  - wait
+
+  - label: ":lint: Linter"
+    command: "flake8 ."
+    plugins:
+      - docker-compose#v2.6.0:
+          run: app
+          config: docker-compose.buildkite.yml
+
+  - label: ":pytest: Test"
+    command: "pytest"
+    plugins:
+      - docker-compose#v2.6.0:
+          run: app
+          config: docker-compose.buildkite.yml
