@@ -10,7 +10,7 @@ urlpatterns = [
 
     path('admin/', admin.index, name='admin_index'),
 
-    path('admin/door_devices', admin.door_devices, name='admin_door_device'),
+    path('admin/door_devices', admin.door_devices, name='admin_door_devices'),
     path('admin/companies', admin.companies, name='admin_companies'),
 
 ]
