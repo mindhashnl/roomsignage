@@ -7,7 +7,7 @@ steps:
 
   - wait
 
-  - label: ":lint: Linter"
+  - label: ":lint-roller: Linter"
     command: "flake8 ."
     plugins:
       - docker-compose#v2.6.0:
