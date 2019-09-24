@@ -15,8 +15,8 @@ steps:
           config: docker-compose.buildkite.yml
 
   - label: ":pytest: Test"
+    command: ["sh .buildkite/wait-for-it.sh", "db:5432", '--', 'pytest']
     plugins:
       - docker-compose#v2.6.0:
           run: app
           config: docker-compose.buildkite.yml
-          command: ["./.buildkite/wait-for-it.sh", "db:5432", '--', 'pytest']
