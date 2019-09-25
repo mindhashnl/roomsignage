@@ -13,17 +13,21 @@ def test_index(client):
 def test_door_devices(client):
     is_admin_route(client, reverse('admin_door_devices'))
 
+
 @mark.django_db
 def test_companies(client):
     is_admin_route(client, reverse('admin_companies'))
+
 
 @mark.django_db
 def test_company_add(client):
     is_admin_route(client, reverse('admin_company_add'))
 
+
 @mark.django_db
 def test_users(client):
     is_admin_route(client, reverse('admin_users'))
+
 
 @mark.django_db
 def test_logout(client):
