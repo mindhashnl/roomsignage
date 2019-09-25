@@ -1,3 +1,5 @@
+import json
+
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
@@ -35,10 +37,13 @@ def door_devices(request):
 
 @admin_required
 def companies(request):
-    template = loader.get_template('mysign_app/admin/companies.html')
+    template = loader.get_template('mysign_app/admin/base.html')
     companies = Company.objects.all()
+    list_fields = ['name', 'email']
     context = {
-        'companies': companies,
+        'json': json.dumps(list(companies.values('name', 'email', 'phone_number'))),
+        'models': companies,
+        'list_fields': list_fields,
         'form': CompanyForm()
     }
     return HttpResponse(template.render(context, request))
@@ -46,10 +51,13 @@ def companies(request):
 
 @admin_required
 def users(request):
-    template = loader.get_template('mysign_app/admin/users.html')
+    template = loader.get_template('mysign_app/admin/base.html')
     users = User.objects.all()
+    list_fields = ['first_name', 'last_name']
     context = {
-        'users': users,
+        'json': json.dumps(list(users.values('first_name', 'last_name', 'email', 'is_admin', 'company'))),
+        'models': users,
+        'list_fields': list_fields,
         'form': UserForm()
     }
     return HttpResponse(template.render(context, request))

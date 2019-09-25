@@ -1,0 +1,23 @@
+<div class="col-md-8">
+    <div class="row">
+        <script type="492e21ba4dbe2f246c90df61-text/javascript">
+        $(document).ready(function () {
+           const data = {{ json | safe }}
+
+
+            createDataTable(data, {{list_fields|safe}})
+        });
+        </script>
+
+
+        <table id="register" class="table table-sm table-hover w-100 h-100" cellspacing="0">
+            <thead>
+            <tr>
+                {% for field in list_fields %}
+                    <th> {{ field }} </th>
+                {% endfor %}
+            </tr>
+            </thead>
+        </table>
+    </div>
+</div>
