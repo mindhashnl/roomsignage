@@ -8,9 +8,9 @@
                         <img class="card-img-top vh-15" src='../../../static/mysign_app/gebouw-n.png'>
                         <div class="card-body d-flex flex-column">
                             <h5 class="card-text align-self-center">
-                                {% if device.company.name != null %} {{device.company.name}}
+                                {% if device.company != null %} {{ device.company.name }}
                                 {% else %}
-                                    {{device.id}}
+                                    {{ device.id }}
                                 {% endif %}</h5>
                         </div>
                     </div>

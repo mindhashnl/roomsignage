@@ -8,12 +8,11 @@ class CompanyForm(ModelForm):
         model = Company
         fields = ['name', 'email']
 
+
 class DoorDeviceForm(ModelForm):
     class Meta:
         model = DoorDevice
         fields = ['company', 'id']
-
-
 
 
 class UserForm(ModelForm):
