@@ -5,11 +5,13 @@ RUN apk add --no-cache postgresql-dev gcc musl-dev libffi-dev libxml2-dev libxsl
 RUN apk add jpeg-dev zlib-dev
 RUN apk add nodejs npm
 
+COPY package.json package.json
+COPY package-lock.json package-lock.json
+RUN npm install
 
 COPY requirements.txt /app/requirements.txt
 RUN pip install --no-cache-dir -r /app/requirements.txt
 
-RUN npm install
 
 ADD . /app
 WORKDIR /app
