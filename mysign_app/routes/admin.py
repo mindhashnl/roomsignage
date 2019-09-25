@@ -3,7 +3,7 @@ import json
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
-from mysign_app.forms import CompanyForm, UserForm
+from mysign_app.forms import CompanyForm, UserForm, DoorDeviceForm
 from mysign_app.models import DoorDevice, Company, User
 
 from django.contrib.auth.views import logout_then_login
@@ -30,7 +30,8 @@ def door_devices(request):
     template = loader.get_template('mysign_app/admin/door_devices.html')
     devices = DoorDevice.objects.all()
     context = {
-        'device_list': devices
+        'device_list': devices,
+        'form': DoorDeviceForm()
     }
     return HttpResponse(template.render(context, request))
 
