@@ -1,13 +1,11 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-
-from mysign_app.forms import CompanyForm, UserForm, DoorDeviceForm
-from mysign_app.models import DoorDevice, Company, User
-
 from django.contrib.auth.views import logout_then_login
 from django.http import HttpResponse
 from django.template import loader
 
+from mysign_app.forms import CompanyForm, DoorDeviceForm, UserForm
+from mysign_app.models import Company, DoorDevice, User
 from mysign_app.routes.helpers import admin_required
 
 

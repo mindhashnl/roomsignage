@@ -4,6 +4,7 @@ import string
 import factory
 
 from mysign_app.models import User
+
 from .. import models
 
 
