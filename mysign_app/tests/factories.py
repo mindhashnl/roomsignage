@@ -20,7 +20,6 @@ class UserFactory(factory.DjangoModelFactory):
     email = factory.Faker('email')
 
 
-
 class CompanyFactory(factory.DjangoModelFactory):
     class Meta:
         model = models.Company

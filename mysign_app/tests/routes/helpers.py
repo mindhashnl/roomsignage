@@ -6,7 +6,7 @@ def client_login(client, **user_kwargs):
     client.logout()
     User.objects.filter(username='test_user').delete()
 
-    User.objects.create_user(username='test_user', password='1234', email='info@example.com' **user_kwargs)
+    User.objects.create_user(username='test_user', password='1234', email='info@example.com', ** user_kwargs)
     client.login(username='test_user', password='1234')
 
 
