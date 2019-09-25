@@ -26,7 +26,7 @@ def test_users(client):
 
 @mark.django_db
 def test_addCompany(client):
-    is_admin_route(client, reverse('admin_addCompany'))
+    is_admin_route(client, reverse('admin_company_add'))
 
 
 @mark.django_db
