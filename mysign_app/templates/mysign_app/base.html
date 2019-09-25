@@ -1,3 +1,5 @@
+{% load static %}
+
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
         "http://www.w3.org/TR/html4/strict.dtd">
 
@@ -17,7 +19,11 @@
             integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
             crossorigin="anonymous"></script>
 
+    <link rel="stylesheet" type="text/css" href="{% static 'mysign_app/style/main.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'mysign_app/style/screen.css' %}">
+
     <script>
+
         function fullScreen() {
             var docElm = document.documentElement;
             if (docElm.requestFullscreen) {
@@ -33,7 +39,7 @@
     </script>
 </head>
 <body>
-<div class="container-fluid" style="max-height: 100vh; height: 100vh; min-height: 100vh; background: #faf5f5;">
+<div class="container-fluid full-height">
     {% include 'partials/messages.html' %}
 
     {% block extend %}

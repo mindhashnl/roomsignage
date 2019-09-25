@@ -1,0 +1,10 @@
+.company-info {
+    color: white;
+    font-size: 25px;
+    font-weight: bold;
+    line-height: 3;
+}
+
+.company-info i {
+    margin-right: 15px;
+}

@@ -1,6 +1,5 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from django_admin_row_actions import AdminRowActionsMixin
 
 from .models import Company, DoorDevice, User
 
@@ -26,7 +25,7 @@ class CompanyAdmin(admin.ModelAdmin):
 admin.site.register(Company, CompanyAdmin)
 
 
-class DoorDeviceAdmin(AdminRowActionsMixin, admin.ModelAdmin):
+class DoorDeviceAdmin(admin.ModelAdmin):
     exclude = ('secret',)
     list_display = ('id', 'company')
 

@@ -11,6 +11,8 @@ In order to make this project run make sure that you have the follow pre-require
 
 - Python 3.7
 - Pip
+- Docker (or docker desktop for windows)
+- docker-compose (already installed with docker desktop)
 
 Now follow those steps to get everything working
 
