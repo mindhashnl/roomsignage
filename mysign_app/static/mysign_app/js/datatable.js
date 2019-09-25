@@ -44,6 +44,7 @@ function createDataTable(dataJson, listFields) {
                             });
                         });
 
+                        // set correct hight
                         let max = 0;
                         $('#register tr').each(function () {
                             max = Math.max($(this).height(), max);
@@ -70,6 +71,9 @@ function createDataTable(dataJson, listFields) {
         select: 'single',
         data: dataJson,
         columns: columns,
+        container: {
+            class: 'w-100'
+        },
         fnInitComplete: function () {
             $('#card-toggle').click();
             $('#register thead').hide();

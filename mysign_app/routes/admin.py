@@ -27,10 +27,13 @@ def logout(request):
 
 @admin_required
 def door_devices(request):
-    template = loader.get_template('mysign_app/admin/door_devices.html')
+    template = loader.get_template('mysign_app/admin/base.html')
     devices = DoorDevice.objects.all()
+    list_fields = ['id']
     context = {
-        'device_list': devices,
+        'json': json.dumps(list(devices.values('id'))),
+        'models': companies,
+        'list_fields': list_fields,
         'form': DoorDeviceForm()
     }
     return HttpResponse(template.render(context, request))

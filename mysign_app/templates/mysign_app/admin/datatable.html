@@ -1,6 +1,6 @@
 <div class="col-md-8">
     <div class="row">
-        <script type="492e21ba4dbe2f246c90df61-text/javascript">
+        <script type="text/javascript">
         $(document).ready(function () {
            const data = {{ json | safe }}
 
@@ -10,7 +10,7 @@
         </script>
 
 
-        <table id="register" class="table table-sm table-hover w-100 h-100" cellspacing="0">
+        <table id="register" class="table table-hover w-100 table-responsive" cellspacing="0">
             <thead>
             <tr>
                 {% for field in list_fields %}

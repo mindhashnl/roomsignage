@@ -1,10 +1,11 @@
 .cards tbody tr {
     float: left;
-    width: 20rem;
+    width: 15rem;
     margin: 0.5rem;
     border: 0.0625rem solid rgba(0, 0, 0, .125);
     border-radius: .25rem;
     box-shadow: 0.25rem 0.25rem 0.5rem rgba(0, 0, 0, 0.25);
+    background-color: white;
 }
 
 .cards tbody td {
@@ -36,4 +37,9 @@ tr.selected td:before {
 
 .cards .fa {
     font-size: 7.5rem;
+}
+
+.dataTables_wrapper {
+    width: 100%;
+    padding-right: 5px;
 }
