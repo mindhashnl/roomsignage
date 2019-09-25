@@ -61,6 +61,6 @@ def addCompany(request):
     template = loader.get_template('mysign_app/admin/addCompany.html')
     context = {
         'AddCompanyUserForm': AddCompanyUserForm(),
-        'AddCompanyForm': CompanyForm(),
+        'company_form': CompanyForm(),
     }
     return HttpResponse(template.render(context, request))
