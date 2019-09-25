@@ -1,24 +1,15 @@
-from pytest import fixture
-
 from mysign_app.management.commands.seed import Command
 from mysign_app.models import Company, DoorDevice, User
 from mysign_app.tests.factories import CompanyFactory
 
 
-@fixture(autouse=True)
-def run_seed(db):
+def test_objects_are_seeded():
+    # Run seeds
     Command().handle()
 
-
-def test_company_is_seeded():
     assert Company.objects.count() == 5
-
-
-def test_door_device_is_seeded():
     assert DoorDevice.objects.count() == 20
 
-
-def test_user_is_seeded():
     assert User.objects.filter(username='HMO').count() == 1
     assert User.objects.filter(username='HMO').first().check_password('123456')
 
