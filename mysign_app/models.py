@@ -37,6 +37,9 @@ class User(AbstractUser):
         self.full_clean()
         super().save(*args, **kwargs)
 
+    def __str__(self):
+        return self.get_full_name()
+
 
 class Company(models.Model):
     name = models.CharField(max_length=50)
@@ -56,3 +59,8 @@ class Company(models.Model):
 class DoorDevice(models.Model):
     company = ForeignKey(Company, on_delete=models.CASCADE, blank=True, null=True)
     secret = models.CharField(default=generate_secret, max_length=32, null=False)
+
+    def __str__(self):
+        if self.company:
+            return self.company.name
+        return self.id
