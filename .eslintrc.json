@@ -5,7 +5,8 @@
         "jquery": true
     },
     "extends": [
-        "standard"
+        "eslint:recommended",
+        "xo"
     ],
     "globals": {
         "Atomics": "readonly",
@@ -15,5 +16,9 @@
         "ecmaVersion": 2018
     },
     "rules": {
+        "semi": "error",
+        "max-len": ["error", 115],
+        "new-cap": "off",
+        "no-var": "error"
     }
 }
