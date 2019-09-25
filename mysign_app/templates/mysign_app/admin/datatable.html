@@ -2,7 +2,7 @@
     <div class="row">
         <script type="text/javascript">
         $(document).ready(function () {
-           const data = {{ json | safe }}
+           const data = {{json | safe}}
 
 
             createDataTable(data, {{list_fields|safe}})
