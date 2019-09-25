@@ -15,7 +15,7 @@ steps:
           config: docker-compose.buildkite.yml
 
   - label: ":eslint: eslint"
-    command: npm install -g eslint && eslint mysign_app
+    command: sh .buildkite/eslint.sh
     plugins:
       - docker-compose#v2.6.0:
           run: app
