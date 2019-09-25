@@ -7,14 +7,14 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Devices overview </a>
+                <li class="nav-item {{ device_page }}">
+                    <a class="nav-link" href="{% url 'admin_door_devices' %}">Devices overview </a>
                 </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">Companies <span class="sr-only">(current)</span></a>
+                <li class="nav-item {{ company_page }}">
+                    <a class="nav-link" href="{% url 'admin_companies' %}">Companies <span class="sr-only">(current)</span></a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Users</a>
+                <li class="nav-item {{ user_page }}">
+                    <a class="nav-link" href="{% url 'admin_users' %}">Users</a>
                 </li>
             </ul>
         </div>

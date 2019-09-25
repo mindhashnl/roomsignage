@@ -26,6 +26,7 @@ def door_devices(request):
     template = loader.get_template('mysign_app/admin/door_devices.html')
     devices = DoorDevice.objects.all()
     context = {
+        'device_page' : "active",
         'device_list': devices
     }
     return HttpResponse(template.render(context, request))
@@ -36,6 +37,7 @@ def companies(request):
     template = loader.get_template('mysign_app/admin/companies.html')
     companies = Company.objects.all()
     context = {
+        'company_page': "active",
         'companies': companies
     }
     return HttpResponse(template.render(context, request))
@@ -46,6 +48,7 @@ def users(request):
     template = loader.get_template('mysign_app/admin/users.html')
     users = User.objects.all()
     context = {
+        'user_page': "active",
         'users': users
     }
     return HttpResponse(template.render(context, request))
