@@ -1,5 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+
+from mysign_app.forms import CompanyForm, UserForm
 from mysign_app.models import DoorDevice, Company, User
 
 from django.contrib.auth.views import logout_then_login
@@ -36,7 +38,8 @@ def companies(request):
     template = loader.get_template('mysign_app/admin/companies.html')
     companies = Company.objects.all()
     context = {
-        'companies': companies
+        'companies': companies,
+        'form': CompanyForm()
     }
     return HttpResponse(template.render(context, request))
 
@@ -46,6 +49,7 @@ def users(request):
     template = loader.get_template('mysign_app/admin/users.html')
     users = User.objects.all()
     context = {
-        'users': users
+        'users': users,
+        'form': UserForm()
     }
     return HttpResponse(template.render(context, request))
