@@ -7,8 +7,15 @@ steps:
 
   - wait
 
-  - label: ":lint-roller: Linter"
+  - label: ":lint-roller: Flake8"
     command: "flake8 ."
+    plugins:
+      - docker-compose#v2.6.0:
+          run: app
+          config: docker-compose.buildkite.yml
+
+  - label: ":eslint: eslint"
+    command: "eslint mysign_app"
     plugins:
       - docker-compose#v2.6.0:
           run: app
