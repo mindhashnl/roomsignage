@@ -1,5 +1,11 @@
 # Mindhash
 
+Master branch:
+[![Build status](https://badge.buildkite.com/a6ccf7b9f3b6afcdf78f28452b51e4e704d50ed30248c57be8.svg?branch=master)](https://buildkite.com/mysign/mysign)
+
+Develop branch:
+[![Build status](https://badge.buildkite.com/a6ccf7b9f3b6afcdf78f28452b51e4e704d50ed30248c57be8.svg?branch=development)](https://buildkite.com/mysign/mysign)
+
 ## Installation
 In order to make this project run make sure that you have the follow pre-requirements installed
 
