@@ -1,0 +1,34 @@
+{% extends 'mysign_app/admin/base.html' %}
+{% load crispy_forms_tags %}
+{% block list_content %}
+        <div class="col-11 mt-3">
+            <div class="row">
+                <div class="col-6 border-right">
+                    <label><h3>Company</h3></label>
+                    {% csrf_token %}
+                    {{ AddCompanyForm|crispy }}
+                </div>
+                <div class="col-6">
+                    <label><h3>Managing user</h3></label>
+                    {% csrf_token %}
+                    {{ AddCompanyUserForm|crispy }}
+                </div>
+            </div>
+
+            <div class="row offset-md-3 col-md-6 align-items-end h-25 pb-5">
+                <div class="col-md-12">
+                    <a href="#" class="btn btn-danger btn-block " role="button">
+                        <i class="fas fa-times"></i>
+                        Cancel
+                    </a>
+                </div>
+                <div class="col-md-12 align-items-bottom">
+                    <a href="#" class="btn btn-primary btn-block" role="button">
+                        <i class="fas fa-save" style=""></i>
+                        Create
+                    </a>
+                </div>
+            </div>
+        </div>
+
+{% endblock %}
