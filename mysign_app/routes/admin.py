@@ -58,9 +58,9 @@ def users(request):
 
 @admin_required
 def company_add(request):
-    template = loader.get_template('mysign_app/admin/addCompany.html')
+    template = loader.get_template('mysign_app/admin/company_add.html')
     context = {
-        'AddCompanyUserForm': AddCompanyUserForm(),
+        'user_form': AddCompanyUserForm(),
         'company_form': CompanyForm(),
     }
     return HttpResponse(template.render(context, request))
