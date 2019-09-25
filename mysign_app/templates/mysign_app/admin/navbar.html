@@ -7,19 +7,20 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav mr-auto">
-                {% with request.resolver_match.url_name as url_name%}
-                <li class="nav-item">
-                    <li class="{% if url_name == 'admin_door_devices'%} active {% endif %}">
+                {% with request.resolver_match.url_name as url_name %}
+                    <li class="nav-item">
+                    <li class="{% if url_name == 'admin_door_devices' %} active {% endif %}">
                         <a class="nav-link" href="{% url 'admin_door_devices' %}">Devices overview </a></li>
-                </li>
-                <li class="nav-item">
-                    <li class="{% if url_name == 'admin_companies'%} active {% endif %}">
-                    <a class="nav-link" href="{% url 'admin_companies' %}">Companies <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item">
-                    <li class="{% if url_name == 'admin_users'%} active {% endif %}">
-                    <a class="nav-link" href="{% url 'admin_users' %}">Users</a>
-                </li>
+                    </li>
+                    <li class="nav-item">
+                    <li class="{% if url_name == 'admin_companies' %} active {% endif %}">
+                        <a class="nav-link" href="{% url 'admin_companies' %}">Companies <span
+                                class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                    <li class="{% if url_name == 'admin_users' %} active {% endif %}">
+                        <a class="nav-link" href="{% url 'admin_users' %}">Users</a>
+                    </li>
                 {% endwith %}
             </ul>
         </div>

@@ -30,6 +30,7 @@ class User(AbstractUser):
     email = models.EmailField('email address', unique=True)
 
     REQUIRED_FIELDS = [email]
+
     def clean(self, *args, **kwargs):
         # Validate company and is_admin not both set
         if self.company and self.is_admin:
