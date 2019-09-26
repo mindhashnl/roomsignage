@@ -4,14 +4,30 @@ from django.forms import ModelForm
 from mysign_app.models import Company, DoorDevice, User
 
 
-class CompanyForm(ModelForm):
+class ReadonlyToggleableForm(ModelForm):
+    _readonly = False
+
+    def __init__(self, *args, readonly=False, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        if self._readonly:
+            for field in self.fields:
+                self.fields[field].widget = forms.TextInput(attrs={'readonly': True})
+
+    @property
+    def readonly(self):
+        return self._readonly
+
+    @classmethod
+    def as_readonly(cls):
+        cls._readonly = True
+        return cls
+
+
+class CompanyForm(ReadonlyToggleableForm):
     class Meta:
         model = Company
         fields = ['name', 'email']
-        widgets = {
-            'name': forms.TextInput(attrs={'readonly': True}),
-            'email': forms.TextInput(attrs={'readonly': True}),
-        }
 
 
 class DoorDeviceForm(ModelForm):
