@@ -1,6 +1,7 @@
 from django.urls import reverse
 from pytest import mark
 
+from mysign_app.tests.factories import CompanyFactory, UserFactory
 from mysign_app.tests.routes.helpers import is_authenticated_route, is_admin_route, client_login
 
 
@@ -22,6 +23,10 @@ def test_companies(client):
 @mark.django_db
 def test_company_add(client):
     is_admin_route(client, reverse('admin_company_add'))
+
+    company = CompanyFactory.build()
+    user = UserFactory.build()
+    response = client.post()
 
 
 @mark.django_db
