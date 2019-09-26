@@ -83,7 +83,7 @@ function createDataTable(dataJson, listFields) {
 					$(fieldName).prop('checked', value);
 				} else if (key === 'id') {
 					// If key is id, set the id field
-					$('id').val(value);
+					$('#id').val(value);
 				} else {
 					// Else, set the field with the #id_FIELDNAME id.
 					let fieldName = '#id_' + key;

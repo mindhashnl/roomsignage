@@ -28,6 +28,17 @@ def logout(request):
 
 @admin_required
 def door_devices(request):
+    if request.method == "POST":
+        print(request.POST)
+        door_device_id = request.POST.get('id')
+        print(door_device_id)
+        door_device = DoorDevice.objects.get(id=door_device_id)
+        form = DoorDeviceForm(request.POST, instance=door_device)
+        if form.is_valid():
+            form.save()
+    else:
+        form = DoorDeviceForm()
+
     template = loader.get_template('mysign_app/admin/base.html')
     devices = DoorDevice.objects.all()
     list_fields = ['id']
