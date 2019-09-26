@@ -74,7 +74,8 @@ def users(request):
                                              'is_admin', 'username', 'company', 'id'))),
         'models': users,
         'list_fields': list_fields,
-        'form': form
+        'form': form,
+        'disable_delete': 'true'
     }
     return HttpResponse(template.render(context, request))
 
