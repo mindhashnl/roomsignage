@@ -5,7 +5,7 @@
 
 <html lang="en">
 <head>
-    <title>{{title|default:"MySign"}}</title>
+    <title>{{ title|default:"MySign" }}</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script src="https://kit.fontawesome.com/dad11242c0.js"></script>
@@ -65,15 +65,13 @@
     <meta name="theme-color" content="#ffffff">
 </head>
 <body>
-    {% include 'partials/messages.html' %}
-
-    {% block body %}
-        {% block content %}
-        {% endblock %}
+{% block body %}
+    {% block content %}
+    {% endblock %}
     {% block extend %}
     {% endblock %}
-    {% endblock %}
-    {% include 'partials/messages.html' %}
+{% endblock %}
+{% include 'partials/messages.html' %}
 
 </body>
 </html>
