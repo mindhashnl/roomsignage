@@ -1,8 +1,11 @@
+from pytest import mark
+
 from mysign_app.management.commands.seed import Command
 from mysign_app.models import Company, DoorDevice, User
 from mysign_app.tests.factories import CompanyFactory
 
 
+@mark.django_db
 def test_objects_are_seeded():
     # Run seeds
     Command().handle()
@@ -23,6 +26,7 @@ def test_objects_are_seeded():
     assert User.objects.filter(username='developer').first().is_superuser
 
 
+@mark.django_db
 def test_database_is_cleared():
     CompanyFactory.create(name="really awesome company")
 
