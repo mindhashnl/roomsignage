@@ -68,7 +68,8 @@ def users(request):
     users = User.objects.all()
     list_fields = ['first_name', 'last_name', 'username']
     context = {
-        'json': json.dumps(list(users.values('first_name', 'last_name', 'email', 'is_admin', 'username', 'company', 'id'))),
+        'json': json.dumps(list(users.values('first_name', 'last_name', 'email',
+                                             'is_admin', 'username', 'company', 'id'))),
         'models': users,
         'list_fields': list_fields,
         'form': form
