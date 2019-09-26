@@ -2,15 +2,14 @@ import json
 
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import redirect
-
-from mysign_app.forms import CompanyForm, UserForm, DoorDeviceForm, AddCompanyUserForm
-from mysign_app.models import DoorDevice, Company, User
-
 from django.contrib.auth.views import logout_then_login
 from django.http import HttpResponse
+from django.shortcuts import redirect
 from django.template import loader
 
+from mysign_app.forms import (AddCompanyUserForm, CompanyForm, DoorDeviceForm,
+                              UserForm)
+from mysign_app.models import Company, DoorDevice, User
 from mysign_app.routes.helpers import admin_required
 
 

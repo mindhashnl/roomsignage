@@ -1,6 +1,6 @@
 from django.forms import ModelForm
 
-from mysign_app.models import Company, User, DoorDevice
+from mysign_app.models import Company, DoorDevice, User
 
 
 class CompanyForm(ModelForm):

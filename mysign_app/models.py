@@ -7,7 +7,7 @@ from django.contrib.auth.models import AbstractUser
 from django.core.exceptions import ValidationError
 from django.core.validators import RegexValidator
 from django.db import models
-from django.db.models import ForeignKey, BooleanField
+from django.db.models import BooleanField, ForeignKey
 
 phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$',
                              message="Phone number must be entered in the format: "

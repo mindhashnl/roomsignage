@@ -2,8 +2,8 @@ import pytest
 from django.core.exceptions import ValidationError
 from pytest import mark
 
-from ..factories import DoorDeviceFactory
 from ...models import DoorDevice
+from ..factories import DoorDeviceFactory
 
 
 @mark.django_db

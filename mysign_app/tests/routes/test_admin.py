@@ -1,8 +1,13 @@
+from django.forms import model_to_dict
 from django.urls import reverse
 from pytest import mark
 
+from mysign_app.forms import AddCompanyUserForm, CompanyForm
+from mysign_app.models import Company, User
 from mysign_app.tests.factories import CompanyFactory, UserFactory
-from mysign_app.tests.routes.helpers import is_authenticated_route, is_admin_route, client_login
+from mysign_app.tests.routes.authentication_helpers import (
+    client_login, is_admin_route, is_authenticated_route)
+from mysign_app.tests.routes.form_helpers import payload_from_form
 
 
 @mark.django_db
@@ -24,9 +29,17 @@ def test_companies(client):
 def test_company_add(client):
     is_admin_route(client, reverse('admin_company_add'))
 
-    company = CompanyFactory.build()
-    user = UserFactory.build()
-    response = client.post()
+    client_login(client, is_admin=True)
+    company_payload = payload_from_form(CompanyForm, CompanyFactory, prefix='company')
+    user_payload = payload_from_form(AddCompanyUserForm, UserFactory, prefix='user')
+    payload = {**company_payload, **user_payload}
+
+    response = client.post(reverse('admin_company_add'), payload)
+
+    assert response.status_code == 302
+    assert response.url == reverse('admin_companies')
+    assert Company.objects.count() == 1
+    assert User.objects.count() == 2  # One is logged in user, other created user
 
 
 @mark.django_db
