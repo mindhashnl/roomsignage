@@ -1,7 +1,7 @@
 /* eslint-disable-next-line no-unused-vars */
 function createDataTable(dataJson, listFields) {
-	let columns = [
-		// {   /* created column to show a picture just to make this demo look better */
+	const columns = [
+		// TODO Reuse this for the images
 		//     "orderable": false, "data": "Photo", "name": "Photo", "defaultContent": "",
 		//     "visible": true, "className": "text-center", "width": "20px",
 		//     "createdCell": function (td, cellData, rowData, row, col) {
@@ -30,7 +30,6 @@ function createDataTable(dataJson, listFields) {
 					if ($('#register').hasClass('cards')) {
 						// Create an array of labels containing all table headers
 						let labels = [];
-						console.log(labels);
 						$('#register').find('thead th').each(function () {
 							labels.push($(this).text());
 						});
