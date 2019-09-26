@@ -70,10 +70,9 @@
 <div class="container-fluid full-height">
     {% include 'partials/messages.html' %}
 
-    {% block extend %}
-    {% endblock %}
-
-    {% block content %}
+    {% block body %}
+        {% block content %}
+        {% endblock %}
     {% endblock %}
 </div>
 
