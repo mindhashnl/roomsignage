@@ -32,7 +32,7 @@ def door_devices(request):
     devices = DoorDevice.objects.all()
     list_fields = ['id']
     context = {
-        'json': json.dumps(list(devices.values('id'))),
+        'json': json.dumps(list(devices.values('id', 'company'))),
         'models': companies,
         'list_fields': list_fields,
         'form': DoorDeviceForm()
