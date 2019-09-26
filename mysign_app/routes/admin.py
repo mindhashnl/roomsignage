@@ -29,9 +29,7 @@ def logout(request):
 @admin_required
 def door_devices(request):
     if request.method == "POST":
-        print(request.POST)
         door_device_id = request.POST.get('id')
-        print(door_device_id)
         door_device = DoorDevice.objects.get(id=door_device_id)
         form = DoorDeviceForm(request.POST, instance=door_device)
         if form.is_valid():
