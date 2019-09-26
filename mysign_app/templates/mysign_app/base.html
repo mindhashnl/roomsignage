@@ -57,14 +57,12 @@
     <meta name="theme-color" content="#ffffff">
 </head>
 <body>
-<div class="container-fluid full-height">
-    {% include 'partials/messages.html' %}
-
     {% block extend %}
     {% endblock %}
 
     {% block content %}
     {% endblock %}
-</div>
+    {% include 'partials/messages.html' %}
+
 </body>
 </html>
