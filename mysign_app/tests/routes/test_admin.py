@@ -1,9 +1,11 @@
 from django.urls import reverse
 from pytest import mark
 
-from mysign_app.forms import AddCompanyUserForm, CompanyForm, UserForm, DoorDeviceForm
-from mysign_app.models import Company, User, DoorDevice
-from mysign_app.tests.factories import CompanyFactory, UserFactory, DoorDeviceFactory
+from mysign_app.forms import (AddCompanyUserForm, CompanyForm, DoorDeviceForm,
+                              UserForm)
+from mysign_app.models import Company, DoorDevice, User
+from mysign_app.tests.factories import (CompanyFactory, DoorDeviceFactory,
+                                        UserFactory)
 from mysign_app.tests.routes.authentication_helpers import (
     _test_unauthenticated, client_login, is_admin_route)
 from mysign_app.tests.routes.form_helpers import payload_from_form
@@ -76,6 +78,7 @@ def test_users_update(client):
 
     assert response.status_code == 200
     assert User.objects.get(id=user.id).first_name == 'New name'
+
 
 @mark.django_db
 def test_door_device_update(client):
