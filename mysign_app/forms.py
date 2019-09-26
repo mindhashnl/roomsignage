@@ -19,3 +19,9 @@ class UserForm(ModelForm):
     class Meta:
         model = User
         fields = ['first_name', 'last_name', 'username', 'company', 'is_admin']
+
+
+class AddCompanyUserForm(ModelForm):
+    class Meta:
+        model = User
+        fields = ['first_name', 'last_name', 'email', 'username', ]

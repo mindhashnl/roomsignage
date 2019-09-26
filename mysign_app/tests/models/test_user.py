@@ -29,3 +29,10 @@ def test_company_and_admin():
 
     with pytest.raises(ValidationError):
         user.save()
+
+
+@mark.django_db
+def test_email_required():
+    user = UserFactory.build(email=None, is_admin=True)
+    with pytest.raises(ValidationError):
+        user.save()

@@ -1,5 +1,9 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+
+from mysign_app.forms import CompanyForm, UserForm, DoorDeviceForm, AddCompanyUserForm
+from mysign_app.models import DoorDevice, Company, User
+
 from django.contrib.auth.views import logout_then_login
 from django.http import HttpResponse
 from django.template import loader
@@ -50,5 +54,15 @@ def users(request):
     context = {
         'users': users,
         'form': UserForm()
+    }
+    return HttpResponse(template.render(context, request))
+
+
+@admin_required
+def company_add(request):
+    template = loader.get_template('mysign_app/admin/company_add.html')
+    context = {
+        'user_form': AddCompanyUserForm(),
+        'company_form': CompanyForm(),
     }
     return HttpResponse(template.render(context, request))
