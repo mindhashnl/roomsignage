@@ -39,7 +39,6 @@ class User(AbstractUser):
     def save(self, *args, **kwargs):
         # If this is a new user
         if not self.pk and not self.password:
-            is_new = True
             password = User.objects.make_random_password()
             self.set_password(password)
 
