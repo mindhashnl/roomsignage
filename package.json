@@ -1,0 +1,11 @@
+{
+  "name": "mysign",
+  "version": "1.0.0",
+  "description": "",
+  "dependencies": {},
+  "devDependencies": {
+    "eslint": "^6.4.0",
+    "eslint-config-standard": "^14.1.0",
+    "eslint-config-xo": "^0.26.0"
+  }
+}
