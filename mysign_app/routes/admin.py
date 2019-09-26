@@ -45,7 +45,7 @@ def companies(request):
     companies = Company.objects.all()
     list_fields = ['name', 'email']
     context = {
-        'json': json.dumps(list(companies.values('name', 'email', 'phone_number'))),
+        'json': json.dumps(list(companies.values('name', 'email', 'phone_number', 'id'))),
         'models': companies,
         'list_fields': list_fields,
         'form': CompanyForm()
@@ -55,13 +55,22 @@ def companies(request):
 
 @admin_required
 def users(request):
+    if request.method == "POST":
+        user_id = request.POST.get('id')
+        user = User.objects.get(id=user_id)
+        form = UserForm(request.POST, instance=user)
+        if form.is_valid():
+            form.save()
+    else:
+        form = UserForm()
+
     template = loader.get_template('mysign_app/admin/base.html')
     users = User.objects.all()
-    list_fields = ['first_name', 'last_name']
+    list_fields = ['first_name', 'last_name', 'username']
     context = {
-        'json': json.dumps(list(users.values('first_name', 'last_name', 'email', 'is_admin', 'company'))),
+        'json': json.dumps(list(users.values('first_name', 'last_name', 'email', 'is_admin', 'username', 'company', 'id'))),
         'models': users,
         'list_fields': list_fields,
-        'form': UserForm()
+        'form': form
     }
     return HttpResponse(template.render(context, request))

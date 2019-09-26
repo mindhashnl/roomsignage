@@ -83,8 +83,28 @@ function createDataTable(dataJson, listFields) {
 
     .on('select', function (e, dt, type, indexes) {
         let rowData = table.rows(indexes).data().toArray();
-        console.log(rowData);
-        $('#row-data').html(JSON.stringify(rowData))
+        $('#row-data').html(JSON.stringify(rowData));
+
+        //For all labels
+        for (const [key, value] of Object.entries(rowData[0])) {
+
+            //if field is bool, set checkbox
+            if (value === true ||  value === false){
+                fieldName = "#id_" + key;
+                $(fieldName).prop('checked', value)
+            } else
+                //If key is id, set the id field
+                if (key === 'id') {
+                $(id).val(value)
+            }
+                //Else, set the field with the #id_FIELDNAME id.
+            else {
+                fieldName = "#id_" + key;
+                $(fieldName).val(value)
+            }
+        }
+
+
     })
     .on('deselect', function () {
             $('#row-data').html('')
