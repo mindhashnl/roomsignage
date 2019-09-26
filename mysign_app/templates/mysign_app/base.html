@@ -30,10 +30,7 @@
     <link rel="stylesheet" type="text/css" href="{% static 'mysign_app/style/datatables.css' %}">
     <script src="{% static 'mysign_app/js/datatable.js' %}"></script>
 
-
     <script>
-
-
         function fullScreen() {
             var docElm = document.documentElement;
             if (docElm.requestFullscreen) {
@@ -57,7 +54,7 @@
     <link rel="apple-touch-icon" sizes="144x144" href="{% static 'mysign_app/favicon/apple-icon-144x144.png' %}">
     <link rel="apple-touch-icon" sizes="152x152" href="{% static 'mysign_app/favicon/apple-icon-152x152.png' %}">
     <link rel="apple-touch-icon" sizes="180x180" href="{% static 'mysign_app/favicon/apple-icon-180x180.png' %}">
-    <link rel="icon" type="image/png" sizes="192x192"  href="{% static 'mysign_app/favicon/android-icon-192x192.png' %}">
+    <link rel="icon" type="image/png" sizes="192x192" href="{% static 'mysign_app/favicon/android-icon-192x192.png' %}">
     <link rel="icon" type="image/png" sizes="32x32" href="{% static 'mysign_app/favicon/favicon-32x32.png' %}">
     <link rel="icon" type="image/png" sizes="96x96" href="{% static 'mysign_app/favicon/favicon-96x96.png' %}">
     <link rel="icon" type="image/png" sizes="16x16" href="{% static 'mysign_app/favicon/favicon-16x16.png' %}">
@@ -68,14 +65,12 @@
 </head>
 <body>
 
-
 <div class="container-fluid full-height">
     {% include 'partials/messages.html' %}
 
-    {% block extend %}
-    {% endblock %}
-
-    {% block content %}
+    {% block body %}
+        {% block content %}
+        {% endblock %}
     {% endblock %}
 </div>
 

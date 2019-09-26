@@ -1,3 +1,4 @@
+/* eslint-disable-next-line no-unused-vars */
 function createDataTable(dataJson, listFields) {
 
     let columns = [
@@ -13,7 +14,7 @@ function createDataTable(dataJson, listFields) {
         ];
 
     Object.values(listFields).forEach(function (key) {
-        columns.push({'data': key, 'name': key})
+        columns.push({data: key, name: key});
     });
 
     const table = $('#register').DataTable({
@@ -29,7 +30,6 @@ function createDataTable(dataJson, listFields) {
                     $("#register thead").toggle();
 
                     if ($("#register").hasClass("cards")) {
-
                         // Create an array of labels containing all table headers
                         var labels = [];
                         console.log(labels)
@@ -49,9 +49,7 @@ function createDataTable(dataJson, listFields) {
                         $('#register tr').each(function () {
                             max = Math.max($(this).height(), max);
                         }).height(max);
-
                     } else {
-
                         // Remove data-label attribute from each cell
                         $('#register').find('td').each(function () {
                             $(this).removeAttr('data-label');
@@ -71,9 +69,6 @@ function createDataTable(dataJson, listFields) {
         select: 'single',
         data: dataJson,
         columns: columns,
-        container: {
-            class: 'w-100'
-        },
         fnInitComplete: function () {
             $('#card-toggle').click();
             $('#register thead').hide();
@@ -83,7 +78,6 @@ function createDataTable(dataJson, listFields) {
 
     .on('select', function (e, dt, type, indexes) {
         let rowData = table.rows(indexes).data().toArray();
-        $('#row-data').html(JSON.stringify(rowData));
 
         //For all labels
         for (const [key, value] of Object.entries(rowData[0])) {
@@ -105,8 +99,5 @@ function createDataTable(dataJson, listFields) {
         }
 
 
-    })
-    .on('deselect', function () {
-            $('#row-data').html('')
     })
 }
