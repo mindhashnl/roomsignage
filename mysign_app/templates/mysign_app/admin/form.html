@@ -14,11 +14,13 @@
 
             <div class="row align-items-end h-25 pb-5">
                 <div class="col">
-                    <button type="submit" class="btn btn-primary btn-block">
+                    {% if disable_save != "true" %}
+                    <button id="submitButton" type="submit" class="btn btn-primary btn-block">
                         <i class="fas fa-save"></i>
                         save changes
                     </button>
-                    <a href="#" class="btn btn-danger btn-block" role="button">
+                    {% endif %}
+                    <a id="deleteButton" href="#" class="btn btn-danger btn-block" role="button">
                         <i class="fas fa-trash"></i>
                         delete object
                     </a>

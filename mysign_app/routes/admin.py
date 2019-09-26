@@ -49,7 +49,8 @@ def companies(request):
         'json': json.dumps(list(companies.values('name', 'email', 'phone_number', 'id'))),
         'models': companies,
         'list_fields': list_fields,
-        'form': CompanyForm()
+        'form': CompanyForm(),
+        'disable_save': 'true'
     }
     return HttpResponse(template.render(context, request))
 
