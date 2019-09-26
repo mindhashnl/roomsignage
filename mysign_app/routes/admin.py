@@ -15,9 +15,10 @@ from mysign_app.routes.helpers import admin_required
 
 @login_required
 def index(request):
-    # TODO: add some custom HMO VS company logic
-    template = loader.get_template('mysign_app/admin/index.html')
-    return HttpResponse(template.render({}, request))
+    if request.user.is_admin:
+        return redirect('admin_door_devices')
+    if request.user.company:
+        return redirect('admin_company')
 
 
 def logout(request):
