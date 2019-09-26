@@ -7,7 +7,7 @@ from django.contrib.auth.models import AbstractUser
 from django.core.exceptions import ValidationError
 from django.core.validators import RegexValidator
 from django.db import models
-from django.db.models import ForeignKey, BooleanField
+from django.db.models import BooleanField, ForeignKey
 
 phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$',
                              message="Phone number must be entered in the format: "
@@ -59,3 +59,8 @@ class Company(models.Model):
 class DoorDevice(models.Model):
     company = ForeignKey(Company, on_delete=models.CASCADE, blank=True, null=True)
     secret = models.CharField(default=generate_secret, max_length=32, null=False)
+
+    def __str__(self):
+        if self.company:
+            return self.company.name
+        return str(self.id)
