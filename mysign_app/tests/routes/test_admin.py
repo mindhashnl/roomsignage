@@ -1,7 +1,8 @@
 from django.urls import reverse
 from pytest import mark
 
-from mysign_app.tests.routes.helpers import is_authenticated_route, is_admin_route, client_login
+from mysign_app.tests.routes.helpers import (client_login, is_admin_route,
+                                             is_authenticated_route)
 
 
 @mark.django_db

@@ -2,8 +2,8 @@ import pytest
 from django.core.exceptions import ValidationError
 from pytest import mark
 
-from mysign_app.tests.factories import CompanyFactory, UserFactory
 from mysign_app.models import User
+from mysign_app.tests.factories import CompanyFactory, UserFactory
 
 
 @mark.django_db
