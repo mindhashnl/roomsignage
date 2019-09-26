@@ -37,6 +37,11 @@ class User(AbstractUser):
             raise ValidationError("Company and is_admin cannot set both")
 
     def save(self, *args, **kwargs):
+        # If this is a new user
+        if not self.pk and not self.password:
+            password = User.objects.make_random_password()
+            self.set_password(password)
+
         self.full_clean()
         super().save(*args, **kwargs)
 
