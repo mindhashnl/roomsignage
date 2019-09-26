@@ -3,20 +3,15 @@ import json
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import logout_then_login
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse
 from django.shortcuts import redirect
 from django.template import loader
-from django.urls import reverse
-from django.views import View
-from django.views.generic import (CreateView, FormView, ListView, TemplateView,
-                                  UpdateView)
-from django.views.generic.base import ContextMixin, TemplateResponseMixin
-from django.views.generic.edit import FormMixin, ProcessFormView
+from django.views.generic import FormView, TemplateView
 
 from mysign_app.forms import (AddCompanyUserForm, CompanyForm, DoorDeviceForm,
                               UserForm)
 from mysign_app.models import Company, DoorDevice, User
-from mysign_app.routes.helpers import admin_required
+from mysign_app.routes.helpers import AdminRequiredMixin, admin_required
 
 
 @login_required
@@ -32,7 +27,7 @@ def logout(request):
     return logout_then_login(request)
 
 
-class AdminView(TemplateView, FormView):
+class AdminView(AdminRequiredMixin, TemplateView, FormView):
     template_name = 'mysign_app/admin/base.html'
     model = None
     form_class = None

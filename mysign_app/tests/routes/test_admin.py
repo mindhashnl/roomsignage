@@ -51,7 +51,7 @@ def test_company_add(client):
     user_payload = payload_from_form(AddCompanyUserForm(instance=UserFactory.build()), prefix='user')
     payload = {**company_payload, **user_payload}
 
-    response = client.post()
+    response = client.post(reverse('admin_company_add'), payload)
 
     assert response.status_code == 302
     assert response.url == reverse('admin_companies')
@@ -72,7 +72,7 @@ def test_users_update(client):
 
     user.first_name = 'New name'
     payload = payload_from_form(UserForm(instance=user))
-    response = client.post()
+    response = client.post(reverse('admin_users'), payload)
 
     assert response.status_code == 200
     assert User.objects.get(id=user.id).first_name == 'New name'
