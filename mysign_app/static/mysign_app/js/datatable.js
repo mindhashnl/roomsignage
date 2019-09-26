@@ -66,9 +66,6 @@ function createDataTable(dataJson, listFields) {
 		select: 'single',
 		data: dataJson,
 		columns: columns,
-		container: {
-			class: 'w-100'
-		},
 		fnInitComplete: function () {
 			$('#card-toggle').click();
 			$('#register thead').hide();
@@ -77,10 +74,21 @@ function createDataTable(dataJson, listFields) {
 
 		.on('select', function (e, dt, type, indexes) {
 			let rowData = table.rows(indexes).data().toArray();
-			console.log(rowData);
-			$('#row-data').html(JSON.stringify(rowData));
-		})
-		.on('deselect', function () {
-			$('#row-data').html('');
+
+			// For all labels
+			for (const [key, value] of Object.entries(rowData[0])) {
+				// If field is bool, set checkbox
+				if (value === true || value === false) {
+					let fieldName = '#id_' + key;
+					$(fieldName).prop('checked', value);
+				} else if (key === 'id') {
+					// If key is id, set the id field
+					$('id').val(value);
+				} else {
+					// Else, set the field with the #id_FIELDNAME id.
+					let fieldName = '#id_' + key;
+					$(fieldName).val(value);
+				}
+			}
 		});
 }

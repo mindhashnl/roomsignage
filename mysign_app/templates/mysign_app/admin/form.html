@@ -2,7 +2,7 @@
 
 {% if form %}
     <div class="col-md-4 border-left">
-        <form method="put" class="h-100">
+        <form method="post" class="h-100">
             <div class="row h-75">
                 <div class="col-md-12">
 
@@ -24,6 +24,7 @@
                     </a>
                 </div>
             </div>
+            <input hidden id="id" name="id">
         </form>
     </div>
 {% endif %}
