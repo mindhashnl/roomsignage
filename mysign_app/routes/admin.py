@@ -6,11 +6,12 @@ from django.contrib.auth.views import logout_then_login
 from django.http import HttpResponse
 from django.shortcuts import redirect
 from django.template import loader
+from django.views.generic import FormView, TemplateView
 
 from mysign_app.forms import (AddCompanyUserForm, CompanyForm, DoorDeviceForm,
                               UserForm)
 from mysign_app.models import Company, DoorDevice, User
-from mysign_app.routes.helpers import admin_required
+from mysign_app.routes.helpers import AdminRequiredMixin, admin_required
 
 
 @login_required
@@ -26,58 +27,60 @@ def logout(request):
     return logout_then_login(request)
 
 
-@admin_required
-def door_devices(request):
-    template = loader.get_template('mysign_app/admin/base.html')
-    devices = DoorDevice.objects.all()
-    list_fields = ['id']
-    context = {
-        'json': json.dumps(list(devices.values('id', 'company'))),
-        'models': companies,
-        'list_fields': list_fields,
-        'form': DoorDeviceForm()
-    }
-    return HttpResponse(template.render(context, request))
+class AdminView(AdminRequiredMixin, TemplateView, FormView):
+    template_name = 'mysign_app/admin/base.html'
+    model = None
+    form_class = None
+    list_fields = []
+    json_fields = []
 
-
-@admin_required
-def companies(request):
-    template = loader.get_template('mysign_app/admin/base.html')
-    companies = Company.objects.all()
-    list_fields = ['name', 'email']
-    context = {
-        'json': json.dumps(list(companies.values('name', 'email', 'phone_number', 'id'))),
-        'models': companies,
-        'list_fields': list_fields,
-        'form': CompanyForm(),
-        'disable_save': 'true'
-    }
-    return HttpResponse(template.render(context, request))
-
-
-@admin_required
-def users(request):
-    if request.method == "POST":
-        user_id = request.POST.get('id')
-        user = User.objects.get(id=user_id)
-        form = UserForm(request.POST, instance=user)
+    def post(self, request, *args, **kwargs):
+        """ Update the model """
+        model = self.model.objects.get(id=request.POST.get('id'))
+        form = self.form_class(request.POST, instance=model)
         if form.is_valid():
             form.save()
-    else:
-        form = UserForm()
+            form = self.form_class()
 
-    template = loader.get_template('mysign_app/admin/base.html')
-    users = User.objects.all()
-    list_fields = ['first_name', 'last_name', 'username']
-    context = {
-        'json': json.dumps(list(users.values('first_name', 'last_name', 'email',
-                                             'is_admin', 'username', 'company', 'id'))),
-        'models': users,
-        'list_fields': list_fields,
-        'form': form,
-        'disable_delete': 'true'
-    }
-    return HttpResponse(template.render(context, request))
+        context = self.get_context_data(form=form, **kwargs)
+        return self.render_to_response(context)
+
+    @property
+    def extra_context(self):
+        return {
+            'models': self._all_objects(),
+            'list_fields': self.list_fields,
+            'json': self.models_json(),
+        }
+
+    def models_json(self):
+        objects = self._all_objects().values(*self.json_fields)
+        objects = list(objects)
+        return json.dumps(objects)
+
+    def _all_objects(self):
+        return self.model.objects.all()
+
+
+class DoorDevices(AdminView):
+    model = DoorDevice
+    form_class = DoorDeviceForm
+    list_fields = ['id']
+    json_fields = ['id', 'company']
+
+
+class Companies(AdminView):
+    model = Company
+    form_class = CompanyForm.as_readonly()
+    list_fields = ['name']
+    json_fields = ['name', 'email', 'phone_number', 'id']
+
+
+class Users(AdminView):
+    model = User
+    form_class = UserForm.as_nodelete()
+    list_fields = ['id', 'first_name', 'last_name']
+    json_fields = ['id', 'first_name', 'last_name', 'username', 'company', 'is_admin']
 
 
 @admin_required

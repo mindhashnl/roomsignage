@@ -1,44 +1,43 @@
-<div class="row">
-    <nav class="navbar col-12 navbar-expand-lg navbar-light bg-light" style="height: 8vh">
-        <a class="navbar-brand" href="#">MySign</a>
+{# ---- Header container ---- #}
+<nav class="navbar navbar-expand-lg fixed-top nav-bg">
+    {% with request.resolver_match.url_name as url_name %}
+        <a class="navbar-brand" href="{% url 'admin_door_devices' %}">MySign</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
+
+        {# ---- Nav bar items ---- #}
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav mr-auto">
-                {% with request.resolver_match.url_name as url_name %}
-                    <li class="nav-item">
-                    <li class="{% if url_name == 'admin_door_devices' %} active {% endif %}">
-                        <a class="nav-link" href="{% url 'admin_door_devices' %}">Devices overview </a></li>
-                    </li>
-                    <li class="nav-item">
-                    <li class="{% if url_name == 'admin_companies' %} active {% endif %}">
-                        <a class="nav-link" href="{% url 'admin_companies' %}">Companies <span
-                                class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item">
-                    <li class="{% if url_name == 'admin_users' %} active {% endif %}">
-                        <a class="nav-link" href="{% url 'admin_users' %}">Users</a>
-                    </li>
-                {% endwith %}
+                <li class="nav-item">
+                <li class="{% if url_name == 'admin_door_devices' %} active {% endif %}">
+                    <a class="nav-link" href="{% url 'admin_door_devices' %}">Device overview </a></li>
+                </li>
+                <li class="nav-item">
+                <li class="{% if url_name == 'admin_companies' %} active {% endif %}">
+                    <a class="nav-link" href="{% url 'admin_companies' %}">Companies <span
+                            class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                <li class="{% if url_name == 'admin_users' %} active {% endif %}">
+                    <a class="nav-link" href="{% url 'admin_users' %}">Users</a>
+                </li>
             </ul>
         </div>
-        <ul class="nav nav-pills">
-            <form class="form-inline">
-                <input class="form-control" type="search" placeholder="Company" aria-label="Search">
-                <div class="fa fa-search fa-secondary" style="margin: 8px; "></div>
-                <label class="btn btn-secondary mr-3">
-                    <input type="checkbox" autocomplete="off" style="margin-right: 5px; "> is active
-                </label>
-                <a href="{% url 'admin_company_add' %}" class="btn btn-secondary mt-auto" role="button">
-                    <i class="fas fa-plus"></i>
-                    Add company
-                </a>
-            </form>
-        </ul>
-    </nav>
-
-    <nav class="navbar navbar-light bg-dark navbar-fixed-top col-12" style="height: 2vh">
-    </nav>
-</div>
+        {# ----   Filter items     #}
+        {#        <ul class="nav nav-pills">#}
+        {#            <form class="form-inline">#}
+        {#                <input class="form-control" type="search" placeholder="Company" aria-label="Search">#}
+        {#                <div class="fa fa-search fa-secondary" style="margin: 15px; "></div>#}
+        {#                <label class="btn btn-secondary mr-3">#}
+        {#                    <input type="checkbox" autocomplete="off" style="margin-right: 5px; "> is active#}
+        {#                </label>#}
+        {#                <a href="#" class="btn btn-secondary mt-auto" role="button">#}
+        {#                    <i class="fas fa-plus"></i>#}F
+        {#                    Add company#}
+        {#                </a>#}
+        {#            </form>#}
+        {#        </ul>#}
+    {% endwith %}
+</nav>
