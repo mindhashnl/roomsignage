@@ -1,5 +1,6 @@
 from django.contrib.auth import REDIRECT_FIELD_NAME
 from django.contrib.auth.decorators import user_passes_test
+from django.contrib.auth.mixins import AccessMixin
 from django.core.exceptions import PermissionDenied
 
 
@@ -27,6 +28,15 @@ def admin_required(*args, **kwargs):
         return True
 
     return login_test(check_is_admin, *args, **kwargs)
+
+
+class AdminRequiredMixin(AccessMixin):
+    """Verify that the current user is authenticated."""
+
+    def dispatch(self, request, *args, **kwargs):
+        if not (request.user.is_authenticated and request.user.is_admin):
+            return self.handle_no_permission()
+        return super().dispatch(request, *args, **kwargs)
 
 
 def company_required(*args, **kwargs):
