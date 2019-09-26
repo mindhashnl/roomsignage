@@ -37,9 +37,6 @@ class User(AbstractUser):
         self.full_clean()
         super().save(*args, **kwargs)
 
-    def __str__(self):
-        return self.get_full_name()
-
 
 class Company(models.Model):
     name = models.CharField(max_length=50)
@@ -63,4 +60,4 @@ class DoorDevice(models.Model):
     def __str__(self):
         if self.company:
             return self.company.name
-        return self.id
+        return str(self.id)
