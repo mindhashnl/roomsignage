@@ -1,7 +1,7 @@
 from django.urls import reverse
 from pytest import mark
 
-from mysign_app.forms import AddCompanyUserForm, CompanyForm
+from mysign_app.forms import AddCompanyUserForm, CompanyForm, UserForm
 from mysign_app.models import Company, User
 from mysign_app.tests.factories import CompanyFactory, UserFactory
 from mysign_app.tests.routes.authentication_helpers import (
@@ -29,8 +29,8 @@ def test_company_add(client):
     is_admin_route(client, reverse('admin_company_add'))
 
     client_login(client, is_admin=True)
-    company_payload = payload_from_form(CompanyForm, CompanyFactory, prefix='company')
-    user_payload = payload_from_form(AddCompanyUserForm, UserFactory, prefix='user')
+    company_payload = payload_from_form(CompanyForm(instance=CompanyFactory.build()), prefix='company')
+    user_payload = payload_from_form(AddCompanyUserForm(instance=UserFactory.build()), prefix='user')
     payload = {**company_payload, **user_payload}
 
     response = client.post(reverse('admin_company_add'), payload)
@@ -44,6 +44,20 @@ def test_company_add(client):
 @mark.django_db
 def test_users(client):
     is_admin_route(client, reverse('admin_users'))
+
+
+@mark.django_db
+def test_users_update(client):
+    client_login(client, is_admin=True)
+
+    user = UserFactory()
+
+    user.first_name = 'New name'
+    payload = payload_from_form(UserForm(instance=user))
+    response = client.post(reverse('admin_users'), payload)
+
+    assert response.status_code == 200
+    assert User.objects.get(id=user.id).first_name == 'New name'
 
 
 @mark.django_db
