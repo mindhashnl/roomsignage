@@ -7,7 +7,7 @@ from django.contrib.auth.models import AbstractUser
 from django.core.exceptions import ValidationError
 from django.core.validators import RegexValidator
 from django.db import models
-from django.db.models import ForeignKey, BooleanField
+from django.db.models import BooleanField, ForeignKey
 
 phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$',
                              message="Phone number must be entered in the format: "
@@ -27,6 +27,9 @@ def logo_upload(instance, filename):
 class User(AbstractUser):
     company = ForeignKey('Company', on_delete=models.DO_NOTHING, null=True, blank=True)
     is_admin = BooleanField(default=False)
+    email = models.EmailField('email address', unique=True)
+
+    REQUIRED_FIELDS = [email]
 
     def clean(self, *args, **kwargs):
         # Validate company and is_admin not both set
@@ -34,6 +37,11 @@ class User(AbstractUser):
             raise ValidationError("Company and is_admin cannot set both")
 
     def save(self, *args, **kwargs):
+        # If this is a new user
+        if not self.pk and not self.password:
+            password = User.objects.make_random_password()
+            self.set_password(password)
+
         self.full_clean()
         super().save(*args, **kwargs)
 
@@ -56,3 +64,8 @@ class Company(models.Model):
 class DoorDevice(models.Model):
     company = ForeignKey(Company, on_delete=models.CASCADE, blank=True, null=True)
     secret = models.CharField(default=generate_secret, max_length=32, null=False)
+
+    def __str__(self):
+        if self.company:
+            return self.company.name
+        return str(self.id)

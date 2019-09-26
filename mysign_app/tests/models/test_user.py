@@ -2,8 +2,8 @@ import pytest
 from django.core.exceptions import ValidationError
 from pytest import mark
 
-from mysign_app.tests.factories import CompanyFactory, UserFactory
 from mysign_app.models import User
+from mysign_app.tests.factories import CompanyFactory, UserFactory
 
 
 @mark.django_db
@@ -27,5 +27,12 @@ def test_company_and_admin():
     company = CompanyFactory()
     user = UserFactory.build(company=company, is_admin=True)
 
+    with pytest.raises(ValidationError):
+        user.save()
+
+
+@mark.django_db
+def test_email_required():
+    user = UserFactory.build(email=None, is_admin=True)
     with pytest.raises(ValidationError):
         user.save()

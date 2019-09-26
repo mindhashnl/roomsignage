@@ -25,4 +25,8 @@ Now follow those steps to get everything working
 
 ## Testing
 1. Run tests `pytest`
-1. Run linter `flake8`
+1. Run linter `flake8 .`
+1. Run JS linter `eslint mysign_app`
+
+If you get import order errors run `isort`.
+If you get JS linter errors run `eslint mysign_app --fix`

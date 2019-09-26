@@ -1,21 +1,24 @@
+import json
+
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-
-from mysign_app.forms import CompanyForm, UserForm, DoorDeviceForm
-from mysign_app.models import DoorDevice, Company, User
-
 from django.contrib.auth.views import logout_then_login
 from django.http import HttpResponse
+from django.shortcuts import redirect
 from django.template import loader
 
+from mysign_app.forms import (AddCompanyUserForm, CompanyForm, DoorDeviceForm,
+                              UserForm)
+from mysign_app.models import Company, DoorDevice, User
 from mysign_app.routes.helpers import admin_required
 
 
 @login_required
 def index(request):
-    # TODO: add some custom HMO VS company logic
-    template = loader.get_template('mysign_app/admin/index.html')
-    return HttpResponse(template.render({}, request))
+    if request.user.is_admin:
+        return redirect('admin_door_devices')
+    if request.user.company:
+        return redirect('admin_company')
 
 
 def logout(request):
@@ -25,10 +28,13 @@ def logout(request):
 
 @admin_required
 def door_devices(request):
-    template = loader.get_template('mysign_app/admin/door_devices.html')
+    template = loader.get_template('mysign_app/admin/base.html')
     devices = DoorDevice.objects.all()
+    list_fields = ['id']
     context = {
-        'device_list': devices,
+        'json': json.dumps(list(devices.values('id', 'company'))),
+        'models': companies,
+        'list_fields': list_fields,
         'form': DoorDeviceForm()
     }
     return HttpResponse(template.render(context, request))
@@ -36,21 +42,60 @@ def door_devices(request):
 
 @admin_required
 def companies(request):
-    template = loader.get_template('mysign_app/admin/companies.html')
+    template = loader.get_template('mysign_app/admin/base.html')
     companies = Company.objects.all()
+    list_fields = ['name', 'email']
     context = {
-        'companies': companies,
-        'form': CompanyForm()
+        'json': json.dumps(list(companies.values('name', 'email', 'phone_number', 'id'))),
+        'models': companies,
+        'list_fields': list_fields,
+        'form': CompanyForm(),
+        'disable_save': 'true'
     }
     return HttpResponse(template.render(context, request))
 
 
 @admin_required
 def users(request):
-    template = loader.get_template('mysign_app/admin/users.html')
+    if request.method == "POST":
+        user_id = request.POST.get('id')
+        user = User.objects.get(id=user_id)
+        form = UserForm(request.POST, instance=user)
+        if form.is_valid():
+            form.save()
+    else:
+        form = UserForm()
+
+    template = loader.get_template('mysign_app/admin/base.html')
     users = User.objects.all()
+    list_fields = ['first_name', 'last_name', 'username']
     context = {
-        'users': users,
-        'form': UserForm()
+        'json': json.dumps(list(users.values('first_name', 'last_name', 'email',
+                                             'is_admin', 'username', 'company', 'id'))),
+        'models': users,
+        'list_fields': list_fields,
+        'form': form
+    }
+    return HttpResponse(template.render(context, request))
+
+
+@admin_required
+def company_add(request):
+    if request.method == 'POST':
+        company_form = CompanyForm(request.POST, prefix='company')
+        user_form = AddCompanyUserForm(request.POST, prefix='user')
+        if company_form.is_valid() and user_form.is_valid():
+            company_form.save()
+            user_form.save()
+            messages.info(request, 'Company and user successfully added')
+            return redirect('admin_companies')
+    else:
+        company_form = CompanyForm(prefix='company')
+        user_form = AddCompanyUserForm(prefix='user')
+
+    template = loader.get_template('mysign_app/admin/company_add.html')
+    context = {
+        'user_form': user_form,
+        'company_form': company_form,
     }
     return HttpResponse(template.render(context, request))
