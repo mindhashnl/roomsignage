@@ -1,0 +1,20 @@
+<div class="col-md-8">
+    <div class="row">
+        <script type="text/javascript">
+        $(document).ready(function () {
+            createDataTable({{json | safe}}, {{list_fields|safe}})
+        });
+        </script>
+
+
+        <table id="register" class="table table-hover w-100 table-responsive" cellspacing="0">
+            <thead>
+            <tr>
+                {% for field in list_fields %}
+                    <th> {{ field }} </th>
+                {% endfor %}
+            </tr>
+            </thead>
+        </table>
+    </div>
+</div>

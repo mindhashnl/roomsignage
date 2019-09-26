@@ -1,13 +1,17 @@
 {% extends 'mysign_app/base.html' %}
 
-{% block content %}
+{% block body %}
     {% include 'mysign_app/admin/navbar.html' %}
 
     <div class="row offset-md-1 vh-90">
-        {% block list_content %}
-        {% endblock %}
-
+    {% if json %}
+        {% include 'mysign_app/admin/datatable.html' %}
         {% include 'mysign_app/admin/form.html' %}
+    {% else %}
+        {% block content %}
+        {% endblock %}
+    {% endif %}
     </div>
+
 
 {% endblock %}
