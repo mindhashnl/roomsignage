@@ -1,4 +1,5 @@
 from django.forms import ModelForm
+from django import forms
 
 from mysign_app.models import Company, DoorDevice, User
 
@@ -7,6 +8,10 @@ class CompanyForm(ModelForm):
     class Meta:
         model = Company
         fields = ['name', 'email']
+        widgets = {
+            'name': forms.TextInput(attrs={'readonly': True}),
+            'email': forms.TextInput(attrs={'readonly': True}),
+        }
 
 
 class DoorDeviceForm(ModelForm):

@@ -72,7 +72,7 @@ function createDataTable(dataJson, listFields) {
 		}
 	})
 
-		.on('select', function (e, dt, type, indexes) {
+			.on('select', function (e, dt, type, indexes) {
 			let rowData = table.rows(indexes).data().toArray();
 
 			// For all labels
