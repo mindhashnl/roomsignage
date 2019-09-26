@@ -7,8 +7,8 @@ steps:
 
   - wait
 
-  - label: ":lint-roller: Flake8"
-    command: "flake8 ."
+  - label: ":pytest: Test"
+    command: ["sh .buildkite/wait-for-it.sh", "db:5432", '--', 'pytest']
     plugins:
       - docker-compose#v2.6.0:
           run: app
@@ -21,8 +21,8 @@ steps:
           run: app
           config: docker-compose.buildkite.yml
 
-  - label: ":pytest: Test"
-    command: ["sh .buildkite/wait-for-it.sh", "db:5432", '--', 'pytest']
+  - label: ":lint-roller: Linter"
+    command: "flake8 ."
     plugins:
       - docker-compose#v2.6.0:
           run: app
