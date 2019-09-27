@@ -31,7 +31,4 @@ steps:
   - wait
 
   - label: ":docker: Build image"
-    plugins:
-      - docker-compose#v2.6.0:
-          build: app:mysign
-          config: docker-compose.buildkite.yml
+    command: .buildkite/deploy.sh
