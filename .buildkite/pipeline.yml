@@ -28,7 +28,7 @@ steps:
           run: app
           config: docker-compose.buildkite.yml
 
-  - label: ":django: Django check"
+  - label: ":python: Django check"
     command: "python3 manage.py check"
     plugins:
       - docker-compose#v2.6.0:
