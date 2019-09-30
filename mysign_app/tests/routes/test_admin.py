@@ -31,7 +31,7 @@ def test_index_company(client):
     response = client.get(reverse('admin_index'))
 
     assert response.status_code == 302
-    assert response.url == reverse('admin_company')
+    assert response.url == reverse('company_view')
 
 
 @mark.django_db
