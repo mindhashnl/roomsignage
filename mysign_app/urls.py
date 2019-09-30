@@ -13,7 +13,7 @@ urlpatterns = [
 
     path('admin/door_devices/', admin.DoorDevices.as_view(), name='admin_door_devices'),
     path('admin/companies/', admin.Companies.as_view(), name='admin_companies'),
-    path('admin/company', admin.company_add, name='admin_company'),  # TODO link this to the company page
+    path('admin/company', admin.company_view, name='admin_company_view'),
     path('admin/companies/add/', admin.company_add, name='admin_company_add'),
     path('admin/users/', admin.Users.as_view(), name='admin_users'),
 
