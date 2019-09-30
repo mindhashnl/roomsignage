@@ -19,7 +19,7 @@ def index(request):
     if request.user.is_admin:
         return redirect('admin_door_devices')
     if request.user.company:
-        return redirect('admin_company_view')
+        return redirect('company_view')
 
 
 def logout(request):
@@ -101,22 +101,5 @@ def company_add(request):
     context = {
         'user_form': user_form,
         'company_form': company_form,
-    }
-    return HttpResponse(template.render(context, request))
-
-
-def company_view(request):
-    if request.method == 'POST':
-        form = CompanyViewForm(request.POST, prefix='company_view')
-        if form.is_valid():
-            form.save()
-            messages.info(request, 'Company changed successfully')
-            return redirect('admin_company_view')
-    else:
-        form = CompanyViewForm(prefix='company_view')
-
-    template = loader.get_template('mysign_app/admin/company_view.html')
-    context = {
-        'form': form,
     }
     return HttpResponse(template.render(context, request))

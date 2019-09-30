@@ -64,7 +64,7 @@ class AddCompanyUserForm(ModelForm):
         fields = ['first_name', 'last_name', 'email', 'username', ]
 
 
-class CompanyViewForm(ModelForm):
+class CompanyViewForm(NoDeleteToggleableForm):
     class Meta:
         model = Company
         fields = ['name', 'email', 'phone_number', 'website', 'logo', 'color']
