@@ -1,0 +1,44 @@
+version: '3'
+services:
+  web:
+    build: .
+    env_file: .env
+    command: gunicorn mysign.wsgi -b 0.0.0.0:8000
+    depends_on:
+      - db
+    volumes:
+      - ${PWD}/uploads:/app/uploads
+    labels:
+      - traefik.enable=true
+      - traefik.port=8000
+      - traefik.frontend.rule=Host:utsign.nl
+
+  db:
+    image: postgres:12
+    env_file: .env
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  nginx:
+    image: nginx
+    volumes:
+      - ${PWD}/static:/usr/share/nginx/html
+    labels:
+      - traefik.enable=true
+      - traefik.port=8000
+      - traefik.frontend.rule=Host:utsign.nl;PathPrefixStrip:/static
+
+  traefik:
+    image: traefik
+    container_name: traefik
+    restart: always
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ${PWD}/traefik.toml:/traefik.toml
+      - ${PWD}/acme.json:/acme.json
+
+volumes:
+  postgres_data:
