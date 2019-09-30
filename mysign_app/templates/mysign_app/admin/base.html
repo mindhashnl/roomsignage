@@ -1,19 +1,18 @@
 {% extends 'mysign_app/base.html' %}
 
 {% block body %}
-{% include 'mysign_app/admin/navbar.html' %}
-
-<div class="container-fluid-MySign">
-    <div class="row">
+    {% include 'mysign_app/admin/navbar.html' %}
+    <div class="container-fluid h-100">
         {% if json %}
-        {% include 'mysign_app/admin/datatable.html' %}
-        {% include 'mysign_app/admin/form.html' %}
+            <div class="row h-100">
+                {% include 'mysign_app/admin/datatable.html' %}
+                {% include 'mysign_app/admin/form.html' %}
+            </div>
         {% else %}
-        {% block content %}
-        {% endblock %}
+            {% block content %}
+            {% endblock %}
         {% endif %}
     </div>
-</div>
 
 
 {% endblock %}

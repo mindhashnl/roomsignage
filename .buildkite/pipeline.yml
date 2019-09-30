@@ -27,3 +27,16 @@ steps:
       - docker-compose#v2.6.0:
           run: app
           config: docker-compose.buildkite.yml
+
+  - label: ":python: Django check"
+    command: "python3 manage.py check"
+    plugins:
+      - docker-compose#v2.6.0:
+          run: app
+          config: docker-compose.buildkite.yml
+
+  - wait
+
+  - label: ":docker: Deploy"
+    command: .buildkite/deploy.sh
+    branches: "development"

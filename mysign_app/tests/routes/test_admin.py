@@ -96,6 +96,38 @@ def test_door_device_update(client):
 
 
 @mark.django_db
+def test_door_device_delete(client):
+    client_login(client, is_admin=True)
+
+    company = CompanyFactory()
+    door_device = DoorDeviceFactory(company=company)
+
+    payload = payload_from_form(DoorDeviceForm(instance=door_device), delete=True)
+    response = client.post(reverse('admin_door_devices'), payload)
+
+    assert response.status_code == 200
+
+    assert DoorDevice.objects.filter(id=door_device.id).count() == 0
+    assert Company.objects.filter(id=company.id).count() == 1
+
+
+@mark.django_db
+def test_company_delete(client):
+    client_login(client, is_admin=True)
+
+    company = CompanyFactory()
+    user = UserFactory(company=company)
+
+    payload = payload_from_form(CompanyForm(instance=company), delete=True)
+    response = client.post(reverse('admin_companies'), payload)
+
+    assert response.status_code == 200
+
+    assert Company.objects.filter(id=company.id).count() == 0
+    assert User.objects.filter(id=user.id).count() == 0
+
+
+@mark.django_db
 def test_logout(client):
     """ User is logged out """
     client_login(client)
