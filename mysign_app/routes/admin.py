@@ -78,7 +78,7 @@ class Companies(AdminView):
 
 class Users(AdminView):
     model = User
-    form_class = UserForm
+    form_class = UserForm.as_nodelete()
     list_fields = ['id', 'first_name', 'last_name']
     json_fields = ['id', 'first_name', 'last_name', 'username', 'company', 'is_admin']
 
