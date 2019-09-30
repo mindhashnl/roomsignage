@@ -33,4 +33,4 @@ def test_str():
 
 
 def test_class_name():
-    assert DoorDevice.class_name() == 'Door Device'
+    assert DoorDevice.class_name() == 'Door device'
