@@ -30,3 +30,7 @@ def test_str():
     door_device.company = company
 
     assert str(door_device) == "test"
+
+
+def test_class_name():
+    assert DoorDevice.class_name() == 'Door Device'
