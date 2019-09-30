@@ -39,3 +39,4 @@ steps:
 
   - label: ":docker: Deploy"
     command: .buildkite/deploy.sh
+    branches: "development"
