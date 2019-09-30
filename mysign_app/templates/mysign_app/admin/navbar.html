@@ -1,11 +1,12 @@
+{% load static %}
+
 {# ---- Header container ---- #}
 <nav class="navbar navbar-expand-lg fixed-top nav-bg">
     {% with request.resolver_match.url_name as url_name %}
-        <a class="navbar-brand" href="{% url 'admin_door_devices' %}">MySign</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+        {# ---- Nav bar logo ---- #}
+        <div class="navbar-brand">
+            <img class="mx-auto bar-logo" src='{% static "mysign_app/gebouw-n.png" %}'>
+        </div>
 
         {# ---- Nav bar items ---- #}
         <div class="collapse navbar-collapse" id="navbarNav">
@@ -34,7 +35,7 @@
         {#                    <input type="checkbox" autocomplete="off" style="margin-right: 5px; "> is active#}
         {#                </label>#}
         {#                <a href="#" class="btn btn-secondary mt-auto" role="button">#}
-        {#                    <i class="fas fa-plus"></i>#}F
+        {#                    <i class="fas fa-plus"></i>#}
         {#                    Add company#}
         {#                </a>#}
         {#            </form>#}
