@@ -35,15 +35,23 @@ class AdminView(AdminRequiredMixin, TemplateView, FormView):
     json_fields = []
 
     def post(self, request, *args, **kwargs):
-        """ Update the model """
-        model = self.model.objects.get(id=request.POST.get('id'))
-        form = self.form_class(request.POST, instance=model)
-        if form.is_valid():
-            form.save()
-            form = self.form_class()
+    
+        """ Only clicked buttons get their name send, so this checks if the button with name 'delete' is pressed """
+        if request.POST.get("delete"):
+            self.model.objects.get(id=request.POST.get('id')).delete()
+            form = self.form_class(request.POST)
+            context = self.get_context_data(form=form, **kwargs)
+            return self.render_to_response(context)
+        else:
+            """ Update the model """
+            model = self.model.objects.get(id=request.POST.get('id'))
+            form = self.form_class(request.POST, instance=model)
+            if form.is_valid():
+                form.save()
+                form = self.form_class()
 
-        context = self.get_context_data(form=form, **kwargs)
-        return self.render_to_response(context)
+            context = self.get_context_data(form=form, **kwargs)
+            return self.render_to_response(context)
 
     @property
     def extra_context(self):
@@ -93,6 +101,7 @@ def company_add(request):
             user_form.save()
             messages.info(request, 'Company and user successfully added')
             return redirect('admin_companies')
+
     else:
         company_form = CompanyForm(prefix='company')
         user_form = AddCompanyUserForm(prefix='user')
