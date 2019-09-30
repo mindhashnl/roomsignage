@@ -7,11 +7,11 @@ ALLOWED_HOSTS = ['utsign.nl']
 SECRET_KEY = os.environ['SECRET_KEY']
 
 # HTTP settings
-CSRF_COOKIE_SECURE = True
-SESSION_COOKIE_SECURE = True
-SECURE_HSTS_SECONDS = 60  # TODO set this value to a higher number (like 1 year)
-SECURE_HSTS_INCLUDE_SUBDOMAINS = True
-SECURE_SSL_REDIRECT = True
+# CSRF_COOKIE_SECURE = True
+# SESSION_COOKIE_SECURE = True
+# SECURE_HSTS_SECONDS = 60  # TODO set this value to a higher number (like 1 year)
+# SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+# SECURE_SSL_REDIRECT = True
 
 # Security
 SECURE_CONTENT_TYPE_NOSNIFF = True
