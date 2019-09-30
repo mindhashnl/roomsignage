@@ -9,7 +9,7 @@ from django.template import loader
 from django.views.generic import FormView, TemplateView
 
 from mysign_app.forms import (AddCompanyUserForm, CompanyForm, DoorDeviceForm,
-                              UserForm, CompanyViewForm)
+                              UserForm)
 from mysign_app.models import Company, DoorDevice, User
 from mysign_app.routes.helpers import AdminRequiredMixin, admin_required
 

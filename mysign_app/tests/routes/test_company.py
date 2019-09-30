@@ -1,15 +1,9 @@
 from django.urls import reverse
 from pytest import mark
 
-from mysign_app.forms import (AddCompanyUserForm, CompanyForm, DoorDeviceForm,
-                              UserForm)
-from mysign_app.models import Company, DoorDevice, User
-from mysign_app.tests.factories import (CompanyFactory, DoorDeviceFactory,
-                                        UserFactory)
+from mysign_app.tests.factories import CompanyFactory
 from mysign_app.tests.routes.authentication_helpers import (
-    _test_unauthenticated, client_login, is_admin_route)
-from mysign_app.tests.routes.form_helpers import payload_from_form
-
+    _test_unauthenticated, client_login)
 
 
 @mark.django_db
@@ -33,4 +27,3 @@ def test_index_company(client):
 
     assert response.status_code == 302
     assert response.url == reverse('company_view')
-

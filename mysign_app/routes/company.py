@@ -8,7 +8,7 @@ from django.shortcuts import redirect
 from django.template import loader
 from django.views.generic import FormView, TemplateView
 
-from mysign_app.forms import (CompanyViewForm)
+from mysign_app.forms import CompanyViewForm
 from mysign_app.routes.helpers import AdminRequiredMixin
 
 

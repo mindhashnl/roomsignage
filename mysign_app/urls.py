@@ -1,7 +1,7 @@
 from django.contrib.auth.views import LoginView
 from django.urls import path
 
-from .routes import admin, screen_index, company
+from .routes import admin, company, screen_index
 
 urlpatterns = [
     path('', screen_index, name='screen'),
