@@ -35,12 +35,17 @@ class AdminView(AdminRequiredMixin, TemplateView, FormView):
     json_fields = []
 
     def post(self, request, *args, **kwargs):
-        """ Update the model """
-        model = self.model.objects.get(id=request.POST.get('id'))
-        form = self.form_class(request.POST, instance=model)
-        if form.is_valid():
-            form.save()
+        """ Only clicked buttons get their name send, so this checks if the button with name 'delete' is pressed """
+        if request.POST.get("delete"):
+            self.model.objects.get(id=request.POST.get('id')).delete()
             form = self.form_class()
+        else:
+            """ Update the model """
+            model = self.model.objects.get(id=request.POST.get('id'))
+            form = self.form_class(request.POST, instance=model)
+            if form.is_valid():
+                form.save()
+                form = self.form_class()
 
         context = self.get_context_data(form=form, **kwargs)
         return self.render_to_response(context)
