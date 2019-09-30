@@ -25,7 +25,7 @@ def logo_upload(instance, filename):
 
 
 class User(AbstractUser):
-    company = ForeignKey('Company', on_delete=models.CASCADE, null=True, blank=True)
+    company = ForeignKey('Company', on_delete=models.DO_NOTHING, null=True, blank=True)
     is_admin = BooleanField(default=False)
     email = models.EmailField('email address', unique=True)
 
