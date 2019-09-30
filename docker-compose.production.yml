@@ -3,7 +3,7 @@ services:
   web:
     build: .
     env_file: .env
-    command: gunicorn mysign.wsgi -b 0.0.0.0:8000
+    command: gunicorn mysign.wsgi -b 0.0.0.0:8000 --settings=project.settings.production
     depends_on:
       - db
     volumes:
