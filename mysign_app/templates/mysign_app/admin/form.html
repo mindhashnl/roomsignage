@@ -22,10 +22,12 @@
                         save changes
                     </button>
                     {% endif %}
+                    {% if not form.nodelete %}
                     <a id="deleteButton" href="#" class="btn btn-danger btn-block" role="button">
                         <i class="fas fa-trash"></i>
                         delete object
                     </a>
+                    {% endif %}
                 </div>
             </div>
             <input hidden id="id" name="id">
