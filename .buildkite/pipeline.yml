@@ -7,33 +7,33 @@ steps:
 
   - wait
 
-#  - label: ":pytest: Test"
-#    command: ["sh .buildkite/wait-for-it.sh", "db:5432", '--', 'pytest']
-#    plugins:
-#      - docker-compose#v2.6.0:
-#          run: app
-#          config: docker-compose.buildkite.yml
-#
-#  - label: ":eslint: eslint"
-#    command: sh .buildkite/eslint.sh
-#    plugins:
-#      - docker-compose#v2.6.0:
-#          run: app
-#          config: docker-compose.buildkite.yml
-#
-#  - label: ":lint-roller: Linter"
-#    command: "flake8 ."
-#    plugins:
-#      - docker-compose#v2.6.0:
-#          run: app
-#          config: docker-compose.buildkite.yml
-#
-#  - label: ":python: Django check"
-#    command: "python3 manage.py check"
-#    plugins:
-#      - docker-compose#v2.6.0:
-#          run: app
-#          config: docker-compose.buildkite.yml
+  - label: ":pytest: Test"
+    command: ["sh .buildkite/wait-for-it.sh", "db:5432", '--', 'pytest']
+    plugins:
+      - docker-compose#v2.6.0:
+          run: app
+          config: docker-compose.buildkite.yml
+
+  - label: ":eslint: eslint"
+    command: sh .buildkite/eslint.sh
+    plugins:
+      - docker-compose#v2.6.0:
+          run: app
+          config: docker-compose.buildkite.yml
+
+  - label: ":lint-roller: Linter"
+    command: "flake8 ."
+    plugins:
+      - docker-compose#v2.6.0:
+          run: app
+          config: docker-compose.buildkite.yml
+
+  - label: ":python: Django check"
+    command: "python3 manage.py check"
+    plugins:
+      - docker-compose#v2.6.0:
+          run: app
+          config: docker-compose.buildkite.yml
 
   - wait
 
