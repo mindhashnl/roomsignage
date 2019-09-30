@@ -12,23 +12,23 @@
                         {{ form|crispy }}
                     </div>
 
+            </div>
+
+            <div class="row align-items-end h-25 pb-5">
+                <div class="col">
+                    {% if not form.readonly %}
+                    <button id="submitButton" type="submit" class="btn btn-primary btn-block">
+                        <i class="fas fa-save"></i>
+                        save changes
+                    </button>
+                    {% endif %}
+                    <a id="deleteButton" href="#" class="btn btn-danger btn-block" role="button">
+                        <i class="fas fa-trash"></i>
+                        delete object
+                    </a>
                 </div>
-                <div class="row align-items-end h-25 pb-5">
-                    <div class="col">
-                        {% if disable_save != "true" %}
-                            <button id="submitButton" type="submit" class="btn btn-primary btn-block">
-                                <i class="fas fa-save"></i>
-                                save changes
-                            </button>
-                        {% endif %}
-                        <a id="deleteButton" href="#" class="btn btn-danger btn-block" role="button">
-                            <i class="fas fa-trash"></i>
-                            delete object
-                        </a>
-                    </div>
-                </div>
-                <input hidden id="id" name="id">
-            </form>
-        </div>
+            </div>
+            <input hidden id="id" name="id">
+        </form>
     </div>
 {% endif %}
