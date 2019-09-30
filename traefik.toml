@@ -1,0 +1,37 @@
+logLevel = "INFO"
+defaultEntryPoints = ["https", "http"]
+
+# Force HTTPS
+[entryPoints]
+  [entryPoints.http]
+  address = ":80"
+    [entryPoints.http.redirect]
+    entrypoint = "https"
+    permanent = true
+
+  [entryPoints.https]
+  address = ":443"
+    [entryPoints.https.tls]
+    [entryPoints.https.redirect]
+    regex ="^https://(www.)?(.*)"
+    replacement = "https://$2"
+    permanent = true
+
+#Let's encrypt configuration
+[acme]
+    email = "vos1996@gmail.com"
+    storage="acme.json"
+    entryPoint = "https"
+    acmeLogging=true
+    [acme.httpChallenge]
+    entrypoint = "http"
+
+    [[acme.domains]]
+        main = "utsign.nl"
+
+# Connection to docker host system (docker.sock)
+[docker]
+    endpoint = "unix:///var/run/docker.sock"
+    domain = "utsign.nl"
+    watch = true
+    exposedbydefault = false
