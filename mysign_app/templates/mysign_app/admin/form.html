@@ -7,11 +7,9 @@
             <form method="post" class="h-100">
                 <div class="row h-75">
                     <div class="col-md-12">
-
                         {% csrf_token %}
                         {{ form|crispy }}
                     </div>
-
             </div>
 
             <div class="row align-items-end h-25 pb-5">
@@ -27,9 +25,9 @@
                         delete object
                     </button>
                     {% endif %}
+                    </div>
                 </div>
-            </div>
-            <input hidden id="id" name="id">
-        </form>
-    </div>
+                <input hidden id="id" name="id">
+            </form>
+        </div>
 {% endif %}
