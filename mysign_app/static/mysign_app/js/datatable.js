@@ -1,94 +1,97 @@
 /* eslint-disable-next-line no-unused-vars */
 function createDataTable(dataJson, listFields) {
-	const columns = [
-		// TODO Reuse this for the images
-		//     "orderable": false, "data": "Photo", "name": "Photo", "defaultContent": "",
-		//     "visible": true, "className": "text-center", "width": "20px",
-		//     "createdCell": function (td, cellData, rowData, row, col) {
-		//         console.log(cellData)
-		//         var $ctl = $('<i class="fa fa-user fa-fw"></i>');
-		//         $(td).append($ctl);
-		//     }
-		// }
-	];
+    const columns = [
+        // TODO Reuse this for the images
+        //     "orderable": false, "data": "Photo", "name": "Photo", "defaultContent": "",
+        //     "visible": true, "className": "text-center", "width": "20px",
+        //     "createdCell": function (td, cellData, rowData, row, col) {
+        //         console.log(cellData)
+        //         var $ctl = $('<i class="fa fa-user fa-fw"></i>');
+        //         $(td).append($ctl);
+        //     }
+        // }
+    ];
 
-	Object.values(listFields).forEach(function (key) {
-		columns.push({data: key, name: key});
-	});
+    Object.values(listFields).forEach(function (key) {
+        columns.push({data: key, name: key});
+    });
 
-	const table = $('#register').DataTable({
-		dom: 'fBtp', // Register plugins see https://datatables.net/reference/option/dom
-		pageLength: 10,
-		buttons: [
-			{
-				text: '<i class="fa fa-id-badge fa-fw fa-lg" aria-hidden="true"></i>',
-				action: function () {
-					$('#register').toggleClass('cards');
-					$('#card-toggle .fa').toggleClass(['fa-table', 'fa-id-badge']);
-					$('#register thead').toggle();
+    const table = $('#register').DataTable({
+        dom:
+            "rt<'row'<'col-3'B><'col-3 offset-6'f>>" + // Search bar and buttons row
+            "<'row row-table'<'col-12 h-100' tr>>" + // Data row
+            "<'row'<'col-5'i><'col-7'p>>", // Page buttons
+        pageLength: 20,
+        buttons: [
+            {
+                text: '<i class="fa fa-id-badge fa-fw fa-lg" aria-hidden="true"></i>',
+                action: function () {
+                    $('#register').toggleClass('cards');
+                    $('#card-toggle .fa').toggleClass(['fa-table', 'fa-id-badge']);
+                    $('#register thead').toggle();
 
-					if ($('#register').hasClass('cards')) {
-						// Create an array of labels containing all table headers
-						let labels = [];
-						$('#register').find('thead th').each(function () {
-							labels.push($(this).text());
-						});
+                    if ($('#register').hasClass('cards')) {
+                        // Create an array of labels containing all table headers
+                        let labels = [];
+                        $('#register').find('thead th').each(function () {
+                            labels.push($(this).text());
+                        });
 
-						// Add data-label attribute to each cell
-						$('#register').find('tbody tr').each(function () {
-							$(this).find('td').each(function (column) {
-								$(this).attr('data-label', labels[column]);
-							});
-						});
+                        // Add data-label attribute to each cell
+                        $('#register').find('tbody tr').each(function () {
+                            $(this).find('td').each(function (column) {
+                                $(this).attr('data-label', labels[column]);
+                            });
+                        });
 
-						// Set correct hight
-						let max = 0;
-						$('#register tr').each(function () {
-							max = Math.max($(this).height(), max);
-						}).height(max);
-					} else {
-						// Remove data-label attribute from each cell
-						$('#register').find('td').each(function () {
-							$(this).removeAttr('data-label');
-						});
+                        // Set correct hight
+                        let max = 0;
+                        $('#register tr').each(function () {
+                            max = Math.max($(this).height(), max);
+                        }).height(150);
+                    } else {
+                        // Remove data-label attribute from each cell
+                        $('#register').find('td').each(function () {
+                            $(this).removeAttr('data-label');
+                        });
 
-						$('#register tr').each(function () {
-							$(this).height('auto');
-						});
-					}
-				},
-				attr: {
-					title: 'Change views',
-					id: 'card-toggle'
-				}
-			}
-		],
-		select: 'single',
-		data: dataJson,
-		columns: columns,
-		fnInitComplete: function () {
-			$('#card-toggle').click();
-			$('#register thead').hide();
-		}
-	})
+                        $('#register tr').each(function () {
+                            $(this).height('auto');
+                        });
+                    }
+                },
+                attr: {
+                    title: 'Change views',
+                    id: 'card-toggle'
+                }
+            }
+        ],
+        select: 'single',
+        data: dataJson,
+        columns: columns,
+        fnInitComplete: function () {
+            $('#card-toggle').click();
+            $('#register thead').hide();
+        }
+    })
 
-		.on('select', function (e, dt, type, indexes) {
-			let rowData = table.rows(indexes).data().toArray();
+        .on('select', function (e, dt, type, indexes) {
+            let rowData = table.rows(indexes).data().toArray();
 
-			// For all labels
-			for (const [key, value] of Object.entries(rowData[0])) {
-				// If field is bool, set checkbox
-				if (value === true || value === false) {
-					let fieldName = '#id_' + key;
-					$(fieldName).prop('checked', value);
-				} else if (key === 'id') {
-					// If key is id, set the id field
-					$('#id').val(value);
-				} else {
-					// Else, set the field with the #id_FIELDNAME id.
-					let fieldName = '#id_' + key;
-					$(fieldName).val(value);
-				}
-			}
-		});
+            // For all labels
+            for (const [key, value] of Object.entries(rowData[0])) {
+                // If field is bool, set checkbox
+                if (value === true || value === false) {
+                    let fieldName = '#id_' + key;
+                    $(fieldName).prop('checked', value);
+                } else if (key === 'id') {
+                    // If key is id, set the id field
+                    $('#id').val(value);
+                } else {
+                    // Else, set the field with the #id_FIELDNAME id.
+                    let fieldName = '#id_' + key;
+                    $(fieldName).val(value);
+                }
+            }
+        });
 }

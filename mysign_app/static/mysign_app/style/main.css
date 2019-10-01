@@ -4,10 +4,10 @@
 /* Add names to colors when final colors are chosen. */
 body {
     /*Variables*/
-    --color1: #e3d9ca;
-    --color2: #95a792;
-    --color3: #596c68;
-    --color4: #403f48;
+    --color1: #e3eff3;
+    --color2: #cde3eb;
+    --color3: #6e828a;
+    --color4: #143a52;
     /*body declarations */
     height: 100vh;
     padding-top: 82.06px;
@@ -15,7 +15,7 @@ body {
 }
 
 img {
-    width: 60%;
+    width: 100%;
     object-fit: cover;
 }
 
@@ -54,7 +54,7 @@ a:hover {
 }
 
 .row-dt {
-    border-radius: 25px;
+    border-radius: 15px;
     padding-top: 10px;
     padding-left: 10px;
     padding-right: 10px;
