@@ -1,33 +1,33 @@
 {% extends 'mysign_app/admin/base.html' %}
 {% load crispy_forms_tags %}
 {% block content %}
-<div class="col-11 mt-3">
-    <form method="post" class="h-100">
-        <div class="row h-75">
-            <div class="col-6 border-right">
-                <label><h3>Company</h3></label>
-                {% csrf_token %}
-                {{ company_form|crispy }}
+    <div class="col-11 mt-3">
+        <form method="post" class="h-100">
+            <div class="row h-75">
+                <div class="col-6 border-right">
+                    <label><h3>Company</h3></label>
+                    {% csrf_token %}
+                    {{ company_form|crispy }}
+                </div>
+                <div class="col-6">
+                    <label><h3>Managing user</h3></label>
+                    {% csrf_token %}
+                    {{ user_form|crispy }}
+                </div>
             </div>
-            <div class="col-6">
-                <label><h3>Managing user</h3></label>
-                {% csrf_token %}
-                {{ user_form|crispy }}
-            </div>
-        </div>
 
-        <div class="row align-items-end h-25 pb-5">
-            <div class="offset-3 col-6">
-                <button type="submit" class="btn btn-primary btn-block">
-                    <i class="fas fa-save"></i>
-                    Create
-                </button>
-                <a href="{% url 'admin_companies' %}" class="btn btn-danger btn-block" role="button">
-                    <i class="fas fa-times"></i>
-                    Cancel
-                </a>
+            <div class="row align-items-end h-25 pb-5">
+                <div class="offset-3 col-6">
+                    <button type="submit" class="btn btn-primary btn-block">
+                        <i class="fas fa-save"></i>
+                        Create
+                    </button>
+                    <a href="{% url 'admin_companies' %}" class="btn btn-danger btn-block" role="button">
+                        <i class="fas fa-times"></i>
+                        Cancel
+                    </a>
+                </div>
             </div>
-        </div>
-    </form>
-</div>
+        </form>
+    </div>
 {% endblock %}

@@ -15,4 +15,5 @@ flake8-isort
 django-crispy-forms
 gunicorn
 stringcase
+jinjalint
 Pillow==6.1.0
