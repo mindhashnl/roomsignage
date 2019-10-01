@@ -27,7 +27,7 @@ def logout(request):
     return logout_then_login(request)
 
 
-class AdminView(AdminRequiredMixin, TemplateView, FormView):
+class AdministrationView(TemplateView, FormView):
     template_name = 'mysign_app/admin/base.html'
     model = None
     form_class = None
@@ -65,6 +65,10 @@ class AdminView(AdminRequiredMixin, TemplateView, FormView):
 
     def _all_objects(self):
         return self.model.objects.all()
+
+
+class AdminView(AdministrationView, AdminRequiredMixin):
+    pass
 
 
 class DoorDevices(AdminView):

@@ -16,9 +16,5 @@ urlpatterns = [
     path('admin/companies/add/', admin.company_add, name='admin_company_add'),
     path('admin/users/', admin.Users.as_view(), name='admin_users'),
 
-    path('company/', company.index, name='company_index'),
-
-    path('company/view', company.company_view, name='company_view'),
-    path('company/logout/', company.logout, name='logout'),
-    path('company/login/', LoginView.as_view(), name='login'),
+    path('company/', company.CompanyIndex.as_view(), name='company_index'),
 ]
