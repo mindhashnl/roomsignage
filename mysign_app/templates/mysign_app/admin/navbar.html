@@ -11,17 +11,13 @@
         {# ---- Nav bar items ---- #}
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                <li class="{% if url_name == 'admin_door_devices' %} active {% endif %}">
-                    <a class="nav-link" href="{% url 'admin_door_devices' %}">Device overview </a></li>
+                <li class="nav-item {% if url_name == 'admin_door_devices' %} active {% endif %}">
+                    <a class="nav-link" href="{% url 'admin_door_devices' %}">Device overview </a>
                 </li>
-                <li class="nav-item">
-                <li class="{% if url_name == 'admin_companies' %} active {% endif %}">
-                    <a class="nav-link" href="{% url 'admin_companies' %}">Companies <span
-                            class="sr-only">(current)</span></a>
+                <li class="nav-item {% if url_name == 'admin_companies' %} active {% endif %}">
+                    <a class="nav-link" href="{% url 'admin_companies' %}">Companies</a>
                 </li>
-                <li class="nav-item">
-                <li class="{% if url_name == 'admin_users' %} active {% endif %}">
+                <li class="nav-item {% if url_name == 'admin_users' %} active {% endif %}">
                     <a class="nav-link" href="{% url 'admin_users' %}">Users</a>
                 </li>
             </ul>

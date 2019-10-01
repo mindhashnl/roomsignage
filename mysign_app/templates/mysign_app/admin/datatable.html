@@ -2,7 +2,7 @@
 
 <div class="col-md-9 h-100">
     <div class="row-dt h-100">
-{#            <img src='{% static "mysign_app/promo-fallback.png" %}'>#}
+        {# <img src='{% static "mysign_app/promo-fallback.png" %}'>#}
         <script type="text/javascript">
             $(document).ready(function () {
                 createDataTable({{json | safe}}, {{list_fields|safe}})
@@ -12,11 +12,11 @@
 
         <table id="register" class="table table-hover w-100 table-responsive" cellspacing="0">
             <thead>
-            <tr>
-                {% for field in list_fields %}
-                    <th> {{ field }} </th>
-                {% endfor %}
-            </tr>
+                <tr>
+                    {% for field in list_fields %}
+                        <th> {{ field }} </th>
+                    {% endfor %}
+                </tr>
             </thead>
         </table>
     </div>

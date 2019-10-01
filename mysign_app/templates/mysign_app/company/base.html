@@ -1,18 +1,18 @@
 {% extends 'mysign_app/base.html' %}
 
 {% block body %}
-{% include 'mysign_app/company/navbar.html' %}
+    {% include 'mysign_app/company/navbar.html' %}
 
-<div class="container-fluid-MySign">
-    <div class="row">
+    <div class="container-fluid-MySign">
+        <div class="row">
 
-        {% include 'mysign_app/company/form.html' %}
+            {% include 'mysign_app/company/form.html' %}
 
-        {% block content %}
-        {% endblock %}
+            {% block content %}
+            {% endblock %}
+        </div>
+
     </div>
-
-</div>
 
 
 {% endblock %}
