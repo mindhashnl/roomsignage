@@ -23,7 +23,7 @@ class Login(LoginView):
             messages.error(self.request, 'We cannot idenitify the usertype of this user. '
                                          'Please check that this user is configured as staff, admin or company user.')
             auth_logout(self.request)
-            redirect(settings.LOGIN_URL)
+            return settings.LOGIN_URL
 
 
 def logout(request):

@@ -1,5 +1,6 @@
-from django.contrib.auth.views import LoginView
-from django.urls import path
+from django.shortcuts import redirect
+from django.urls import path, reverse
+from django.views.generic import RedirectView
 
 from mysign_app.routes import login
 from .routes import admin, company, screen_index
@@ -10,7 +11,7 @@ urlpatterns = [
     path('login/', login.Login.as_view(), name='login'),
     path('logout/', login.logout, name='logout'),
 
-    path('admin/', admin.index, name='admin_index'),
+    path('admin/', RedirectView.as_view(url='/admin/door_devices/', permanent=False), name='admin_index'),
     path('admin/door_devices/', admin.DoorDevices.as_view(), name='admin_door_devices'),
     path('admin/companies/', admin.Companies.as_view(), name='admin_companies'),
     path('admin/companies/add/', admin.company_add, name='admin_company_add'),

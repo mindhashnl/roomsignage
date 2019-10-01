@@ -67,7 +67,7 @@ class AdministrationView(TemplateView, FormView):
         return self.model.objects.all()
 
 
-class AdminView(AdministrationView, AdminRequiredMixin):
+class AdminView(AdminRequiredMixin, AdministrationView):
     pass
 
 

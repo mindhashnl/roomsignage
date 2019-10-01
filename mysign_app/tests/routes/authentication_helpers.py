@@ -17,7 +17,7 @@ def _test_unauthenticated(client, route):
     response = client.get(route)
 
     assert response.status_code == 302
-    assert response.url.startswith('/admin/login')
+    assert response.url.startswith('/login')
 
 
 def is_authenticated_route(client, route):

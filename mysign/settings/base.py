@@ -110,8 +110,8 @@ MEDIA_URL = '/uploads/'
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 AUTH_USER_MODEL = 'mysign_app.User'
 
-LOGIN_URL = '/login'
-LOGOUT_REDIRECT_URL = '/login'
+LOGIN_URL = '/login/'
+LOGOUT_REDIRECT_URL = '/login/'
 
 MESSAGE_TAGS = {
     messages.DEBUG: 'alert-info',
