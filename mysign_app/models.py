@@ -4,7 +4,7 @@ import uuid
 
 from colorfield.fields import ColorField
 from django.contrib.auth.models import AbstractUser
-from django.contrib.staticfiles.templatetags.staticfiles import static
+from django.templatetags.static import static
 from django.core.exceptions import ValidationError
 from django.core.validators import RegexValidator
 from django.db import models
