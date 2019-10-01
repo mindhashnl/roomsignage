@@ -13,7 +13,6 @@ class ReadonlyToggleableForm(ModelForm):
         if self._readonly:
             for field in self.fields:
                 self.fields[field].widget = forms.TextInput(attrs={'readonly': True})
-
     @property
     def readonly(self):
         return self._readonly
