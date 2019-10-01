@@ -19,6 +19,6 @@ from django.contrib import admin
 from django.urls import include, path
 
 urlpatterns = [
-                  path('django_admin/', admin.site.urls),
+                  path('django_admin/', admin.site.urls, name='django_admin'),
                   path('', include('mysign_app.urls')),
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

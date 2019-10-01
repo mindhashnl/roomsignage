@@ -6,32 +6,16 @@ from mysign_app.forms import (AddCompanyUserForm, CompanyForm, DoorDeviceForm,
 from mysign_app.models import Company, DoorDevice, User
 from mysign_app.tests.factories import (CompanyFactory, DoorDeviceFactory,
                                         UserFactory)
-from mysign_app.tests.routes.authentication_helpers import (
-    _test_unauthenticated, client_login, is_admin_route)
+from mysign_app.tests.routes.authentication_helpers import (client_login,
+                                                            is_admin_route)
 from mysign_app.tests.routes.form_helpers import payload_from_form
 
 
-@mark.django_db
-def test_index_admin(client):
-    _test_unauthenticated(client, reverse('admin_index'))
-
-    client_login(client, is_admin=True)
+def test_index(client):
     response = client.get(reverse('admin_index'))
 
     assert response.status_code == 302
     assert response.url == reverse('admin_door_devices')
-
-
-@mark.django_db
-def test_index_company(client):
-    _test_unauthenticated(client, reverse('admin_index'))
-
-    company = CompanyFactory()
-    client_login(client, company=company)
-    response = client.get(reverse('admin_index'))
-
-    assert response.status_code == 302
-    assert response.url == reverse('admin_company')
 
 
 @mark.django_db
@@ -96,13 +80,32 @@ def test_door_device_update(client):
 
 
 @mark.django_db
-def test_logout(client):
-    """ User is logged out """
-    client_login(client)
-    assert '_auth_user_id' in client.session
+def test_door_device_delete(client):
+    client_login(client, is_admin=True)
 
-    response = client.get(reverse('logout'))
+    company = CompanyFactory()
+    door_device = DoorDeviceFactory(company=company)
 
-    assert response.status_code == 302
-    assert response.url == '/admin/login'
-    assert '_auth_user_id' not in client.session
+    payload = payload_from_form(DoorDeviceForm(instance=door_device), delete=True)
+    response = client.post(reverse('admin_door_devices'), payload)
+
+    assert response.status_code == 200
+
+    assert DoorDevice.objects.filter(id=door_device.id).count() == 0
+    assert Company.objects.filter(id=company.id).count() == 1
+
+
+@mark.django_db
+def test_company_delete(client):
+    client_login(client, is_admin=True)
+
+    company = CompanyFactory()
+    user = UserFactory(company=company)
+
+    payload = payload_from_form(CompanyForm(instance=company), delete=True)
+    response = client.post(reverse('admin_companies'), payload)
+
+    assert response.status_code == 200
+
+    assert Company.objects.filter(id=company.id).count() == 0
+    assert User.objects.filter(id=user.id).count() == 0

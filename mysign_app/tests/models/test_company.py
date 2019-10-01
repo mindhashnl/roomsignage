@@ -32,3 +32,19 @@ def test_logo_upload_helper():
 
     assert path.endswith('.png')
     assert path.startswith('companies/logos/')
+
+
+def test_logo_fallback():
+    company = CompanyFactory.build()
+
+    assert company.logo
+    assert company.logo_url_or_default() == company.logo.url
+
+    company = CompanyFactory.build(logo=None)
+
+    assert not company.logo
+    assert company.logo_url_or_default() == '/static/mysign_app/logo-fallback.png'
+
+
+def test_class_name():
+    assert Company.class_name() == 'Company'

@@ -2,12 +2,14 @@ import random
 import string
 import uuid
 
+import stringcase as stringcase
 from colorfield.fields import ColorField
 from django.contrib.auth.models import AbstractUser
 from django.core.exceptions import ValidationError
 from django.core.validators import RegexValidator
 from django.db import models
 from django.db.models import BooleanField, ForeignKey
+from django.templatetags.static import static
 
 phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$',
                              message="Phone number must be entered in the format: "
@@ -24,8 +26,14 @@ def logo_upload(instance, filename):
     return f"companies/logos/{uuid.uuid4()}.{extension}"
 
 
-class User(AbstractUser):
-    company = ForeignKey('Company', on_delete=models.DO_NOTHING, null=True, blank=True)
+class ClassStr:
+    @classmethod
+    def class_name(cls):
+        return stringcase.sentencecase(cls.__name__)
+
+
+class User(AbstractUser, ClassStr):
+    company = ForeignKey('Company', on_delete=models.CASCADE, null=True, blank=True)
     is_admin = BooleanField(default=False)
     email = models.EmailField('email address', unique=True, blank=False)
 
@@ -44,13 +52,18 @@ class User(AbstractUser):
         super().save(*args, **kwargs)
 
 
-class Company(models.Model):
+class Company(models.Model, ClassStr):
     name = models.CharField(max_length=50)
     phone_number = models.CharField(validators=[phone_regex], max_length=15)
     email = models.EmailField(max_length=50)
     website = models.URLField(max_length=50)
     logo = models.ImageField(upload_to=logo_upload, blank=True)
     color = ColorField(blank=True)
+
+    def logo_url_or_default(self):
+        if self.logo:
+            return self.logo.url
+        return static('mysign_app/logo-fallback.png')
 
     def __str__(self):
         return self.name
@@ -59,7 +72,7 @@ class Company(models.Model):
         verbose_name_plural = "Companies"
 
 
-class DoorDevice(models.Model):
+class DoorDevice(models.Model, ClassStr):
     company = ForeignKey(Company, on_delete=models.CASCADE, blank=True, null=True)
     secret = models.CharField(default=generate_secret, max_length=32, null=False)
 

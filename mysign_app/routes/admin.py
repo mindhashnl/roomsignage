@@ -19,7 +19,7 @@ def index(request):
     if request.user.is_admin:
         return redirect('admin_door_devices')
     if request.user.company:
-        return redirect('admin_company')
+        return redirect('company_view')
 
 
 def logout(request):
@@ -27,7 +27,7 @@ def logout(request):
     return logout_then_login(request)
 
 
-class AdminView(AdminRequiredMixin, TemplateView, FormView):
+class AdministrationView(TemplateView, FormView):
     template_name = 'mysign_app/admin/base.html'
     model = None
     form_class = None
@@ -35,12 +35,19 @@ class AdminView(AdminRequiredMixin, TemplateView, FormView):
     json_fields = []
 
     def post(self, request, *args, **kwargs):
-        """ Update the model """
-        model = self.model.objects.get(id=request.POST.get('id'))
-        form = self.form_class(request.POST, instance=model)
-        if form.is_valid():
-            form.save()
+        """ Only clicked buttons get their name send, so this checks if the button with name 'delete' is pressed """
+        if request.POST.get("delete"):
+            self.model.objects.get(id=request.POST.get('id')).delete()
+            messages.success(request, f'{self.model.class_name()} succesfully deleted')
             form = self.form_class()
+        else:
+            """ Update the model """
+            model = self.model.objects.get(id=request.POST.get('id'))
+            form = self.form_class(request.POST, instance=model)
+            if form.is_valid():
+                form.save()
+                messages.success(request, f'{self.model.class_name()} succesfully created')
+                form = self.form_class()
 
         context = self.get_context_data(form=form, **kwargs)
         return self.render_to_response(context)
@@ -60,6 +67,10 @@ class AdminView(AdminRequiredMixin, TemplateView, FormView):
 
     def _all_objects(self):
         return self.model.objects.all()
+
+
+class AdminView(AdminRequiredMixin, AdministrationView):
+    pass
 
 
 class DoorDevices(AdminView):
