@@ -29,7 +29,7 @@ steps:
           config: docker-compose.buildkite.yml
 
   - label: ":python: HTML linter"
-    command: ["pip3 install jinjalint attrs==17.2.0", "jinjalint mysign_app"]
+    command: "sh .buildkite/jinjalint.sh"
     plugins:
       - docker-compose#v2.6.0:
           run: app
