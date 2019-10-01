@@ -5,10 +5,9 @@ from mysign_app.models import Company, DoorDevice, User
 
 
 class ReadonlyToggleableForm(ModelForm):
-    _readonly = False
-
     def __init__(self, *args, readonly=False, **kwargs):
         super().__init__(*args, **kwargs)
+        self._readonly = readonly
 
         if self._readonly:
             for field in self.fields:
@@ -18,26 +17,15 @@ class ReadonlyToggleableForm(ModelForm):
     def readonly(self):
         return self._readonly
 
-    @classmethod
-    def as_readonly(cls):
-        cls._readonly = True
-        return cls
-
 
 class NoDeleteToggleableForm(ModelForm):
-    _nodelete = False
-
-    def __init__(self, *args, _nodelete=False, **kwargs):
+    def __init__(self, *args, no_delete=False, **kwargs):
         super().__init__(*args, **kwargs)
+        self._no_delete = no_delete
 
     @property
-    def nodelete(self):
-        return self._nodelete
-
-    @classmethod
-    def as_nodelete(cls):
-        cls._nodelete = True
-        return cls
+    def no_delete(self):
+        return self._no_delete
 
 
 class CompanyForm(ReadonlyToggleableForm):

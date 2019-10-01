@@ -26,19 +26,23 @@
                 </li>
             </ul>
         </div>
-        {# ----   Filter items     #}
-        {#        <ul class="nav nav-pills">#}
-        {#            <form class="form-inline">#}
-        {#                <input class="form-control" type="search" placeholder="Company" aria-label="Search">#}
-        {#                <div class="fa fa-search fa-secondary" style="margin: 15px; "></div>#}
-        {#                <label class="btn btn-secondary mr-3">#}
-        {#                    <input type="checkbox" autocomplete="off" style="margin-right: 5px; "> is active#}
-        {#                </label>#}
-        {#                <a href="#" class="btn btn-secondary mt-auto" role="button">#}
-        {#                    <i class="fas fa-plus"></i>#}
-        {#                    Add company#}
-        {#                </a>#}
-        {#            </form>#}
-        {#        </ul>#}
+
+        {# ---- Filter items #}
+
+        <ul class="nav nav-pills">
+            <form class="form-inline">
+                {% if url_name == 'admin_companies' %}
+                    <a href="{% url 'admin_company_add' %}" class="btn btn-secondary mt-auto" role="button">
+                        <i class="fas fa-plus"></i>
+                        Add company
+                    </a>
+                {% endif %}
+                <a href="{% url 'logout' %}" class="btn btn-secondary" style="margin-left: 8px" role="button">
+                    <i class="fas fa-user"></i>
+                    Logout
+                </a>
+            </form>
+        </ul>
+
     {% endwith %}
 </nav>
