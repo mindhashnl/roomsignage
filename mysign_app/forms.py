@@ -30,7 +30,7 @@ class NoDeleteToggleableForm(ModelForm):
 
     def __init__(self, *args, _nodelete=False, **kwargs):
         super().__init__(*args, **kwargs)
-        self.nodelete = _nodelete
+        self._nodelete = _nodelete
 
     @property
     def nodelete(self):
