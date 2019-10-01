@@ -1,4 +1,5 @@
 from django.contrib.messages.views import SuccessMessageMixin
+from django.core.exceptions import PermissionDenied
 from django.views.generic import UpdateView
 
 from mysign_app.forms import CompanyViewForm
@@ -14,4 +15,6 @@ class CompanyIndex(CompanyRequiredMixin, SuccessMessageMixin, UpdateView):
     form_class = CompanyViewForm
 
     def get_object(self, queryset=None):
+        if self.request.POST and int(self.request.POST.get('id')) != self.request.user.company.id:
+            raise PermissionDenied("Cannot update company that user is not linked to")
         return self.model.objects.get(id=self.request.user.company.id)
