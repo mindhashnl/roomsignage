@@ -36,3 +36,7 @@ def test_email_required():
     user = UserFactory.build(email=None, is_admin=True)
     with pytest.raises(ValidationError):
         user.save()
+
+
+def test_class_name():
+    assert User.class_name() == 'User'
