@@ -3,40 +3,46 @@
 {# ---- Header container ---- #}
 <nav class="navbar navbar-expand-lg fixed-top nav-bg">
     {% with request.resolver_match.url_name as url_name %}
-    {# ---- Nav bar logo ---- #}
-    <div class="navbar-brand">
-        <img class="mx-auto bar-logo" src='{% static "mysign_app/gebouw-n.png" %}'>
-    </div>
+        {# ---- Nav bar logo ---- #}
+        <div class="navbar-brand">
+            <img class="mx-auto bar-logo" src='{% static "mysign_app/gebouw-n.png" %}'>
+        </div>
 
-    {# ---- Nav bar items ---- #}
-    <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
-            <li class="{% if url_name == 'admin_door_devices' %} active {% endif %}">
-                <a class="nav-link" href="{% url 'admin_door_devices' %}">Device overview </a></li>
-            </li>
-            <li class="nav-item">
-            <li class="{% if url_name == 'admin_companies' %} active {% endif %}">
-                <a class="nav-link" href="{% url 'admin_companies' %}">Companies <span
-                        class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-            <li class="{% if url_name == 'admin_users' %} active {% endif %}">
-                <a class="nav-link" href="{% url 'admin_users' %}">Users</a>
-            </li>
+        {# ---- Nav bar items ---- #}
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                <li class="{% if url_name == 'admin_door_devices' %} active {% endif %}">
+                    <a class="nav-link" href="{% url 'admin_door_devices' %}">Device overview </a></li>
+                </li>
+                <li class="nav-item">
+                <li class="{% if url_name == 'admin_companies' %} active {% endif %}">
+                    <a class="nav-link" href="{% url 'admin_companies' %}">Companies <span
+                            class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                <li class="{% if url_name == 'admin_users' %} active {% endif %}">
+                    <a class="nav-link" href="{% url 'admin_users' %}">Users</a>
+                </li>
+            </ul>
+        </div>
+
+        {# ---- Filter items #}
+
+        <ul class="nav nav-pills">
+            <form class="form-inline">
+                {% if url_name == 'admin_companies' %}
+                    <a href="{% url 'admin_company_add' %}" class="btn btn-secondary mt-auto" role="button">
+                        <i class="fas fa-plus"></i>
+                        Add company
+                    </a>
+                {% endif %}
+                <a href="{% url 'logout' %}" class="btn btn-secondary" style="margin-left: 8px" role="button">
+                    <i class="fas fa-user"></i>
+                    Logout
+                </a>
+            </form>
         </ul>
-    </div>
 
-    {# ---- Filter items #}
-    {% if url_name == 'admin_companies' %}
-    <ul class="nav nav-pills">
-        <form class="form-inline">
-            <a href="{% url 'admin_company_add' %}" class="btn btn-secondary mt-auto" role="button">
-                <i class="fas fa-plus"></i>
-                Add company
-            </a>
-        </form>
-    </ul>
-    {% endif %}
     {% endwith %}
 </nav>
