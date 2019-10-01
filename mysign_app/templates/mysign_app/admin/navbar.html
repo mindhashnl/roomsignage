@@ -3,42 +3,40 @@
 {# ---- Header container ---- #}
 <nav class="navbar navbar-expand-lg fixed-top nav-bg">
     {% with request.resolver_match.url_name as url_name %}
-        {# ---- Nav bar logo ---- #}
-        <div class="navbar-brand">
-            <img class="mx-auto bar-logo" src='{% static "mysign_app/gebouw-n.png" %}'>
-        </div>
+    {# ---- Nav bar logo ---- #}
+    <div class="navbar-brand">
+        <img class="mx-auto bar-logo" src='{% static "mysign_app/gebouw-n.png" %}'>
+    </div>
 
-        {# ---- Nav bar items ---- #}
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                <li class="{% if url_name == 'admin_door_devices' %} active {% endif %}">
-                    <a class="nav-link" href="{% url 'admin_door_devices' %}">Device overview </a></li>
-                </li>
-                <li class="nav-item">
-                <li class="{% if url_name == 'admin_companies' %} active {% endif %}">
-                    <a class="nav-link" href="{% url 'admin_companies' %}">Companies <span
-                            class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item">
-                <li class="{% if url_name == 'admin_users' %} active {% endif %}">
-                    <a class="nav-link" href="{% url 'admin_users' %}">Users</a>
-                </li>
-            </ul>
-        </div>
-        {# ----   Filter items     #}
-        {#        <ul class="nav nav-pills">#}
-        {#            <form class="form-inline">#}
-        {#                <input class="form-control" type="search" placeholder="Company" aria-label="Search">#}
-        {#                <div class="fa fa-search fa-secondary" style="margin: 15px; "></div>#}
-        {#                <label class="btn btn-secondary mr-3">#}
-        {#                    <input type="checkbox" autocomplete="off" style="margin-right: 5px; "> is active#}
-        {#                </label>#}
-        {#                <a href="#" class="btn btn-secondary mt-auto" role="button">#}
-        {#                    <i class="fas fa-plus"></i>#}
-        {#                    Add company#}
-        {#                </a>#}
-        {#            </form>#}
-        {#        </ul>#}
+    {# ---- Nav bar items ---- #}
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+            <li class="{% if url_name == 'admin_door_devices' %} active {% endif %}">
+                <a class="nav-link" href="{% url 'admin_door_devices' %}">Device overview </a></li>
+            </li>
+            <li class="nav-item">
+            <li class="{% if url_name == 'admin_companies' %} active {% endif %}">
+                <a class="nav-link" href="{% url 'admin_companies' %}">Companies <span
+                        class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+            <li class="{% if url_name == 'admin_users' %} active {% endif %}">
+                <a class="nav-link" href="{% url 'admin_users' %}">Users</a>
+            </li>
+        </ul>
+    </div>
+
+    {# ---- Filter items #}
+    {% if url_name == 'admin_companies' %}
+    <ul class="nav nav-pills">
+        <form class="form-inline">
+            <a href="{% url 'admin_company_add' %}" class="btn btn-secondary mt-auto" role="button">
+                <i class="fas fa-plus"></i>
+                Add company
+            </a>
+        </form>
+    </ul>
+    {% endif %}
     {% endwith %}
 </nav>
