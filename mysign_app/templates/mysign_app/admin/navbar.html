@@ -25,8 +25,9 @@
 
         {# ---- Filter items #}
 
-            <ul class="nav nav-pills">
-                <form class="form-inline">{% if url_name == 'admin_companies' %}
+        <ul class="nav nav-pills">
+            <form class="form-inline">
+                {% if url_name == 'admin_companies' %}
                     <a href="{% url 'admin_company_add' %}" class="btn btn-secondary mt-auto" role="button">
                         <i class="fas fa-plus"></i>
                         Add company
@@ -35,8 +36,9 @@
                 <a href="{% url 'logout' %}" class="btn btn-secondary" style="margin-left: 8px" role="button">
                     <i class="fas fa-user"></i>
                     Logout
-                </a></form>
-            </ul>
+                </a>
+            </form>
+        </ul>
 
     {% endwith %}
 </nav>
