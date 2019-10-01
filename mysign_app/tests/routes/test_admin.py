@@ -6,32 +6,16 @@ from mysign_app.forms import (AddCompanyUserForm, CompanyForm, DoorDeviceForm,
 from mysign_app.models import Company, DoorDevice, User
 from mysign_app.tests.factories import (CompanyFactory, DoorDeviceFactory,
                                         UserFactory)
-from mysign_app.tests.routes.authentication_helpers import (
-    _test_unauthenticated, client_login, is_admin_route)
+from mysign_app.tests.routes.authentication_helpers import (client_login,
+                                                            is_admin_route)
 from mysign_app.tests.routes.form_helpers import payload_from_form
 
 
-@mark.django_db
-def test_index_admin(client):
-    _test_unauthenticated(client, reverse('admin_index'))
-
-    client_login(client, is_admin=True)
+def test_index(client):
     response = client.get(reverse('admin_index'))
 
     assert response.status_code == 302
     assert response.url == reverse('admin_door_devices')
-
-
-@mark.django_db
-def test_index_company(client):
-    _test_unauthenticated(client, reverse('admin_index'))
-
-    company = CompanyFactory()
-    client_login(client, company=company)
-    response = client.get(reverse('admin_index'))
-
-    assert response.status_code == 302
-    assert response.url == reverse('admin_company')
 
 
 @mark.django_db
@@ -125,16 +109,3 @@ def test_company_delete(client):
 
     assert Company.objects.filter(id=company.id).count() == 0
     assert User.objects.filter(id=user.id).count() == 0
-
-
-@mark.django_db
-def test_logout(client):
-    """ User is logged out """
-    client_login(client)
-    assert '_auth_user_id' in client.session
-
-    response = client.get(reverse('logout'))
-
-    assert response.status_code == 302
-    assert response.url == '/admin/login'
-    assert '_auth_user_id' not in client.session

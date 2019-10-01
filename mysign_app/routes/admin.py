@@ -19,7 +19,7 @@ def index(request):
     if request.user.is_admin:
         return redirect('admin_door_devices')
     if request.user.company:
-        return redirect('admin_company')
+        return redirect('company_view')
 
 
 def logout(request):
@@ -27,7 +27,7 @@ def logout(request):
     return logout_then_login(request)
 
 
-class AdminView(AdminRequiredMixin, TemplateView, FormView):
+class AdministrationView(TemplateView, FormView):
     template_name = 'mysign_app/admin/base.html'
     model = None
     form_class = None
@@ -67,6 +67,10 @@ class AdminView(AdminRequiredMixin, TemplateView, FormView):
 
     def _all_objects(self):
         return self.model.objects.all()
+
+
+class AdminView(AdminRequiredMixin, AdministrationView):
+    pass
 
 
 class DoorDevices(AdminView):

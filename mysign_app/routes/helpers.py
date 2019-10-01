@@ -52,3 +52,12 @@ def company_required(*args, **kwargs):
         return True
 
     return login_test(check_is_company, *args, **kwargs)
+
+
+class CompanyRequiredMixin(AccessMixin):
+    """Verify that the current user is authenticated."""
+
+    def dispatch(self, request, *args, **kwargs):
+        if not (request.user.is_authenticated and request.user.company):
+            return self.handle_no_permission()
+        return super().dispatch(request, *args, **kwargs)
