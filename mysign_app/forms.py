@@ -10,7 +10,6 @@ class ReadonlyToggleableForm(ModelForm):
     def __init__(self, *args, readonly=False, **kwargs):
         super().__init__(*args, **kwargs)
         
-
         if self._readonly:
             for field in self.fields:
                 self.fields[field].widget = forms.TextInput(attrs={'readonly': True})
@@ -31,7 +30,6 @@ class NoDeleteToggleableForm(ModelForm):
     def __init__(self, *args, _nodelete=False, **kwargs):
         super().__init__(*args, **kwargs)
         
-
     @property
     def nodelete(self):
         return self._nodelete
