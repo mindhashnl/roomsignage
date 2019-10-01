@@ -17,8 +17,11 @@ function createDataTable(dataJson, listFields) {
 	});
 
 	const table = $('#register').DataTable({
-		dom: 'fBtp', // Register plugins see https://datatables.net/reference/option/dom
-		pageLength: 10,
+		dom:
+			'rt<"row"<"col-3"B><"col-3 offset-6"f>>' + // Search bar and buttons row
+			'<"row row-table"<"col-12 h-100" tr>>' + // Data row
+			'<"row"<"col-5"i><"col-7"p>>', // Page buttons
+		pageLength: 20,
 		buttons: [
 			{
 				text: '<i class="fa fa-id-badge fa-fw fa-lg" aria-hidden="true"></i>',
@@ -45,7 +48,7 @@ function createDataTable(dataJson, listFields) {
 						let max = 0;
 						$('#register tr').each(function () {
 							max = Math.max($(this).height(), max);
-						}).height(max);
+						}).height(150);
 					} else {
 						// Remove data-label attribute from each cell
 						$('#register').find('td').each(function () {
