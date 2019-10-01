@@ -4,6 +4,7 @@ import uuid
 
 from colorfield.fields import ColorField
 from django.contrib.auth.models import AbstractUser
+from django.contrib.staticfiles.templatetags.staticfiles import static
 from django.core.exceptions import ValidationError
 from django.core.validators import RegexValidator
 from django.db import models
@@ -51,6 +52,11 @@ class Company(models.Model):
     website = models.URLField(max_length=50)
     logo = models.ImageField(upload_to=logo_upload, blank=True)
     color = ColorField(blank=True)
+
+    def logo_url_or_default(self):
+        if self.logo:
+            return self.logo.url
+        return static('mysign_app/logo-fallback.png')
 
     def __str__(self):
         return self.name
