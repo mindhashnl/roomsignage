@@ -32,3 +32,7 @@ def test_logo_upload_helper():
 
     assert path.endswith('.png')
     assert path.startswith('companies/logos/')
+
+
+def test_class_name():
+    assert Company.class_name() == 'Company'
