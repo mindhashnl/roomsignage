@@ -9,6 +9,7 @@ from django.core.exceptions import ValidationError
 from django.core.validators import RegexValidator
 from django.db import models
 from django.db.models import BooleanField, ForeignKey
+from django.templatetags.static import static
 
 phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$',
                              message="Phone number must be entered in the format: "
@@ -58,6 +59,11 @@ class Company(models.Model, ClassStr):
     website = models.URLField(max_length=50)
     logo = models.ImageField(upload_to=logo_upload, blank=True)
     color = ColorField(blank=True)
+
+    def logo_url_or_default(self):
+        if self.logo:
+            return self.logo.url
+        return static('mysign_app/logo-fallback.png')
 
     def __str__(self):
         return self.name
