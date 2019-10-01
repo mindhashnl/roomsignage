@@ -12,6 +12,7 @@ from mysign_app.forms import (AddCompanyUserForm, CompanyForm, DoorDeviceForm,
                               UserForm)
 from mysign_app.models import Company, DoorDevice, User
 from mysign_app.routes.helpers import AdminRequiredMixin, admin_required
+from mysign_app.mail import mail_sender
 
 
 @login_required
@@ -103,6 +104,10 @@ def company_add(request):
             company_form.save()
             user_form.save()
             messages.info(request, 'Company and user successfully added')
+            mail_sender.send_mail(    from_email='from_email@example.com',
+    to_emails='to@example.com',
+    subject='Sending with Twilio SendGrid is Fun',
+    html_content='<strong>and easy to do anywhere, even with Python</strong>')
             return redirect('admin_companies')
     else:
         company_form = CompanyForm(prefix='company')

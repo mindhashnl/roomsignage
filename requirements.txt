@@ -16,3 +16,4 @@ django-crispy-forms
 gunicorn
 stringcase
 Pillow==6.1.0
+sendgrid
