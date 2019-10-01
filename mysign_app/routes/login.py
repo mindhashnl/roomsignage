@@ -1,8 +1,7 @@
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import logout as auth_logout
-from django.contrib.auth.views import logout_then_login, LoginView
-from django.shortcuts import redirect
+from django.contrib.auth.views import LoginView, logout_then_login
 from django.urls import reverse
 
 

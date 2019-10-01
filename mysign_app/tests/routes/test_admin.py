@@ -6,7 +6,8 @@ from mysign_app.forms import (AddCompanyUserForm, CompanyForm, DoorDeviceForm,
 from mysign_app.models import Company, DoorDevice, User
 from mysign_app.tests.factories import (CompanyFactory, DoorDeviceFactory,
                                         UserFactory)
-from mysign_app.tests.routes.authentication_helpers import (client_login, is_admin_route)
+from mysign_app.tests.routes.authentication_helpers import (client_login,
+                                                            is_admin_route)
 from mysign_app.tests.routes.form_helpers import payload_from_form
 
 

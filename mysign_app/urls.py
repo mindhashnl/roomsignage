@@ -1,8 +1,8 @@
-from django.shortcuts import redirect
-from django.urls import path, reverse
+from django.urls import path
 from django.views.generic import RedirectView
 
 from mysign_app.routes import login
+
 from .routes import admin, company, screen_index
 
 urlpatterns = [
