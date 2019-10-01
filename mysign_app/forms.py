@@ -9,6 +9,7 @@ class ReadonlyToggleableForm(ModelForm):
 
     def __init__(self, *args, readonly=False, **kwargs):
         super().__init__(*args, **kwargs)
+        self._readonly = readonly
 
         if self._readonly:
             for field in self.fields:
@@ -29,6 +30,7 @@ class NoDeleteToggleableForm(ModelForm):
 
     def __init__(self, *args, _nodelete=False, **kwargs):
         super().__init__(*args, **kwargs)
+        self.nodelete = _nodelete
 
     @property
     def nodelete(self):
