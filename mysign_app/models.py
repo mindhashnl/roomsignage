@@ -76,6 +76,10 @@ class DoorDevice(models.Model, ClassStr):
     company = ForeignKey(Company, on_delete=models.CASCADE, blank=True, null=True)
     secret = models.CharField(default=generate_secret, max_length=32, null=False)
 
+    @property
+    def company_name(self):
+        return self.company.name
+
     def __str__(self):
         if self.company:
             return self.company.name

@@ -4,6 +4,7 @@
     {% include 'mysign_app/admin/navbar.html' %}
     <div class="container-fluid h-100">
         {% if json %}
+        {{json}}
             <div class="row h-100">
                 {% include 'mysign_app/admin/datatable.html' %}
                 {% include 'mysign_app/admin/form.html' %}

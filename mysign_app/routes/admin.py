@@ -1,5 +1,6 @@
 import json
 
+import stringcase
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import logout_then_login
@@ -61,9 +62,20 @@ class AdministrationView(TemplateView, FormView):
         }
 
     def models_json(self):
-        objects = self._all_objects().values(*self.json_fields)
-        objects = list(objects)
-        return json.dumps(objects)
+        objects = self._all_objects()
+        json_objects = []
+        # Hacky workaround for relationships
+        for o in objects:
+            json_object = {}
+            for f in self.json_fields:
+                if '.' in f:  # If it is an fk field
+                    fk_model_name, fk_property = f.split('.')
+                    fk_model = getattr(o, fk_model_name)
+                    json_object[stringcase.snakecase(f)] = getattr(fk_model, fk_property)
+                else:
+                    json_object[f] = getattr(o, f)
+            json_objects.append(json_object)
+        return json.dumps(json_objects)
 
     def _all_objects(self):
         return self.model.objects.all()
@@ -76,8 +88,8 @@ class AdminView(AdminRequiredMixin, AdministrationView):
 class DoorDevices(AdminView):
     model = DoorDevice
     form_class = DoorDeviceForm
-    list_fields = ['id']
-    json_fields = ['id', 'company']
+    list_fields = ['id', 'company_name']
+    json_fields = ['id', 'company.name']
 
 
 class Companies(AdminView):
