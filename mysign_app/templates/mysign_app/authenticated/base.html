@@ -1,0 +1,19 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN http://www.w3.org/TR/html4/strict.dtd">
+
+<html lang="en">
+    <head>
+        {% include 'partials/head.html' %}
+    </head>
+    <body>
+        {% include 'mysign_app/authenticated/navbar.html' %}
+
+        <div class="container-fluid h-100">
+            <div class="row h-100">
+                {% block content %}
+                {% endblock %}
+            </div>
+        </div>
+
+        {% include 'partials/messages.html' %}
+    </body>
+</html>

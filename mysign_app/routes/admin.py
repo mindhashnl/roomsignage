@@ -31,7 +31,7 @@ class DataTablesView(TemplateView, FormView):
     """
     View for displaying datatables and a form on one page
     """
-    template_name = 'mysign_app/admin/base.html'
+    template_name = 'mysign_app/admin/datatable.html'
     model = None
     form_class = None
     form_kwargs = None
