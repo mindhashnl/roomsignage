@@ -1,5 +1,6 @@
-from sendgrid import Mail, SendGridAPIClient
 import os
+
+from sendgrid import Mail, SendGridAPIClient
 
 
 def send_mail(from_email, to_emails, subject, html_content):
