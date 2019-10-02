@@ -8,7 +8,7 @@ from mysign_app.routes.helpers import CompanyRequiredMixin
 
 
 class CompanyIndex(CompanyRequiredMixin, SuccessMessageMixin, UpdateView):
-    template_name = 'mysign_app/company/base.html'
+    template_name = 'mysign_app/company/index.html'
     success_message = 'Company succesfully updated'
     success_url = '/company/'
     model = Company
