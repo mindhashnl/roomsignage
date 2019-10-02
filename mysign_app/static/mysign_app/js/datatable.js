@@ -93,11 +93,12 @@ function createDataTable(dataJson, listFields) {
 					$(fieldName).val(value);
 				}
 			}
-			$('#submitButton').attr("disabled", false);
+
+			$('#submitButton').attr('disabled', false);
 		})
-		.on('deselect', function (e, dt, type, indexes) {
+		.on('deselect', function () {
 			// Disable submit button
-			$('#submitButton').attr("disabled", true);
+			$('#submitButton').attr('disabled', true);
 
 			// Reset all input fields
 			$('input').val(null); // Input fields
