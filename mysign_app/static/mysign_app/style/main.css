@@ -4,14 +4,16 @@
 /* Add names to colors when final colors are chosen. */
 body {
     /*Variables*/
-    --color1: #e3eff3;
-    --color2: #cde3eb;
-    --color3: #6e828a;
-    --color4: #143a52;
+    --primary-light: #e3eff3;
+    --primary-dark: #cde3eb;
+    --secondary-light: #6e828a;
+    --secondary-dark: #143a52;
+    --delete-btn: #f74949;
+    --save-btn: #27526d;
     /*body declarations */
     height: 100vh;
     padding-top: 70.86px;
-    background-color: var(--color1);
+    background-color: var(--primary-light);
 }
 
 img {
@@ -22,32 +24,59 @@ img {
 a {
     font-weight: bold;
     font-size: 1.25rem;
-    color: var(--color2);
+    color: var(--primary-dark);
     transition: 0.2s;
 }
 
-.navbar-light .navbar-nav .active>.nav-link {
-    color: var(--color2);
-}
-
-.navbar-light .navbar-nav .nav-link{
-    color: var(--color2);
-}
-
 a:hover {
-    color: var(--color4);
-    background-color: var(--color2);
+    color: var(--secondary-dark);
+    background-color: var(--primary-dark);
 }
 
 /*Custom CSS classes*/
 
+.navbar-btn {
+    color: var(--primary-light);
+    background-color: var(--secondary-dark);
+    border: 0.5px solid var(--primary-light);
+}
+
+.col-sm-3 {
+    background-color: var(--primary-dark);
+}
+
+.nav-bg {
+    width: 100%;
+    background-color: var(--secondary-dark);
+}
+
+.navbar-light .navbar-nav .active > .nav-link {
+    color: var(--primary-dark);
+}
+
+.navbar-light .navbar-nav .nav-link {
+    color: var(--primary-dark);
+}
+
 .navbar-light {
     width: 100%;
-    background-color: var(--color4);
+    background-color: var(--secondary-dark);
 }
 
 .bar-logo {
     width: 40px;
+}
+
+.save-button {
+    height: 43px;
+    color: white;
+    background-color: var(--save-btn);
+}
+
+.delete-button {
+    height: 43px;
+    color: white;
+    background-color: var(--delete-btn);
 }
 
 .navbar-brand {
@@ -55,35 +84,23 @@ a:hover {
     padding-right: 0.3125rem;
 }
 
-.container-fluid {
-    padding-top: 15px;
-    padding-bottom: 15px;
+.row-dt-form {
+    padding-top: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 10px;
 }
 
-.row-dt {
+.row-dt-table {
     border-radius: 15px;
     padding-top: 10px;
     padding-left: 10px;
     padding-right: 10px;
     padding-bottom: 10px;
-    background-color: var(--color2);
+    background-color: var(--primary-dark);
     box-shadow: 0.2rem 0.2rem 0.4rem rgba(0, 0, 0, 0.25);
-}
-
-.full-height {
-    height: 100vh;
-    max-height: 100vh;
-    min-height: 100vh;
 }
 
 .no-overflow {
     overflow: hidden;
-}
-
-.vh-90 {
-    height: 90vh;
-}
-
-.vh-15 {
-    height: 15vh;
 }
