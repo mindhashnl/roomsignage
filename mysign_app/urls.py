@@ -1,4 +1,5 @@
-from django.urls import path, include
+from django.contrib.auth import views
+from django.urls import include, path
 from django.views.generic import RedirectView, TemplateView
 
 from mysign_app.routes import login
@@ -9,10 +10,14 @@ urlpatterns = [
     path('', TemplateView.as_view(template_name='mysign_app/index.html'), name='index'),
     path('screen/', screen_index, name='screen'),
 
+    path('password_reset/', views.PasswordResetView.as_view(), name='password_reset'),
+    path('password_reset/done/', views.PasswordResetDoneView.as_view(), name='password_reset_done'),
+    path('reset/<uidb64>/<token>/', views.PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
+    path('reset/done/', views.PasswordResetCompleteView.as_view(), name='password_reset_complete'),
+
     path('login/', login.Login.as_view(), name='login'),
     path('logout/', login.logout, name='logout'),
 
-    path('accounts/', include('django.contrib.auth.urls')),
 
     path('admin/', RedirectView.as_view(url='/admin/door_devices/', permanent=False), name='admin_index'),
     path('admin/door_devices/', admin.DoorDevices.as_view(), name='admin_door_devices'),
