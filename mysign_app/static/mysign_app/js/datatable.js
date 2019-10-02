@@ -48,12 +48,6 @@ function createDataTable(dataJson, listFields) {
 								$(this).attr('data-label', labels[column]);
 							});
 						});
-
-						// Set correct hight
-						let max = 0;
-						$('#register tr').each(function () {
-							max = Math.max($(this).height(), max);
-						}).height(150);
 					} else {
 						// Remove data-label attribute from each cell
 						$('#register').find('td').each(function () {
