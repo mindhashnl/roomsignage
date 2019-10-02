@@ -1,12 +1,13 @@
 from django.urls import path
-from django.views.generic import RedirectView
+from django.views.generic import RedirectView, TemplateView
 
 from mysign_app.routes import login
 
 from .routes import admin, company, screen_index
 
 urlpatterns = [
-    path('', screen_index, name='screen'),
+    path('', TemplateView.as_view(template_name='mysign_app/index.html'), name='index'),
+    path('screen/', screen_index, name='screen'),
 
     path('login/', login.Login.as_view(), name='login'),
     path('logout/', login.logout, name='logout'),
@@ -18,4 +19,6 @@ urlpatterns = [
     path('admin/users/', admin.Users.as_view(), name='admin_users'),
 
     path('company/', company.CompanyIndex.as_view(), name='company_index'),
+
+    path('robots.txt/', TemplateView.as_view(template_name="mysign_app/robots.txt", content_type='text/plain')),
 ]
