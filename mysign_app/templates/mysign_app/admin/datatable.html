@@ -1,23 +1,27 @@
+{% extends 'mysign_app/authenticated/base.html' %}
 {% load static %}
 
-<div class="col-md-9 h-100">
-    <div class="row-dt h-100">
-        {# <img src='{% static "mysign_app/promo-fallback.png" %}'>#}
-        <script type="text/javascript">
-            $(document).ready(function () {
-                createDataTable({{json | safe}}, {{list_fields|safe}})
-            });
-        </script>
+{% block content %}
+    <div class="col-md-9 h-100">
+        <div class="row-dt h-100">
+            {# <img src='{% static "mysign_app/promo-fallback.png" %}'>#}
+            <script type="text/javascript">
+                $(document).ready(function () {
+                    createDataTable({{json | safe}}, {{list_fields|safe}})
+                });
+            </script>
 
 
-        <table id="register" class="table table-hover w-100 table-responsive" cellspacing="0">
-            <thead>
+            <table id="register" class="table table-hover w-100 table-responsive" cellspacing="0">
+                <thead>
                 <tr>
                     {% for field in list_fields %}
                         <th> {{ field }} </th>
                     {% endfor %}
                 </tr>
-            </thead>
-        </table>
+                </thead>
+            </table>
+        </div>
     </div>
-</div>
+    {% include 'mysign_app/authenticated/form.html' %}
+{% endblock %}

@@ -1,9 +1,14 @@
-{% extends 'mysign_app/base.html' %}
 {% load static %}
-
 {% load crispy_forms_tags %}
 
-{% block content %}
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN http://www.w3.org/TR/html4/strict.dtd">
+
+<html lang="en">
+    <head>
+        {% include 'partials/head.html' %}
+    </head>
+    <body>
     <div class="row justify-content-center align-items-center full-height">
         <div class="col-md-4">
             <h3 class="text-center">Login</h3>
@@ -14,4 +19,6 @@
             </form>
         </div>
     </div>
-{% endblock %}
+
+    </body>
+</html>
