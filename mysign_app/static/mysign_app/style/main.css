@@ -10,7 +10,6 @@ body {
     --color4: #143a52;
     /*body declarations */
     height: 100vh;
-    padding-top: 82.06px;
     background-color: var(--color1);
 }
 
@@ -48,9 +47,10 @@ a:hover {
 
 }
 
-.container-fluid {
-    padding-top: 15px;
+.authenticated-padding {
+    /*padding-top: 15px;*/
     padding-bottom: 15px;
+    padding-top: 97.06px; /* Pad it under the navbar */
 }
 
 .row-dt {
