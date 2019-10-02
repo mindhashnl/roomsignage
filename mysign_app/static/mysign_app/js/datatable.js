@@ -48,7 +48,6 @@ function createDataTable(dataJson, listFields) {
 								$(this).attr('data-label', labels[column]);
 							});
 						});
-
 					} else {
 						// Remove data-label attribute from each cell
 						$('#register').find('td').each(function () {
