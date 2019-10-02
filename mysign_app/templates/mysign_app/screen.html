@@ -23,10 +23,11 @@
         </script>
     </head>
     <body>
+    <div class="container-fluid h-100">
         {% if device.company %}
             <div class="row h-100">
                 <div class="col-md-5" style="background: {{ device.company.color }};">
-                    <div class="row h-50 align-items-center">
+                    <div class="row h-50 align-items-center"> {# align-items-center #}
                         <div class="col-md-12 text-center">
                             <img onclick="fullScreen()" src="{{ device.company.logo_url_or_default }}">
                         </div>
@@ -52,7 +53,7 @@
             </div>
         {% else %}
             <div class="row h-75 align-items-center">
-                <div class="col-md-12">
+                <div class="col-2 offset-5">
                     <div class="row">
                         <img class="mx-auto" src='{% static "mysign_app/gebouw-n.png" %}'>
                     </div>
@@ -67,5 +68,6 @@
                 </div>
             </div>
         {% endif %}
+    </div>
     </body>
 </html>
