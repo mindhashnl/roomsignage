@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, include
 from django.views.generic import RedirectView, TemplateView
 
 from mysign_app.routes import login
@@ -11,6 +11,8 @@ urlpatterns = [
 
     path('login/', login.Login.as_view(), name='login'),
     path('logout/', login.logout, name='logout'),
+
+    path('accounts/', include('django.contrib.auth.urls')),
 
     path('admin/', RedirectView.as_view(url='/admin/door_devices/', permanent=False), name='admin_index'),
     path('admin/door_devices/', admin.DoorDevices.as_view(), name='admin_door_devices'),
