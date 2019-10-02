@@ -5,9 +5,7 @@ $(document).ready(function () {
 
 		if (event.target.name === 'color') {
 			$('#screen_display_info').css('background-color', event.target.value);
-		}
-
-		if (event.target.files && event.target.files[0]) {
+		} else if (event.target.files && event.target.files[0]) {
 			const reader = new FileReader();
 
 			reader.onload = function (e) {
