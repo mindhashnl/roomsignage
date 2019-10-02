@@ -7,6 +7,7 @@ from django.http import HttpResponse
 from django.shortcuts import redirect
 from django.template import loader
 from django.views.generic import FormView, TemplateView
+from templated_email import send_templated_mail
 
 from mysign_app.forms import (AddCompanyUserForm, CompanyForm, DoorDeviceForm,
                               UserForm)
@@ -110,6 +111,13 @@ def company_add(request):
         if company_form.is_valid() and user_form.is_valid():
             company_form.save()
             user_form.save()
+            send_templated_mail(template_name="welcome_mail",
+                                from_email="info@mysign.nl",
+                                recipient_list=[user_form.cleaned_data['email']],
+                                context={
+                                    'naam': user_form.cleaned_data['first_name'] + " "
+                                    + user_form.cleaned_data['last_name'], 'url': "www.google.com"
+                                })
             messages.info(request, 'Company and user successfully added')
             return redirect('admin_companies')
     else:

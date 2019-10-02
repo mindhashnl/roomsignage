@@ -121,3 +121,11 @@ MESSAGE_TAGS = {
     messages.WARNING: 'alert-warning',
     messages.ERROR: 'alert-danger',
 }
+
+
+EMAIL_BACKEND = "sendgrid_backend.SendgridBackend"
+SENDGRID_API_KEY = os.environ.get("SENDGRID_API_KEY")
+SENDGRID_SANDBOX_MODE_IN_DEBUG = True
+SENDGRID_ECHO_TO_STDOUT = True
+TEMPLATED_EMAIL_BACKEND = 'templated_email.backends.vanilla_django.TemplateBackend'
+TEMPLATED_EMAIL_FILE_EXTENSION = 'email'
