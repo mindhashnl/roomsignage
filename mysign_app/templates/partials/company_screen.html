@@ -1,7 +1,7 @@
 {% load static %}
 
 <div class="row h-100">
-    <div class="col-md-5" style="background: {{ device.company.color }};">
+    <div class="col-md-5 h-100" style="background: {{ device.company.color }};">
         <div class="row h-50 align-items-center">
             <div class="col-md-12 text-center">
                 <img onclick="fullScreen()" src="{{ device.company.logo_url_or_default }}">
@@ -21,7 +21,7 @@
         </div>
     </div>
     <div class="col-md-7">
-        <div class="row h-100 align-items-center full-height no-overflow">
+        <div class="row h-100 full-height no-overflow">
             <img src='{% static "mysign_app/promo-fallback.png" %}'>
         </div>
     </div>
