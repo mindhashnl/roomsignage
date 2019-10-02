@@ -2,8 +2,9 @@
     float: left;
     width: 15rem;
     margin: 0.5rem;
+    /*border: 0.05rem solid black;*/
     border-radius: 1rem;
-    /*box-shadow: 0.25rem 0.25rem 0.5rem rgba(0, 0, 0, 0.25);*/
+    box-shadow: 0.1rem 0.1rem 0.3rem rgba(0, 0, 0, 0.25);
     background-color: var(--color1);
 }
 
@@ -11,9 +12,6 @@
     display: block;
 }
 
-.sorting_1 {
-    height: 10%;
-}
 
 .cards td:before {
     content: attr(data-label);
@@ -44,7 +42,7 @@ tr.selected td:before {
 }
 
 .row-table {
-    height: 88%;
+    height: 89.5%;
     padding-top: 10px;
     padding-left: 10px;
     padding-right: 10px;
