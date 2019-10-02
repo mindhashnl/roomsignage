@@ -81,6 +81,7 @@ function createDataTable(dataJson, listFields) {
 		fnInitComplete: function () {
 			$('#card-toggle').click();
 			$('#register thead').hide();
+			$('button[type=submit]').attr('disabled', true);
 		}
 	})
 
