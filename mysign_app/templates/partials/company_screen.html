@@ -1,22 +1,19 @@
 {% load static %}
 
 <div class="row h-100">
-    <div class="col-md-5 h-100" style="background: {{ device.company.color }};">
+    <div class="col-md-5 h-100" id="screen_display_info" style="background: {{ company.color }};">
         <div class="row h-50 align-items-center">
             <div class="col-md-12 text-center">
-                <img onclick="fullScreen()" src="{{ device.company.logo_url_or_default }}">
+                <img onclick="fullScreen()" id="screen_display_logo" src="{{ company.logo_url_or_default }}">
             </div>
 
         </div>
         <div class="row h-50 align-items-center company-info">
             <div class="mx-auto">
-                {% if device.room_number %}
-                    <i class="fa fa-fw fa-2x fa-building"></i>Office {{ device.room_number }}<br/>
-                {% endif %}
-                <i class="fa fa-fw fa-2x fa-phone"></i>{{ device.company.phone_number }}
+                <i class="fa fa-fw fa-2x fa-phone"></i><span id="screen_display_phone_number">{{ company.phone_number |default:'Preview' }}</span>
                 <br/>
-                <i class="fa fa-fw fa-2x fa-envelope"></i>{{ device.company.email }}<br/>
-                <i class="fa fa-fw fa-2x fa-globe"></i>{{ device.company.website }}<br/>
+                <i class="fa fa-fw fa-2x fa-envelope"></i><span id="screen_display_email">{{ company.email |default:'Preview' }}</span><br/>
+                <i class="fa fa-fw fa-2x fa-globe"></i><span id="screen_display_website">{{ company.website |default:'Preview' }}</span><br/>
             </div>
         </div>
     </div>

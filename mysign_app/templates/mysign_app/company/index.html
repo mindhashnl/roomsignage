@@ -4,8 +4,8 @@
 
     {% include 'mysign_app/authenticated/form.html' %}
 
-    <div class="col-9 h-100" style="padding: -15px; max-height: 100%; overflow: hidden">
-        {% include 'partials/company_screen.html' %}
+    <div class="col-9 h-75 pr-2 no-overflow">
+        {% include 'partials/company_screen.html' with company=form.instance %}
     </div>
 
 
