@@ -1,0 +1,35 @@
+{% load crispy_forms_tags %}
+{% load static %}
+{% if form %}
+    <div class="col-md-3 h-100">
+        <div class="row-dt h-100">
+            {# <img src='{% static "mysign_app/promo-fallback.png" %}'>#}
+            <form method="post" class="h-100">
+                <div class="row h-75">
+                    <div class="col-md-12">
+                        {% csrf_token %}
+                        {{ form|crispy }}
+                    </div>
+                </div>
+
+                <div class="row align-items-end h-25 pb-5">
+                    <div class="col">
+                        {% if not form.readonly %}
+                            <button id="submitButton" type="submit" class="btn btn-primary btn-block">
+                                <i class="fas fa-save"></i>
+                                save changes
+                            </button>
+                        {% endif %}
+                        {% if not form.no_delete %}
+                            <button id="deleteButton" name="delete" type="submit" value="Delete" class="btn btn-danger btn-block" role="button">
+                                <i class="fas fa-trash"></i>
+                                delete object
+                            </button>
+                        {% endif %}
+                    </div>
+                </div>
+                <input hidden id="id" name="id">
+            </form>
+        </div>
+    </div>
+{% endif %}

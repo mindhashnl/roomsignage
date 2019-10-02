@@ -27,10 +27,14 @@ def logout(request):
     return logout_then_login(request)
 
 
-class AdministrationView(TemplateView, FormView):
-    template_name = 'mysign_app/admin/base.html'
+class DataTablesView(TemplateView, FormView):
+    """
+    View for displaying datatables and a form on one page
+    """
+    template_name = 'mysign_app/admin/datatable.html'
     model = None
     form_class = None
+    form_kwargs = None
     list_fields = []
     json_fields = []
 
@@ -60,6 +64,12 @@ class AdministrationView(TemplateView, FormView):
             'json': self.models_json(),
         }
 
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        if self.form_kwargs:
+            kwargs.update(self.form_kwargs)
+        return kwargs
+
     def models_json(self):
         objects = self._all_objects().values(*self.json_fields)
         objects = list(objects)
@@ -69,27 +79,25 @@ class AdministrationView(TemplateView, FormView):
         return self.model.objects.all()
 
 
-class AdminView(AdminRequiredMixin, AdministrationView):
-    pass
-
-
-class DoorDevices(AdminView):
+class DoorDevices(AdminRequiredMixin, DataTablesView):
     model = DoorDevice
     form_class = DoorDeviceForm
     list_fields = ['id']
     json_fields = ['id', 'company']
 
 
-class Companies(AdminView):
+class Companies(AdminRequiredMixin, DataTablesView):
     model = Company
-    form_class = CompanyForm.as_readonly()
+    form_class = CompanyForm
+    form_kwargs = {'readonly': True}
     list_fields = ['name']
     json_fields = ['name', 'email', 'phone_number', 'id']
 
 
-class Users(AdminView):
+class Users(AdminRequiredMixin, DataTablesView):
     model = User
-    form_class = UserForm.as_nodelete()
+    form_class = UserForm
+    form_kwargs = {'no_delete': True}
     list_fields = ['id', 'first_name', 'last_name']
     json_fields = ['id', 'first_name', 'last_name', 'username', 'company', 'is_admin']
 

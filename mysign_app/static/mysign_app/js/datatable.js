@@ -18,9 +18,9 @@ function createDataTable(dataJson, listFields) {
 
 	const table = $('#register').DataTable({
 		dom:
-			"rt<'row'<'col-3'B><'col-3 offset-6'f>>" + // Search bar and buttons row
-			"<'row row-table'<'col-12 h-100' tr>>" + // Data row
-			"<'row'<'col-5'i><'col-7'p>>", // Page buttons
+			'rt<"row"<"col-3"B><"col-3 offset-6"f>>' + // Search bar and buttons row
+			'<"row row-table"<"col-12 h-100" tr>>' + // Data row
+			'<"row"<"col-5"i><"col-7"p>>', // Page buttons
 		pageLength: 20,
 		buttons: [
 			{
