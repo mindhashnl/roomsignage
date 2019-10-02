@@ -19,13 +19,14 @@ class Command(BaseCommand):
 def seed():
     seeder = Seed.seeder()
 
-    seeder.add_entity(Company, 5)
-    seeder.add_entity(DoorDevice, 10)
+    seeder.add_entity(Company, 20, {'logo': None})
+    seeder.add_entity(DoorDevice, 20)
     seeder.execute()
 
     users = [{'username': 'developer', 'is_staff': True, 'is_superuser': True},
              {'username': 'HMO', 'is_admin': True},
-             {'username': 'company', 'company': Company.objects.first()}]
+             {'username': 'company', 'company': Company.objects.first()},
+             {'username': 'nonlogin'}]
 
     fake = Faker()
     for u in users:

@@ -93,5 +93,16 @@ function createDataTable(dataJson, listFields) {
 					$(fieldName).val(value);
 				}
 			}
+
+			$('button[type=submit]').attr('disabled', false);
+		})
+		.on('deselect', function () {
+			// Disable submit button
+			$('button[type=submit]').attr('disabled', true);
+
+			// Reset all input fields
+			$('input[name!=csrfmiddlewaretoken]').val(null); // Input fields
+			$('input').prop('checked', false); // Checkboxes
+			$('select').val(null); // Dropdowns
 		});
 }
