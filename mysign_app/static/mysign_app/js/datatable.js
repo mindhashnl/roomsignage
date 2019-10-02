@@ -16,6 +16,11 @@ function createDataTable(dataJson, listFields) {
 		columns.push({data: key, name: key});
 	});
 
+	// Register custom classes
+	$.extend($.fn.dataTableExt.oStdClasses, {
+		sFilterInput: 'form-control w-100'
+	});
+
 	const table = $('#register').DataTable({
 		dom:
 			'rt<"row"<"col-3"B><"col-3 offset-6"f>>' + // Search bar and buttons row
@@ -43,12 +48,6 @@ function createDataTable(dataJson, listFields) {
 								$(this).attr('data-label', labels[column]);
 							});
 						});
-
-						// Set correct hight
-						let max = 0;
-						$('#register tr').each(function () {
-							max = Math.max($(this).height(), max);
-						}).height(150);
 					} else {
 						// Remove data-label attribute from each cell
 						$('#register').find('td').each(function () {
@@ -66,12 +65,17 @@ function createDataTable(dataJson, listFields) {
 				}
 			}
 		],
+		language: {
+			search: '',
+			searchPlaceholder: 'Search'
+		},
 		select: 'single',
 		data: dataJson,
 		columns: columns,
 		fnInitComplete: function () {
 			$('#card-toggle').click();
 			$('#register thead').hide();
+			$('button[type=submit]').attr('disabled', true);
 		}
 	})
 
