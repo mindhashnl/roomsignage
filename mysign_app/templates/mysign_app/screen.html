@@ -23,49 +23,51 @@
         </script>
     </head>
     <body>
-        {% if device.company %}
-            <div class="row h-100">
-                <div class="col-md-5" style="background: {{ device.company.color }};">
-                    <div class="row h-50 align-items-center">
-                        <div class="col-md-12 text-center">
-                            <img onclick="fullScreen()" src="{{ device.company.logo_url_or_default }}">
-                        </div>
+        <div class="container-fluid h-100">
+            {% if device.company %}
+                <div class="row h-100">
+                    <div class="col-md-5" style="background: {{ device.company.color }};">
+                        <div class="row h-50 align-items-center">
+                            <div class="col-md-12 text-center">
+                                <img onclick="fullScreen()" src="{{ device.company.logo_url_or_default }}">
+                            </div>
 
+                        </div>
+                        <div class="row h-50 align-items-center company-info">
+                            <div class="mx-auto">
+                                {% if device.room_number %}
+                                    <i class="fa fa-fw fa-2x fa-building"></i>Office {{ device.room_number }}<br/>
+                                {% endif %}
+                                <i class="fa fa-fw fa-2x fa-phone"></i>{{ device.company.phone_number }}
+                                <br/>
+                                <i class="fa fa-fw fa-2x fa-envelope"></i>{{ device.company.email }}<br/>
+                                <i class="fa fa-fw fa-2x fa-globe"></i>{{ device.company.website }}<br/>
+                            </div>
+                        </div>
                     </div>
-                    <div class="row h-50 align-items-center company-info">
-                        <div class="mx-auto">
-                            {% if device.room_number %}
-                                <i class="fa fa-fw fa-2x fa-building"></i>Office {{ device.room_number }}<br/>
-                            {% endif %}
-                            <i class="fa fa-fw fa-2x fa-phone"></i>{{ device.company.phone_number }}
-                            <br/>
-                            <i class="fa fa-fw fa-2x fa-envelope"></i>{{ device.company.email }}<br/>
-                            <i class="fa fa-fw fa-2x fa-globe"></i>{{ device.company.website }}<br/>
+                    <div class="col-md-7">
+                        <div class="row h-100 align-items-center full-height no-overflow">
+                            <img src='{% static "mysign_app/promo-fallback.png" %}'>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-7">
-                    <div class="row h-100 align-items-center full-height no-overflow">
-                        <img src='{% static "mysign_app/promo-fallback.png" %}'>
+            {% else %}
+                <div class="row h-75 align-items-center">
+                    <div class="col-2 offset-5">
+                        <div class="row">
+                            <img class="mx-auto" src='{% static "mysign_app/gebouw-n.png" %}'>
+                        </div>
                     </div>
                 </div>
-            </div>
-        {% else %}
-            <div class="row h-75 align-items-center">
-                <div class="col-md-12">
-                    <div class="row">
-                        <img class="mx-auto" src='{% static "mysign_app/gebouw-n.png" %}'>
+                <div class="row h-25">
+                    <div class="col-md-12 text-center">
+                        <h3>There is currently no company attached to this device.</h3>
+                        <h5>Please go to the administration panel and couple a company to this device. Device
+                            id {{ device.id }}
+                        </h5>
                     </div>
                 </div>
-            </div>
-            <div class="row h-25">
-                <div class="col-md-12 text-center">
-                    <h3>There is currently no company attached to this device.</h3>
-                    <h5>Please go to the administration panel and couple a company to this device. Device
-                        id {{ device.id }}
-                    </h5>
-                </div>
-            </div>
-        {% endif %}
+            {% endif %}
+        </div>
     </body>
 </html>
