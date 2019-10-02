@@ -10,8 +10,8 @@ def test_objects_are_seeded():
     # Run seeds
     Command().handle()
 
-    assert Company.objects.count() == 5
-    assert DoorDevice.objects.count() == 10
+    assert Company.objects.count() == 20
+    assert DoorDevice.objects.count() == 20
 
     assert User.objects.filter(username='HMO').count() == 1
     assert User.objects.filter(username='HMO').first().check_password('123456')
