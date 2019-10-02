@@ -47,9 +47,8 @@ a:hover {
 }
 
 .authenticated-padding {
-    /*padding-top: 15px;*/
     padding-bottom: 15px;
-    padding-top: 97.06px; /* Pad it under the navbar */
+    padding-top: 97.06px; /* Pad it under the navbar (82.02) and give soma padding (15) */
 }
 
 .row-dt {
