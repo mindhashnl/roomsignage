@@ -100,7 +100,7 @@ class Users(AdminRequiredMixin, DataTablesView):
     form_class = UserForm
     form_kwargs = {'no_delete': True}
     list_fields = ['id', 'first_name', 'last_name']
-    json_fields = ['id', 'first_name', 'last_name', 'username', 'company', 'is_admin']
+    json_fields = ['id', 'first_name', 'last_name', 'email', 'company', 'is_admin']
 
 
 @admin_required
