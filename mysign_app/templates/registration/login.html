@@ -19,7 +19,7 @@
                         {{ form|crispy }}
                         <input type="submit" name="submit" class="btn btn-primary btn-md" value="Login">
                     </form>
-                    <a href="password_reset_form.html">Wachtwoord vergeten?</a>
+                    <a href="{% url 'password_reset' %}">Wachtwoord vergeten?</a>
                 </div>
             </div>
         </div>
