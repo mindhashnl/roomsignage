@@ -1,9 +1,7 @@
 import json
 
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
-from django.contrib.auth.views import logout_then_login
 from django.http import HttpResponse
 from django.shortcuts import redirect
 from django.template import loader
@@ -109,8 +107,7 @@ def company_add(request):
                                 from_email="Gebouw-N <info@utsign.com",
                                 recipient_list=[user_form.cleaned_data['email']],
                                 context={
-                                    'naam': user.first_name + " "
-                                            + user.last_name,
+                                    'naam': user.get_full_name(),
                                     'uid': urlsafe_base64_encode(force_bytes(user.pk)),
                                     'token':
                                         PasswordResetTokenGenerator().make_token(
