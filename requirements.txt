@@ -2,6 +2,7 @@ Django==2.2.5
 django-colorfield==0.1.15
 django-seed==0.1.9
 django-use-email-as-username
+djangorestframework # For the json serialization
 python-dotenv==0.10.1
 psycopg2-binary==2.8.3
 pytest==5.1.2
