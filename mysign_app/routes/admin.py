@@ -16,6 +16,8 @@ from mysign_app.forms import (AddCompanyUserForm, CompanyForm, DoorDeviceForm,
                               UserForm)
 from mysign_app.models import Company, DoorDevice, User
 from mysign_app.routes.helpers import AdminRequiredMixin, admin_required
+from mysign_app.serializers import (CompanySerializer, DoorDeviceSerializer,
+                                    UserSerializer)
 
 
 @login_required
@@ -40,7 +42,7 @@ class DataTablesView(TemplateView, FormView):
     form_class = None
     form_kwargs = None
     list_fields = []
-    json_fields = []
+    serializer = None
 
     def post(self, request, *args, **kwargs):
         """ Only clicked buttons get their name send, so this checks if the button with name 'delete' is pressed """
@@ -75,8 +77,7 @@ class DataTablesView(TemplateView, FormView):
         return kwargs
 
     def models_json(self):
-        objects = self._all_objects().values(*self.json_fields)
-        objects = list(objects)
+        objects = self.serializer(self._all_objects(), many=True).data
         return json.dumps(objects)
 
     def _all_objects(self):
@@ -86,8 +87,8 @@ class DataTablesView(TemplateView, FormView):
 class DoorDevices(AdminRequiredMixin, DataTablesView):
     model = DoorDevice
     form_class = DoorDeviceForm
-    list_fields = ['id']
-    json_fields = ['id', 'company']
+    list_fields = ['id', 'company.name']
+    serializer = DoorDeviceSerializer
 
 
 class Companies(AdminRequiredMixin, DataTablesView):
@@ -95,7 +96,7 @@ class Companies(AdminRequiredMixin, DataTablesView):
     form_class = CompanyForm
     form_kwargs = {'readonly': True}
     list_fields = ['name']
-    json_fields = ['name', 'email', 'phone_number', 'id']
+    serializer = CompanySerializer
 
 
 class Users(AdminRequiredMixin, DataTablesView):
@@ -103,7 +104,7 @@ class Users(AdminRequiredMixin, DataTablesView):
     form_class = UserForm
     form_kwargs = {'no_delete': True}
     list_fields = ['id', 'first_name', 'last_name']
-    json_fields = ['id', 'first_name', 'last_name', 'username', 'company', 'is_admin']
+    serializer = UserSerializer
 
 
 @admin_required
