@@ -4,7 +4,7 @@ import uuid
 
 import stringcase as stringcase
 from colorfield.fields import ColorField
-from django.contrib.auth.models import AbstractUser
+from django_use_email_as_username.models import BaseUser, BaseUserManager
 from django.core.exceptions import ValidationError
 from django.core.validators import RegexValidator
 from django.db import models
@@ -32,10 +32,12 @@ class ClassStr:
         return stringcase.sentencecase(cls.__name__)
 
 
-class User(AbstractUser, ClassStr):
+class User(BaseUser, ClassStr):
     company = ForeignKey('Company', on_delete=models.CASCADE, null=True, blank=True)
     is_admin = BooleanField(default=False)
-    email = models.EmailField('email address', unique=True, blank=False)
+    # email = models.EmailField('email address', unique=True, blank=False)
+
+    objects = BaseUserManager()
 
     def clean(self, *args, **kwargs):
         # Validate company and is_admin not both set

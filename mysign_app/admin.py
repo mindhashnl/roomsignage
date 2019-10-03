@@ -4,12 +4,12 @@ from django.contrib.auth.admin import UserAdmin
 from .models import Company, DoorDevice, User
 
 
-class CustomUserAdmin(UserAdmin):
-    fieldsets = ((None, {'fields': ('company',)}),
-                 ) + UserAdmin.fieldsets
-
-
-admin.site.register(User, CustomUserAdmin)
+# class CustomUserAdmin(UserAdmin):
+#     fieldsets = ((None, {'fields': ('company',)}),
+#                  ) + UserAdmin.fieldsets
+#
+#
+# admin.site.register(User, CustomUserAdmin)
 
 
 class DoorDeviceInline(admin.TabularInline):
