@@ -15,9 +15,9 @@
 
     <div class="collapse navbar-collapse" id="navbarItems">
 
-        {# ---- Nav bar items ----#}
-        <ul class="navbar-nav mr-auto">
-            {% with request.resolver_match.url_name as url_name %}
+        {% with request.resolver_match.url_name as url_name %}
+            {# ---- Nav bar items ----#}
+            <ul class="navbar-nav mr-auto">
                 {% for link, name in menu_items.items %}
                     <li class="nav-item {% if url_name == link %} active {% endif %}">
                         <a class="nav-link" href="{% url link %}">{{ name }} </a>
@@ -31,22 +31,22 @@
                 <li class="nav-item d-sm-none">
                     <a class="nav-link" href="{% url 'logout' %}">Logout </a>
                 </li>
-                </ul>
+            </ul>
 
-                {# ---- action buttons (not for mobile) --- #}
-                <ul class="nav nav-pills d-none d-md-block">
-                    {% if url_name == 'admin_companies' %}
-                        <a href="{% url 'admin_company_add' %}" class="btn navbar-btn mt-auto" role="button">
-                            <i class="fas fa-plus"></i>
-                            Add company
-                        </a>
-                    {% endif %}
-                    <a href="{% url 'logout' %}" class="btn navbar-btn ml-2" role="button">
-                        <i class="fas fa-user"></i>
-                        Logout
+            {# ---- action buttons (not for mobile) --- #}
+            <ul class="nav nav-pills d-none d-md-block">
+                {% if url_name == 'admin_companies' %}
+                    <a href="{% url 'admin_company_add' %}" class="btn navbar-btn mt-auto" role="button">
+                        <i class="fas fa-plus"></i>
+                        Add company
                     </a>
-                </ul>
-            {% endwith %}
+                {% endif %}
+                <a href="{% url 'logout' %}" class="btn navbar-btn ml-2" role="button">
+                    <i class="fas fa-user"></i>
+                    Logout
+                </a>
+            </ul>
+        {% endwith %}
     </div>
 
 
