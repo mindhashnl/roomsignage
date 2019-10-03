@@ -15,8 +15,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 INSTALLED_APPS = [
     'colorfield',
-    'crispy_forms', # Fancy bootstrap forms
-    'django_use_email_as_username.apps.DjangoUseEmailAsUsernameConfig', # Email as username
+    'crispy_forms',  # Fancy bootstrap forms
+    'django_use_email_as_username.apps.DjangoUseEmailAsUsernameConfig',  # Email as username
     'mysign_app.apps.MysignAppConfig',
     'django.contrib.admin',
     'django.contrib.auth',

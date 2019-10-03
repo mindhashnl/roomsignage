@@ -1,5 +1,4 @@
 from django.contrib import admin
-from django.contrib.auth.admin import UserAdmin
 from django_use_email_as_username.admin import BaseUserAdmin
 
 from .models import Company, DoorDevice, User

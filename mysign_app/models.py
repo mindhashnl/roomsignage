@@ -4,12 +4,12 @@ import uuid
 
 import stringcase as stringcase
 from colorfield.fields import ColorField
-from django_use_email_as_username.models import BaseUser, BaseUserManager
 from django.core.exceptions import ValidationError
 from django.core.validators import RegexValidator
 from django.db import models
 from django.db.models import BooleanField, ForeignKey
 from django.templatetags.static import static
+from django_use_email_as_username.models import BaseUser, BaseUserManager
 
 phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$',
                              message="Phone number must be entered in the format: "
