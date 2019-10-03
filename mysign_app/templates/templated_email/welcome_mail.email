@@ -1,0 +1,9 @@
+{% block subject %}Welkom{% endblock %}
+{% block html %}
+    <p>Beste {{naam}},</p>
+
+  <p>Bedankt voor het aanmelden {{url}} van uw gebruiken van de tablet service van Gebouw-N. Klik op deze link om het account te activeren.
+  </p>
+
+  <p>you</p>
+{% endblock %}
