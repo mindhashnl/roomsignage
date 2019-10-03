@@ -7,7 +7,7 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('mysign_app', '0004_auto_20191002_1108'),
+        ('mysign_app', '0005_auto_20191003_1300'),
     ]
 
     operations = [
