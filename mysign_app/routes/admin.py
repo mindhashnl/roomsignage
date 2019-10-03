@@ -112,15 +112,16 @@ def company_add(request):
         company_form = CompanyForm(request.POST, prefix='company')
         user_form = AddCompanyUserForm(request.POST, prefix='user')
         if company_form.is_valid() and user_form.is_valid():
-            company_form.save()
-            user_form.save()
-            user = User.objects.get(email=user_form.cleaned_data['email'])
+            company = company_form.save()
+            user = user_form.save()
+            user.company = company
+            user.save()
             send_templated_mail(template_name="welcome_mail",
                                 from_email="Gebouw-N <info@utsign.com",
                                 recipient_list=[user_form.cleaned_data['email']],
                                 context={
-                                    'naam': user_form.cleaned_data['first_name'] + " "
-                                    + user_form.cleaned_data['last_name'],
+                                    'naam': user.first_name + " "
+                                    + user.last_name,
                                     'uid': urlsafe_base64_encode(force_bytes(user.pk)),
                                     'token':
                                         PasswordResetTokenGenerator().make_token(
