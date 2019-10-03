@@ -115,6 +115,8 @@ def company_add(request):
             company = company_form.save()
             user = user_form.save()
             user.company = company
+
+            # No return value, so we cant store last save. Since we dont need it for email, keep it at the old user
             user.save()
             send_templated_mail(template_name="welcome_mail",
                                 from_email="Gebouw-N <info@utsign.com",
