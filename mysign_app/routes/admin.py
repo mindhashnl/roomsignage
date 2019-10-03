@@ -18,19 +18,6 @@ from mysign_app.models import Company, DoorDevice, User
 from mysign_app.routes.helpers import AdminRequiredMixin, admin_required
 
 
-@login_required
-def index(request):
-    if request.user.is_admin:
-        return redirect('admin_door_devices')
-    if request.user.company:
-        return redirect('company_view')
-
-
-def logout(request):
-    messages.success(request, 'You were successfully logged-out.')
-    return logout_then_login(request)
-
-
 class DataTablesView(TemplateView, FormView):
     """
     View for displaying datatables and a form on one page
@@ -123,11 +110,11 @@ def company_add(request):
                                 recipient_list=[user_form.cleaned_data['email']],
                                 context={
                                     'naam': user.first_name + " "
-                                    + user.last_name,
+                                            + user.last_name,
                                     'uid': urlsafe_base64_encode(force_bytes(user.pk)),
                                     'token':
                                         PasswordResetTokenGenerator().make_token(
-                                        user=user),
+                                            user=user),
                                 })
 
             messages.info(request, 'Company and user successfully added')
