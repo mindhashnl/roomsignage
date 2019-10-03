@@ -1,6 +1,6 @@
-from rest_framework import routers, serializers, viewsets
+from rest_framework import serializers
 
-from mysign_app.models import DoorDevice, Company, User
+from mysign_app.models import Company, DoorDevice, User
 
 
 class CompanySerializer(serializers.ModelSerializer):
