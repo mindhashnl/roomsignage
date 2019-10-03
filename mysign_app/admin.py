@@ -1,15 +1,16 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
+from django_use_email_as_username.admin import BaseUserAdmin
 
 from .models import Company, DoorDevice, User
 
 
-# class CustomUserAdmin(UserAdmin):
-#     fieldsets = ((None, {'fields': ('company',)}),
-#                  ) + UserAdmin.fieldsets
-#
-#
-# admin.site.register(User, CustomUserAdmin)
+class CustomUserAdmin(BaseUserAdmin):
+    fieldsets = ((None, {'fields': ('company',)}),
+                 ) + BaseUserAdmin.fieldsets
+
+
+admin.site.register(User, CustomUserAdmin)
 
 
 class DoorDeviceInline(admin.TabularInline):
