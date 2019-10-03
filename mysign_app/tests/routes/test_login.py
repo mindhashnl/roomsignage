@@ -12,6 +12,9 @@ def create_user(**kwargs):
                              password='123456',
                              **kwargs)
 
+"""
+On all tests the payload contain username, however this matches with the email field on the model
+"""
 
 @mark.django_db
 def test_login_wrong_credentials(client):
