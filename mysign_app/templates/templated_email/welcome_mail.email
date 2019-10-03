@@ -2,8 +2,11 @@
 {% block html %}
     <p>Beste {{naam}},</p>
 
-  <p>Bedankt voor het aanmelden {{url}} van uw gebruiken van de tablet service van Gebouw-N. Klik op deze link om het account te activeren.
+  <p>Bedankt voor het aanmelden van uw gebruiken van de tablet service van Gebouw-N. Klik op onderstaande link om het account te activeren.
   </p>
 
-  <p>you</p>
+  <p>http://mysign.nl/reset/{{uid}}/{{token}}</p>
+
+  <p>Met vriendelijke groeten,</p>
+  <p>Gebouw-N</p>
 {% endblock %}

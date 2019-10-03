@@ -2,10 +2,13 @@ import json
 
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from django.contrib.auth.views import logout_then_login
 from django.http import HttpResponse
 from django.shortcuts import redirect
 from django.template import loader
+from django.utils.encoding import force_bytes
+from django.utils.http import urlsafe_base64_encode
 from django.views.generic import FormView, TemplateView
 from templated_email import send_templated_mail
 
@@ -111,13 +114,19 @@ def company_add(request):
         if company_form.is_valid() and user_form.is_valid():
             company_form.save()
             user_form.save()
+            user = User.objects.get(email=user_form.cleaned_data['email'])
             send_templated_mail(template_name="welcome_mail",
-                                from_email="info@mysign.nl",
+                                from_email="Gebouw-N <info@utsign.com",
                                 recipient_list=[user_form.cleaned_data['email']],
                                 context={
                                     'naam': user_form.cleaned_data['first_name'] + " "
-                                    + user_form.cleaned_data['last_name'], 'url': "www.google.com"
+                                    + user_form.cleaned_data['last_name'],
+                                    'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+                                    'token':
+                                        PasswordResetTokenGenerator().make_token(
+                                        user=user),
                                 })
+
             messages.info(request, 'Company and user successfully added')
             return redirect('admin_companies')
     else:
