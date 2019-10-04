@@ -18,6 +18,8 @@ class DoorDeviceSerializer(serializers.ModelSerializer):
 
 
 class UserSerializer(serializers.ModelSerializer):
+    company = CompanySerializer()
+
     class Meta:
         model = User
         fields = ['id', 'first_name', 'last_name', 'email', 'company', 'is_admin']
