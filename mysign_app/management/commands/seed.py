@@ -23,17 +23,16 @@ def seed():
     seeder.add_entity(DoorDevice, 20)
     seeder.execute()
 
-    users = [{'username': 'developer', 'is_staff': True, 'is_superuser': True},
-             {'username': 'HMO', 'is_admin': True},
-             {'username': 'company', 'company': Company.objects.first()},
-             {'username': 'nonlogin'}]
+    users = [{'email': 'developer@utsign.nl', 'is_staff': True, 'is_superuser': True},
+             {'email': 'HMO@utsign.nl', 'is_admin': True},
+             {'email': 'company@utsign.nl', 'company': Company.objects.first()},
+             {'email': 'nonlogin@utsign.nl'}]
 
     fake = Faker()
     for u in users:
         us = User(**u)
         us.first_name = fake.first_name()
         us.last_name = fake.last_name()
-        us.email = fake.email()
         us.set_password('123456')
         us.save()
 

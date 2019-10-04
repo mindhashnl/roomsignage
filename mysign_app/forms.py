@@ -47,13 +47,13 @@ class DoorDeviceForm(ModelForm):
 class UserForm(NoDeleteToggleableForm):
     class Meta:
         model = User
-        fields = ['first_name', 'last_name', 'username', 'company', 'is_admin']
+        fields = ['first_name', 'last_name', 'email', 'company', 'is_admin']
 
 
 class AddCompanyUserForm(ModelForm):
     class Meta:
         model = User
-        fields = ['first_name', 'last_name', 'email', 'username', ]
+        fields = ['first_name', 'last_name', 'email', ]
 
 
 class CompanyViewForm(NoDeleteToggleableForm):
