@@ -20,17 +20,37 @@ img {
 }
 
 a {
+
+}
+
+a:hover {
+
+}
+
+/*Custom CSS classes*/
+
+.auth-container {
+    background-color: var(--primary-dark);
+}
+
+.authenticated-padding {
+    padding-bottom: 15px;
+    padding-top: 70.86px;
+}
+/* Pad it under the navbar (82.02) and give soma padding (15) */
+
+/* Navbar */
+
+.navbar-dark {
+    background-color: var(--secondary-dark);
+}
+
+a.nav-link {
     font-weight: bold;
     font-size: 1.25rem;
     color: var(--primary-dark);
     transition: 0.2s;
 }
-
-a:hover {
-    color: var(--secondary-dark);
-}
-
-/*Custom CSS classes*/
 
 .navbar-btn {
     color: var(--primary-light);
@@ -38,35 +58,8 @@ a:hover {
     border: 0.5px solid var(--primary-light);
 }
 
-.auth-container {
-    background-color: var(--primary-dark);
-}
-
-.navbar-dark .navbar-nav .active > .nav-link {
-    color: var(--primary-dark);
-}
-
-.navbar-dark {
-    width: 100%;
-    background-color: var(--secondary-dark);
-}
-
 .bar-logo {
     width: 40px;
-}
-
-.btn-primary, .btn-primary.disabled, .btn-primary:disabled, .btn-primary:hover {
-    height: 43px;
-    color: white;
-    border-color: var(--save-btn);
-    background-color: var(--save-btn);
-}
-
-.btn-danger, .btn-danger.disabled, .btn-danger:disabled, .btn-danger:hover {
-    height: 43px;
-    color: white;
-    border-color: var(--delete-btn);
-    background-color: var(--delete-btn);
 }
 
 .navbar-brand {
@@ -74,12 +67,17 @@ a:hover {
     padding-right: 0.3125rem;
 }
 
-.authenticated-padding {
-    padding-bottom: 15px;
-    padding-top: 70.86px;
+.save-button {
+    height: 43px;
+    color: white;
+    background-color: var(--save-btn);
 }
 
-/* Pad it under the navbar (82.02) and give soma padding (15) */
+.delete-button {
+    height: 43px;
+    color: white;
+    background-color: var(--delete-btn);
+}
 
 .row-dt-form {
     padding-top: 10px;
