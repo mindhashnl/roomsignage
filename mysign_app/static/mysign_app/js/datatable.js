@@ -13,7 +13,15 @@ function createDataTable(dataJson, listFields) {
 	];
 
 	Object.values(listFields).forEach(function (key) {
-		columns.push({data: key, name: key});
+		columns.push({
+			data: key,
+			defaultContent: 'Not Set',
+			createdCell: function (cell, cellData) {
+				if (cellData === 'Not Set') {
+					cell.setAttribute('hidden', true);
+				}
+			}
+		});
 	});
 
 	// Register custom classes
@@ -84,8 +92,10 @@ function createDataTable(dataJson, listFields) {
 
 			// For all labels
 			for (const [key, value] of Object.entries(rowData[0])) {
-				// If field is bool, set checkbox
-				if (value === true || value === false) {
+				if (value === null) {
+					// Do nothing if field is not set
+				} else if (value === true || value === false) {
+					// If field is bool, set checkbox
 					let fieldName = '#id_' + key;
 					$(fieldName).prop('checked', value);
 				} else if (key === 'id') {
@@ -94,7 +104,11 @@ function createDataTable(dataJson, listFields) {
 				} else {
 					// Else, set the field with the #id_FIELDNAME id.
 					let fieldName = '#id_' + key;
-					$(fieldName).val(value);
+					if (typeof value === 'object') {
+						$(fieldName).val(value.id);
+					} else {
+						$(fieldName).val(value);
+					}
 				}
 			}
 
