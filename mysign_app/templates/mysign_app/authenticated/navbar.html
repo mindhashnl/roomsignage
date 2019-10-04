@@ -1,6 +1,6 @@
 {% load static %}
 
-<nav class="navbar navbar-expand-lg fixed-top navbar-dark">
+<nav class="navbar navbar-expand-md fixed-top navbar-dark">
     {# ---- Nav bar logo ---- #}
     <div class="navbar-brand">
         <img class="mx-auto bar-logo" src='{% static "mysign_app/gebouw-n.png" %}'>
@@ -25,10 +25,10 @@
                 {% endfor %}
 
                 {# --- action links for mobile --- #}
-                <li class="nav-item d-sm-none {% if url_name == 'admin_company_add' %} active {% endif %}">
+                <li class="nav-item d-md-none {% if url_name == 'admin_company_add' %} active {% endif %}">
                     <a class="nav-link" href="{% url 'admin_company_add' %}">Add company </a>
                 </li>
-                <li class="nav-item d-sm-none">
+                <li class="nav-item d-md-none">
                     <a class="nav-link" href="{% url 'logout' %}">Logout </a>
                 </li>
             </ul>
