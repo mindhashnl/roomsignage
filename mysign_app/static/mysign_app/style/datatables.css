@@ -14,10 +14,6 @@ table.dataTable tbody tr.selected {
 
 }
 
-sorting_1 {
-    background-color: white;
-}
-
 .cards tbody td {
     display: block;
 }
