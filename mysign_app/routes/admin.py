@@ -1,9 +1,7 @@
 import json
 
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
-from django.contrib.auth.views import logout_then_login
 from django.http import HttpResponse
 from django.shortcuts import redirect
 from django.template import loader
@@ -18,19 +16,6 @@ from mysign_app.models import Company, DoorDevice, User
 from mysign_app.routes.helpers import AdminRequiredMixin, admin_required
 from mysign_app.serializers import (CompanySerializer, DoorDeviceSerializer,
                                     UserSerializer)
-
-
-@login_required
-def index(request):
-    if request.user.is_admin:
-        return redirect('admin_door_devices')
-    if request.user.company:
-        return redirect('company_view')
-
-
-def logout(request):
-    messages.success(request, 'You were successfully logged-out.')
-    return logout_then_login(request)
 
 
 class DataTablesView(TemplateView, FormView):
@@ -56,7 +41,7 @@ class DataTablesView(TemplateView, FormView):
             form = self.form_class(request.POST, instance=model)
             if form.is_valid():
                 form.save()
-                messages.success(request, f'{self.model.class_name()} succesfully created')
+                messages.success(request, f'{self.model.class_name()} succesfully updated')
                 form = self.form_class()
 
         context = self.get_context_data(form=form, **kwargs)
@@ -123,12 +108,11 @@ def company_add(request):
                                 from_email="Gebouw-N <info@utsign.com",
                                 recipient_list=[user_form.cleaned_data['email']],
                                 context={
-                                    'naam': user.first_name + " "
-                                    + user.last_name,
+                                    'naam': user.get_full_name(),
                                     'uid': urlsafe_base64_encode(force_bytes(user.pk)),
                                     'token':
                                         PasswordResetTokenGenerator().make_token(
-                                        user=user),
+                                            user=user),
                                 })
 
             messages.info(request, 'Company and user successfully added')
