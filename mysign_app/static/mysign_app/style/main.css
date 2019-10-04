@@ -40,12 +40,12 @@ img {
 .navbar-dark .navbar-nav .nav-link {
     font-weight: bold;
     font-size: 1.25rem;
-    /*color: var(--primary-dark);*/
+    color: var(--primary-dark);
     transition: 0.2s;
 }
 
 .navbar-dark .navbar-nav .nav-link:hover {
-    /*color: var(--primary-light);*/
+    color: var(--primary-light);
 }
 
 .navbar-btn {
@@ -63,13 +63,13 @@ img {
     padding-right: 0.3125rem;
 }
 
-.save-button {
+.btn-primary {
     height: 43px;
     color: white;
     background-color: var(--save-btn);
 }
 
-.delete-button {
+.btn-danger {
     height: 43px;
     color: white;
     background-color: var(--delete-btn);
