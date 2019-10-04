@@ -28,7 +28,6 @@ a {
 
 a:hover {
     color: var(--secondary-dark);
-    background-color: var(--primary-dark);
 }
 
 /*Custom CSS classes*/
@@ -43,9 +42,8 @@ a:hover {
     background-color: var(--primary-dark);
 }
 
-.nav-bg {
-    width: 100%;
-    background-color: var(--secondary-dark);
+.navbar-dark .navbar-nav .active > .nav-link {
+    color: var(--primary-dark);
 }
 
 .navbar-dark {

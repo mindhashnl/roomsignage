@@ -45,7 +45,7 @@ sorting_1 {
 .cards td.id:after {
     content: attr(data-label);
     border-radius: 50%;
-    margin-left: 100px;
+    margin-left: 80px;
     color: #f39898;
     background-color: #f39898;
 }
