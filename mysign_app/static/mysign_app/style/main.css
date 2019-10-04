@@ -48,15 +48,7 @@ a:hover {
     background-color: var(--secondary-dark);
 }
 
-.navbar-light .navbar-nav .active > .nav-link {
-    color: var(--primary-dark);
-}
-
-.navbar-light .navbar-nav .nav-link {
-    color: var(--primary-dark);
-}
-
-.navbar-light {
+.navbar-dark {
     width: 100%;
     background-color: var(--secondary-dark);
 }
