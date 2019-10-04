@@ -1,3 +1,4 @@
+from colorfield.fields import ColorWidget
 from django import forms
 from django.forms import ModelForm
 
@@ -23,6 +24,9 @@ class NoDeleteToggleableForm(ModelForm):
         super().__init__(*args, **kwargs)
         self._no_delete = no_delete
 
+        for field in self.fields:
+            print(field, self.fields[field].widget)
+
     @property
     def no_delete(self):
         return self._no_delete
@@ -43,16 +47,19 @@ class DoorDeviceForm(ModelForm):
 class UserForm(NoDeleteToggleableForm):
     class Meta:
         model = User
-        fields = ['first_name', 'last_name', 'username', 'company', 'is_admin']
+        fields = ['first_name', 'last_name', 'email', 'company', 'is_admin']
 
 
 class AddCompanyUserForm(ModelForm):
     class Meta:
         model = User
-        fields = ['first_name', 'last_name', 'email', 'username', ]
+        fields = ['first_name', 'last_name', 'email', ]
 
 
 class CompanyViewForm(NoDeleteToggleableForm):
     class Meta:
         model = Company
         fields = ['name', 'email', 'phone_number', 'website', 'logo', 'color']
+        widgets = {
+            'color': ColorWidget()
+        }

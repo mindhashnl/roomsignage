@@ -4,7 +4,7 @@ $(document).ready(function () {
 		const selector = $('#screen_display_' + event.target.name);
 
 		if (event.target.name === 'color') {
-			$('#screen_display_info').css('background-color', event.target.value);
+			$('#screen_display_info').css('background-color', event.target.jscolor.toHEXString());
 		} else if (event.target.files && event.target.files[0]) {
 			const reader = new FileReader();
 

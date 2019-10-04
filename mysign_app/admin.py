@@ -1,12 +1,12 @@
 from django.contrib import admin
-from django.contrib.auth.admin import UserAdmin
+from django_use_email_as_username.admin import BaseUserAdmin
 
 from .models import Company, DoorDevice, User
 
 
-class CustomUserAdmin(UserAdmin):
+class CustomUserAdmin(BaseUserAdmin):
     fieldsets = ((None, {'fields': ('company',)}),
-                 ) + UserAdmin.fieldsets
+                 ) + BaseUserAdmin.fieldsets
 
 
 admin.site.register(User, CustomUserAdmin)

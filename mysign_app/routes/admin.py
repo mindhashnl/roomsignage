@@ -2,16 +2,22 @@ import json
 
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from django.contrib.auth.views import logout_then_login
 from django.http import HttpResponse
 from django.shortcuts import redirect
 from django.template import loader
+from django.utils.encoding import force_bytes
+from django.utils.http import urlsafe_base64_encode
 from django.views.generic import FormView, TemplateView
+from templated_email import send_templated_mail
 
 from mysign_app.forms import (AddCompanyUserForm, CompanyForm, DoorDeviceForm,
                               UserForm)
 from mysign_app.models import Company, DoorDevice, User
 from mysign_app.routes.helpers import AdminRequiredMixin, admin_required
+from mysign_app.serializers import (CompanySerializer, DoorDeviceSerializer,
+                                    UserSerializer)
 
 
 @login_required
@@ -36,7 +42,7 @@ class DataTablesView(TemplateView, FormView):
     form_class = None
     form_kwargs = None
     list_fields = []
-    json_fields = []
+    serializer = None
 
     def post(self, request, *args, **kwargs):
         """ Only clicked buttons get their name send, so this checks if the button with name 'delete' is pressed """
@@ -71,8 +77,7 @@ class DataTablesView(TemplateView, FormView):
         return kwargs
 
     def models_json(self):
-        objects = self._all_objects().values(*self.json_fields)
-        objects = list(objects)
+        objects = self.serializer(self._all_objects(), many=True).data
         return json.dumps(objects)
 
     def _all_objects(self):
@@ -82,8 +87,8 @@ class DataTablesView(TemplateView, FormView):
 class DoorDevices(AdminRequiredMixin, DataTablesView):
     model = DoorDevice
     form_class = DoorDeviceForm
-    list_fields = ['id']
-    json_fields = ['id', 'company']
+    list_fields = ['id', 'company.name']
+    serializer = DoorDeviceSerializer
 
 
 class Companies(AdminRequiredMixin, DataTablesView):
@@ -91,15 +96,15 @@ class Companies(AdminRequiredMixin, DataTablesView):
     form_class = CompanyForm
     form_kwargs = {'readonly': True}
     list_fields = ['name']
-    json_fields = ['name', 'email', 'phone_number', 'id']
+    serializer = CompanySerializer
 
 
 class Users(AdminRequiredMixin, DataTablesView):
     model = User
     form_class = UserForm
     form_kwargs = {'no_delete': True}
-    list_fields = ['id', 'first_name', 'last_name']
-    json_fields = ['id', 'first_name', 'last_name', 'username', 'company', 'is_admin']
+    list_fields = ['first_name', 'last_name', 'company.name']
+    serializer = UserSerializer
 
 
 @admin_required
@@ -108,8 +113,24 @@ def company_add(request):
         company_form = CompanyForm(request.POST, prefix='company')
         user_form = AddCompanyUserForm(request.POST, prefix='user')
         if company_form.is_valid() and user_form.is_valid():
-            company_form.save()
-            user_form.save()
+            company = company_form.save()
+            user = user_form.save()
+            user.company = company
+
+            # No return value, so we cant store last save. Since we dont need it for email, keep it at the old user
+            user.save()
+            send_templated_mail(template_name="welcome_mail",
+                                from_email="Gebouw-N <info@utsign.com",
+                                recipient_list=[user_form.cleaned_data['email']],
+                                context={
+                                    'naam': user.first_name + " "
+                                    + user.last_name,
+                                    'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+                                    'token':
+                                        PasswordResetTokenGenerator().make_token(
+                                        user=user),
+                                })
+
             messages.info(request, 'Company and user successfully added')
             return redirect('admin_companies')
     else:

@@ -15,7 +15,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 INSTALLED_APPS = [
     'colorfield',
-    'crispy_forms',
+    'crispy_forms',  # Fancy bootstrap forms
+    'django_use_email_as_username.apps.DjangoUseEmailAsUsernameConfig',  # Email as username
     'mysign_app.apps.MysignAppConfig',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -70,7 +71,7 @@ DATABASES = {
     },
 }
 
-
+#
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.sqlite3',
@@ -122,3 +123,9 @@ MESSAGE_TAGS = {
     messages.WARNING: 'alert-warning',
     messages.ERROR: 'alert-danger',
 }
+EMAIL_BACKEND = "sendgrid_backend.SendgridBackend"
+SENDGRID_API_KEY = os.environ.get("SENDGRID_API_KEY")
+SENDGRID_ECHO_TO_STDOUT = True
+TEMPLATED_EMAIL_BACKEND = 'templated_email.backends.vanilla_django.TemplateBackend'
+TEMPLATED_EMAIL_FILE_EXTENSION = 'email'
+DEFAULT_FROM_EMAIL = 'Gebouw-N <info@utsign.com>'
