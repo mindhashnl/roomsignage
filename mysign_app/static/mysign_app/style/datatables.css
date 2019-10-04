@@ -37,22 +37,19 @@ sorting_1 {
     text-align: left;
 }
 
-.cards td:after {
-    height: 5px;
-    width: 5px;
-    background-color: #bbb;
-    border-radius: 10%;
-    display: inline-block;
+.cards td.active.id:after {
+    color: #99ea99;
+    background-color: #99ea99;
 }
 
-.page-item.active .page-link {
-    background-color: var(--secondary-dark);
-    border-color: var(--secondary-dark);
+.cards td.id:after {
+    content: attr(data-label);
+    border-radius: 50%;
+    margin-left: 100px;
+    color: #f39898;
+    background-color: #f39898;
 }
 
-.page-link {
-    color: var(--secondary-dark);
-}
 
 tr.selected td:before {
     color: white;

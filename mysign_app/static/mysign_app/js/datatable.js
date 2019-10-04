@@ -16,9 +16,15 @@ function createDataTable(dataJson, listFields) {
 		columns.push({
 			data: key,
 			defaultContent: 'Not Set',
-			createdCell: function (cell, cellData) {
+			createdCell: function (cell, cellData, rowData) {
 				if (cellData === 'Not Set') {
 					cell.setAttribute('hidden', true);
+				}
+
+				cell.classList.add(key);
+
+				if (rowData.company) {
+					cell.classList.add('active');
 				}
 			}
 		});
