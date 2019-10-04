@@ -84,6 +84,7 @@ function createDataTable(dataJson, listFields) {
 			$('#card-toggle').click();
 			$('#register thead').hide();
 			$('button[type=submit]').attr('disabled', true);
+			$('#form-fieldset').attr('disabled', true);
 		}
 	})
 
@@ -113,10 +114,12 @@ function createDataTable(dataJson, listFields) {
 			}
 
 			$('button[type=submit]').attr('disabled', false);
+			$('#form-fieldset').attr('disabled', false)
 		})
 		.on('deselect', function () {
 			// Disable submit button
 			$('button[type=submit]').attr('disabled', true);
+			$('#form-fieldset').attr('disabled', true)
 
 			// Reset all input fields
 			$('input[name!=csrfmiddlewaretoken]').val(null); // Input fields
