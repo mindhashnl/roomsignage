@@ -28,8 +28,14 @@
 
 .cards td.active.id:after {
     content: attr(data-label);
+    background-color: green;
+}
+
+.cards td.id:after {
+    content: attr(data-label);
     background-color: red;
 }
+
 
 tr.selected td:before {
     color: #404040;
@@ -41,7 +47,7 @@ tr.selected td:before {
     color: #404040;
 }
 
-.table{
+.table {
     height: 100%;
 }
 
