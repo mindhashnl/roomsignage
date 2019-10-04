@@ -41,7 +41,7 @@ class DataTablesView(TemplateView, FormView):
             form = self.form_class(request.POST, instance=model)
             if form.is_valid():
                 form.save()
-                messages.success(request, f'{self.model.class_name()} succesfully created')
+                messages.success(request, f'{self.model.class_name()} succesfully updated')
                 form = self.form_class()
 
         context = self.get_context_data(form=form, **kwargs)
