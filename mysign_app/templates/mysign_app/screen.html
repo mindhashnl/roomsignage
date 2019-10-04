@@ -3,9 +3,12 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN http://www.w3.org/TR/html4/strict.dtd">
 
 <html lang="en">
+    {% load pwa %}
+    {% include 'partials/head.html' %}
     <head>
-        {% include 'partials/head.html' %}
+        {% progressive_web_app_meta %}
 
+         <title>Feeds</title>
         <script>
 
             function fullScreen() {
@@ -44,5 +47,9 @@
                 </div>
             {% endif %}
         </div>
+
+    			<div id="offlinedata">
+				<!-- the news will get displayed here from indexedDB in offline mode -->
+			</div>
     </body>
 </html>

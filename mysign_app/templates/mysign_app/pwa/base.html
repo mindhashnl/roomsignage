@@ -1,0 +1,25 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN http://www.w3.org/TR/html4/strict.dtd">
+
+<html lang="en">
+    {% load pwa %}
+    <head>
+        {% include 'partials/head.html' %}
+        {% progressive_web_app_meta %}
+    </head>
+    <body>
+        {% include 'mysign_app/authenticated/navbar.html' %}
+
+        <div class="container-fluid authenticated-padding h-100">
+            <div class="col-md-3 offset-md-3" style="height: 0px; z-index: 1">
+                {% include 'partials/messages.html' %}
+            </div>
+
+            <div class="row h-100">
+                {% block content %}
+                {% endblock %}
+            </div>
+        </div>
+
+
+    </body>
+</html>

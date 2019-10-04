@@ -23,6 +23,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'pwa',
 ]
 
 MIDDLEWARE = [
@@ -128,3 +129,5 @@ SENDGRID_ECHO_TO_STDOUT = True
 TEMPLATED_EMAIL_BACKEND = 'templated_email.backends.vanilla_django.TemplateBackend'
 TEMPLATED_EMAIL_FILE_EXTENSION = 'email'
 DEFAULT_FROM_EMAIL = 'Gebouw-N <info@utsign.com>'
+
+PWA_SERVICE_WORKER_PATH = os.path.join(BASE_DIR, 'static/mysign_app/js/pwa', 'serviceworker.js')
