@@ -29,9 +29,6 @@ class NoDeleteToggleableForm(ModelForm):
         super().__init__(*args, **kwargs)
         self._no_delete = no_delete
 
-        for field in self.fields:
-            print(field, self.fields[field].widget)
-
     @property
     def no_delete(self):
         return self._no_delete
