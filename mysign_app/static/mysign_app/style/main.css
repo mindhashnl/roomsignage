@@ -65,15 +65,17 @@ a:hover {
     width: 40px;
 }
 
-.save-button {
+.btn-primary, .btn-primary.disabled, .btn-primary:disabled, .btn-primary:hover {
     height: 43px;
     color: white;
+    border-color: var(--save-btn);
     background-color: var(--save-btn);
 }
 
-.delete-button {
+.btn-danger, .btn-danger.disabled, .btn-danger:disabled, .btn-danger:hover {
     height: 43px;
     color: white;
+    border-color: var(--delete-btn);
     background-color: var(--delete-btn);
 }
 
@@ -85,6 +87,7 @@ a:hover {
 .authenticated-padding {
     padding-bottom: 15px;
     padding-top: 70.86px;
+}
 
 /* Pad it under the navbar (82.02) and give soma padding (15) */
 
