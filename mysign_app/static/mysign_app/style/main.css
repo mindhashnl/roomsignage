@@ -19,14 +19,6 @@ img {
     max-width: 100%;
 }
 
-a {
-
-}
-
-a:hover {
-
-}
-
 /* Custom CSS classes */
 
 .auth-container {
@@ -42,6 +34,7 @@ a:hover {
 /* Navbar */
 
 .navbar-dark {
+    color: var(--primary-dark);
     background-color: var(--secondary-dark);
 }
 
