@@ -29,6 +29,7 @@ img {
     padding-bottom: 15px;
     padding-top: 70.86px;
 }
+
 /* Pad it under the navbar (82.02) and give soma padding (15) */
 
 /* Navbar */
@@ -63,15 +64,18 @@ img {
     padding-right: 0.3125rem;
 }
 
-.btn-primary {
+.btn-primary, .btn-primary:disabled {
     height: 43px;
     color: white;
+    border-color: var(--save-btn);
     background-color: var(--save-btn);
+
 }
 
-.btn-danger {
+.btn-danger, .btn-danger:disabled {
     height: 43px;
     color: white;
+    border-color: var(--delete-btn);
     background-color: var(--delete-btn);
 }
 
