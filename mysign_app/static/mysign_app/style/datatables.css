@@ -26,6 +26,11 @@
     text-align: left;
 }
 
+.cards td.active.id:after {
+    content: attr(data-label);
+    background-color: red;
+}
+
 tr.selected td:before {
     color: #404040;
 }
