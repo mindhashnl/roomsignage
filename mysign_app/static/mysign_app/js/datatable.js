@@ -13,7 +13,15 @@ function createDataTable(dataJson, listFields) {
 	];
 
 	Object.values(listFields).forEach(function (key) {
-		columns.push({data: key, name: key});
+		columns.push({
+			data: key,
+			"defaultContent": "Not Set",
+			createdCell: function (cell, cellData, rowData, rowIndex, colIndex) {
+				if (cellData === 'Not Set') {
+					cell.setAttribute('hidden', true)
+				}
+			}
+		});
 	});
 
 	// Register custom classes
