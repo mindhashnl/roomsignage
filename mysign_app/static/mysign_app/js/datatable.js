@@ -37,48 +37,10 @@ function createDataTable(dataJson, listFields) {
 
 	const table = $('#register').DataTable({
 		dom:
-			'rt<"row"<"col-3"B><"col-3 offset-6"f>>' + // Search bar and buttons row
+			'rt<"row"<"col-3 offset-9"f>>' + // Search bar row
 			'<"row row-table"<"col-12 h-100" tr>>' + // Data row
 			'<"row"<"col-5"i><"col-7"p>>', // Page buttons
 		pageLength: 20,
-		buttons: [
-			{
-				text: '<i class="fa fa-id-badge fa-fw fa-lg" aria-hidden="true"></i>',
-				action: function () {
-					$('#register').toggleClass('cards');
-					$('#card-toggle .fa').toggleClass(['fa-table', 'fa-id-badge']);
-					$('#register thead').toggle();
-
-					if ($('#register').hasClass('cards')) {
-						// Create an array of labels containing all table headers
-						let labels = [];
-						$('#register').find('thead th').each(function () {
-							labels.push($(this).text());
-						});
-
-						// Add data-label attribute to each cell
-						$('#register').find('tbody tr').each(function () {
-							$(this).find('td').each(function (column) {
-								$(this).attr('data-label', labels[column]);
-							});
-						});
-					} else {
-						// Remove data-label attribute from each cell
-						$('#register').find('td').each(function () {
-							$(this).removeAttr('data-label');
-						});
-
-						$('#register tr').each(function () {
-							$(this).height('auto');
-						});
-					}
-				},
-				attr: {
-					title: 'Change views',
-					id: 'card-toggle'
-				}
-			}
-		],
 		language: {
 			search: '',
 			searchPlaceholder: 'Search'
@@ -87,9 +49,21 @@ function createDataTable(dataJson, listFields) {
 		data: dataJson,
 		columns: columns,
 		fnInitComplete: function () {
-			$('#card-toggle').click();
-			$('#register thead').hide();
 			$('#form-fieldset').attr('disabled', true);
+		},
+		drawCallback: function () {
+			// Change table to card view
+			let labels = [];
+			$('#register').find('thead th').each(function () {
+				labels.push($(this).text());
+			});
+
+			// Add data-label attribute to each cell
+			$('#register').find('tbody tr').each(function () {
+				$(this).find('td').each(function (column) {
+					$(this).attr('data-label', labels[column]);
+				});
+			});
 		}
 	})
 
