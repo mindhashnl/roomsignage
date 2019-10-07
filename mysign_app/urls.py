@@ -1,5 +1,5 @@
 from django.contrib.auth import views
-from django.urls import path
+from django.urls import path, include
 from django.views.generic import RedirectView, TemplateView
 
 from mysign_app.routes import login
