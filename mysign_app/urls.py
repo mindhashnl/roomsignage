@@ -1,5 +1,5 @@
 from django.contrib.auth import views
-from django.urls import path
+from django.urls import include, path
 from django.views.generic import RedirectView, TemplateView
 
 from mysign_app.routes import login
@@ -28,4 +28,6 @@ urlpatterns = [
     path('company/', company.CompanyIndex.as_view(), name='company_index'),
 
     path('robots.txt/', TemplateView.as_view(template_name="mysign_app/robots.txt", content_type='text/plain')),
+
+    path('', include('pwa.urls'))
 ]
