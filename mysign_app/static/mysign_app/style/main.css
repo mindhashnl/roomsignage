@@ -19,15 +19,7 @@ img {
     max-width: 100%;
 }
 
-a {
-
-}
-
-a:hover {
-
-}
-
-/*Custom CSS classes*/
+/* Custom CSS classes */
 
 .auth-container {
     background-color: var(--primary-dark);
@@ -37,6 +29,7 @@ a:hover {
     padding-bottom: 15px;
     padding-top: 70.86px;
 }
+
 /* Pad it under the navbar (82.02) and give soma padding (15) */
 
 /* Navbar */
@@ -45,11 +38,15 @@ a:hover {
     background-color: var(--secondary-dark);
 }
 
-a.nav-link {
+.navbar-dark .navbar-nav .nav-link {
     font-weight: bold;
     font-size: 1.25rem;
     color: var(--primary-dark);
     transition: 0.2s;
+}
+
+.navbar-dark .navbar-nav .nav-link:hover {
+    color: var(--primary-light);
 }
 
 .navbar-btn {
@@ -67,15 +64,18 @@ a.nav-link {
     padding-right: 0.3125rem;
 }
 
-.save-button {
+.btn-primary, .btn-primary:disabled {
     height: 43px;
     color: white;
+    border-color: var(--save-btn);
     background-color: var(--save-btn);
+
 }
 
-.delete-button {
+.btn-danger, .btn-danger:disabled {
     height: 43px;
     color: white;
+    border-color: var(--delete-btn);
     background-color: var(--delete-btn);
 }
 
