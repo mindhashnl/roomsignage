@@ -7,11 +7,9 @@ let filesToCache = [
 	'static/mysign_app/favicon/favicon-16x16.png',
 	'static/mysign_app/favicon/favicon-96x96.png'
 ];
-let failedRequests = [];
 
 // Cache on install
 self.addEventListener('install', event => {
-	this.skipWaiting();
 	event.waitUntil(
 		caches.open(staticCacheName)
 			.then(cache => {

@@ -1,60 +1,60 @@
 {% load static %}
+{% load pwa %}
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN http://www.w3.org/TR/html4/strict.dtd">
 
 <html lang="en">
-{% load pwa %}
-{% include 'partials/head.html' %}
-<head>
-    {% progressive_web_app_meta %}
+    <head>
+        {% include 'partials/head.html' %}
+        {% progressive_web_app_meta %}
 
-    <script>
-		function fullScreen() {
-			var docElm = document.documentElement;
-			if (docElm.requestFullscreen) {
-				docElm.requestFullscreen();
-			} else if (docElm.msRequestFullscreen) {
-				docElm.msRequestFullscreen();
-			} else if (docElm.mozRequestFullScreen) {
-				docElm.mozRequestFullScreen();
-			} else if (docElm.webkitRequestFullScreen) {
-				docElm.webkitRequestFullScreen();
-			}
-		}
+        <script>
+            function fullScreen() {
+                var docElm = document.documentElement;
+                if (docElm.requestFullscreen) {
+                    docElm.requestFullscreen();
+                } else if (docElm.msRequestFullscreen) {
+                    docElm.msRequestFullscreen();
+                } else if (docElm.mozRequestFullScreen) {
+                    docElm.mozRequestFullScreen();
+                } else if (docElm.webkitRequestFullScreen) {
+                    docElm.webkitRequestFullScreen();
+                }
+            }
 
-		window.addEventListener('load', function () {
-			window.addEventListener('online', function () {
-				console.log('Status changed from online to online');
-                window.location.reload();
-			});
-		});
-    </script>
-</head>
-<body>
-    <div class="container-fluid h-100">
-        {% if device.company %}
-            {% include 'partials/company_screen.html' with company=device.company %}
-        {% else %}
-            <div class="row justify-content-center align-items-center full-height">
-                <div class="col-auto">
-                    <div class="row justify-content-center mb-3">
-                        <div class="col-auto">
-                            <img class="mx-auto" src='{% static "mysign_app/gebouw-n.png" %}'>
+            window.addEventListener('load', function () {
+                window.addEventListener('online', function () {
+                    console.log('Status changed from online to online');
+                    window.location.reload();
+                });
+            });
+        </script>
+    </head>
+    <body>
+        <div class="container-fluid h-100">
+            {% if device.company %}
+                {% include 'partials/company_screen.html' with company=device.company %}
+            {% else %}
+                <div class="row justify-content-center align-items-center full-height">
+                    <div class="col-auto">
+                        <div class="row justify-content-center mb-3">
+                            <div class="col-auto">
+                                <img class="mx-auto" src='{% static "mysign_app/gebouw-n.png" %}'>
+                            </div>
                         </div>
-                    </div>
-                    <div class="row align-items-center justify-content-center text-center mb-3">
-                        <h1>Device id: {{ device.id }}</h1>
-                    </div>
-                    <div class="row align-items-center justify-content-center">
-                        <div class="col-md-12 text-center">
-                            <h3>There is currently no company attached to this device.</h3>
-                            <h5>Please go to the administration panel and link a company to this device.
-                            </h5>
+                        <div class="row align-items-center justify-content-center text-center mb-3">
+                            <h1>Device id: {{ device.id }}</h1>
+                        </div>
+                        <div class="row align-items-center justify-content-center">
+                            <div class="col-md-12 text-center">
+                                <h3>There is currently no company attached to this device.</h3>
+                                <h5>Please go to the administration panel and link a company to this device.
+                                </h5>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        {% endif %}
-    </div>
-</body>
+            {% endif %}
+        </div>
+    </body>
 </html>
