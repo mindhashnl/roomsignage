@@ -1,3 +1,4 @@
+from django.core import mail
 from django.urls import reverse
 from pytest import mark
 
@@ -42,6 +43,8 @@ def test_company_add(client):
     assert response.status_code == 302
     assert response.url == reverse('admin_companies')
     assert Company.objects.count() == 1
+    assert len(mail.outbox) == 1
+    assert mail.outbox[0].subject == 'Welkom'
     assert User.objects.count() == 2  # One is logged in user, other created user
 
 

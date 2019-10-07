@@ -5,6 +5,11 @@ from django.forms import ModelForm
 from mysign_app.models import Company, DoorDevice, User
 
 
+class ModelClassMixin:
+    def model_class_name(self):
+        return self.instance.__class__.class_name().lower()
+
+
 class ReadonlyToggleableForm(ModelForm):
     def __init__(self, *args, readonly=False, **kwargs):
         super().__init__(*args, **kwargs)
@@ -24,39 +29,36 @@ class NoDeleteToggleableForm(ModelForm):
         super().__init__(*args, **kwargs)
         self._no_delete = no_delete
 
-        for field in self.fields:
-            print(field, self.fields[field].widget)
-
     @property
     def no_delete(self):
         return self._no_delete
 
 
-class CompanyForm(ReadonlyToggleableForm):
+class CompanyForm(ReadonlyToggleableForm, ModelClassMixin):
     class Meta:
         model = Company
         fields = ['name', 'email']
 
 
-class DoorDeviceForm(ModelForm):
+class DoorDeviceForm(ModelForm, ModelClassMixin):
     class Meta:
         model = DoorDevice
         fields = ['company', 'id']
 
 
-class UserForm(NoDeleteToggleableForm):
+class UserForm(NoDeleteToggleableForm, ModelClassMixin):
     class Meta:
         model = User
-        fields = ['first_name', 'last_name', 'username', 'company', 'is_admin']
+        fields = ['first_name', 'last_name', 'email', 'company', 'is_admin']
 
 
-class AddCompanyUserForm(ModelForm):
+class AddCompanyUserForm(ModelForm, ModelClassMixin):
     class Meta:
         model = User
-        fields = ['first_name', 'last_name', 'email', 'username', ]
+        fields = ['first_name', 'last_name', 'email', ]
 
 
-class CompanyViewForm(NoDeleteToggleableForm):
+class CompanyViewForm(NoDeleteToggleableForm, ModelClassMixin):
     class Meta:
         model = Company
         fields = ['name', 'email', 'phone_number', 'website', 'logo', 'color']
