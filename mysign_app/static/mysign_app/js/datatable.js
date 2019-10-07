@@ -53,9 +53,6 @@ function createDataTable(dataJson, listFields) {
 		},
 		drawCallback: function () {
 			// Change table to card view
-			$('#register').addClass('cards');
-			$('#card-toggle .fa').addClass(['fa-table', 'fa-id-badge']);
-
 			let labels = [];
 			$('#register').find('thead th').each(function () {
 				labels.push($(this).text());
