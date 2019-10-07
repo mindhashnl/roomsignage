@@ -37,7 +37,7 @@ function createDataTable(dataJson, listFields) {
 
 	const table = $('#register').DataTable({
 		dom:
-			'rt<"row"<"col-3 offset-9"f>>' + // Search bar and buttons row
+			'rt<"row"<"col-3 offset-9"f>>' + // Search bar row
 			'<"row row-table"<"col-12 h-100" tr>>' + // Data row
 			'<"row"<"col-5"i><"col-7"p>>', // Page buttons
 		pageLength: 20,
