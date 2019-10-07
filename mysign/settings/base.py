@@ -15,7 +15,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 INSTALLED_APPS = [
     'colorfield',
-    'crispy_forms',
+    'crispy_forms',  # Fancy bootstrap forms
+    'django_use_email_as_username.apps.DjangoUseEmailAsUsernameConfig',  # Email as username
     'mysign_app.apps.MysignAppConfig',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -71,7 +72,7 @@ DATABASES = {
     },
 }
 
-#
+
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.sqlite3',

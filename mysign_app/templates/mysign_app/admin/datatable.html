@@ -1,5 +1,6 @@
 {% extends 'mysign_app/authenticated/base.html' %}
 {% load static %}
+{% load to_name %}
 
 {% block content %}
     <div class="col-sm-9 pt-3 pb-3">
@@ -16,7 +17,7 @@
                 <thead>
                     <tr>
                         {% for field in list_fields %}
-                            <th> {{ field }} </th>
+                            <th> {{ field | to_name }} </th>
                         {% endfor %}
                     </tr>
                 </thead>
