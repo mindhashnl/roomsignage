@@ -5,7 +5,7 @@
   <p>Bedankt voor het aanmelden van uw gebruiken van de tablet service van Gebouw-N. Klik op onderstaande link om het account te activeren.
   </p>
 
-  <p>http://mysign.nl/reset/{{uid}}/{{token}}</p>
+  <p>http://utsign.nl/reset/{{uid}}/{{token}}</p>
 
   <p>Met vriendelijke groeten,</p>
   <p>Gebouw-N</p>
