@@ -58,6 +58,11 @@ function createDataTable(dataJson, listFields) {
 				labels.push($(this).text());
 			});
 
+			let max = 185;
+			$('#register tr').each(function () {
+				max = Math.max($(this).height(), max);
+			}).height(max);
+
 			// Add data-label attribute to each cell
 			$('#register').find('tbody tr').each(function () {
 				$(this).find('td').each(function (column) {
@@ -90,6 +95,8 @@ function createDataTable(dataJson, listFields) {
 						$(fieldName).val(value);
 					}
 				}
+
+				$('#id').change();
 			}
 
 			$('#form-fieldset').attr('disabled', false);
@@ -103,4 +110,11 @@ function createDataTable(dataJson, listFields) {
 			$('input').prop('checked', false); // Checkboxes
 			$('select').val(null); // Dropdowns
 		});
+
+	// Clicking on the tr doesn't work. This makes the tr click also click on the td
+	$('#register tr').on('click', function (event) {
+		if (event.target.cells) {
+			event.target.cells[0].click(0);
+		}
+	});
 }
