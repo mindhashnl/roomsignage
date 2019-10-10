@@ -4,7 +4,10 @@
     <div class="col-sm-3 auth-container">
         <div class="row-dt-form">
             {# <img src='{% static "mysign_app/promo-fallback.png" %}'>#}
-            <form method="post" enctype=multipart/form-data class="h-100">
+            <form method="post" enctype=multipart/form-data class="h-100 form">
+                <div id="collapseDiv" class="collapse" style="background-color:var(--delete-btn)">
+                    You have unsaved changes, please dont forget to save
+                </div>
                 <fieldset id="form-fieldset">
                     <div class="row h-75">
                         <div class="col-md-12">
