@@ -3,7 +3,6 @@ $(document).ready(function () {
 	$('input').change(function (event) {
 		const selector = $('#screen_display_' + event.target.name);
 
-		let textFields;
 		if (event.target.name === 'color') {
 			$('#screen_display_info').css('background-color', event.target.jscolor.toHEXString());
 		} else if (event.target.files && event.target.files[0]) {
@@ -15,10 +14,7 @@ $(document).ready(function () {
 
 			reader.readAsDataURL(event.target.files[0]);
 		} else if (event.target.name === 'textcolor') {
-			textFields = $('.customizable_text_color')
-			textFields.each(function (e) {
-				$(this).css('color', event.target.jscolor.toHEXString())
-			});
+			textFields = $('.company-info').css('color', event.target.jscolor.toHEXString())
 		} else {
 			selector.text(event.target.value);
 		}
