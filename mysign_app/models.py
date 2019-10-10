@@ -32,12 +32,19 @@ class ClassStr:
         return stringcase.sentencecase(cls.__name__)
 
 
+class CustomUserManager(BaseUserManager):
+    def get_by_natural_key(self, username):
+        """ Make the email field case insensitive"""
+        case_insensitive_field = '{}__iexact'.format(self.model.USERNAME_FIELD)
+        return self.get(**{case_insensitive_field: username})
+
+
 class User(BaseUser, ClassStr):
     company = ForeignKey('Company', on_delete=models.CASCADE, null=True, blank=True)
     is_admin = BooleanField(default=False)
     email = models.EmailField('email', unique=True, blank=False)
 
-    objects = BaseUserManager()
+    objects = CustomUserManager()
 
     def clean(self, *args, **kwargs):
         # Validate company and is_admin not both set
