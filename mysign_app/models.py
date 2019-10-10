@@ -15,6 +15,9 @@ phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$',
                              message="Phone number must be entered in the format: "
                                      "'+999999999'. Up to 15 digits allowed.")
 
+domain_regex = RegexValidator(regex=r'(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z0-9][a-z0-9-]{0,61}[a-z0-9]',
+                              message='This is not a valid domain name.')
+
 
 def generate_secret():
     letters = string.ascii_letters + string.digits + string.punctuation
@@ -81,7 +84,7 @@ class Company(models.Model, ClassStr):
     name = models.CharField(max_length=50)
     phone_number = models.CharField(validators=[phone_regex], max_length=15)
     email = models.EmailField(max_length=50)
-    website = models.URLField(max_length=50)
+    website = models.CharField(max_length=50, validators=[domain_regex])
     logo = models.ImageField(upload_to=logo_upload, blank=True)
     color = ColorField(blank=True)
 
