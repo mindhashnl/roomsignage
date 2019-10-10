@@ -70,6 +70,8 @@ def test_login_HMO(driver):
     assert expected_url == current_url
 
 def test_logout_HMO(driver):
+    driver.get(HOMEPAGE + "admin/door_devices")
+
     logout_btn = driver.find_element_by_id("logout")
     logout_btn.click()
 
