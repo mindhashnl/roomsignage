@@ -29,7 +29,7 @@
                     <a class="nav-link" href="{% url 'admin_company_add' %}">Add company </a>
                 </li>
                 <li class="nav-item d-sm-none">
-                    <a class="nav-link" href="{% url 'logout' %}">Logout </a>
+                    <a class="nav-link" id="logout" href="{% url 'logout' %}">Logout </a>
                 </li>
             </ul>
 
@@ -41,7 +41,7 @@
                         Add company
                     </a>
                 {% endif %}
-                <a href="{% url 'logout' %}" class="btn navbar-btn ml-2" role="button">
+                <a href="{% url 'logout' %}" class="btn navbar-btn ml-2" id="logout" role="button">
                     <i class="fas fa-user"></i>
                     Logout
                 </a>
