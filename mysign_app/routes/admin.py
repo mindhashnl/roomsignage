@@ -13,7 +13,8 @@ from templated_email import send_templated_mail
 from mysign_app.forms import (AddCompanyUserForm, CompanyForm, DoorDeviceForm,
                               UserForm)
 from mysign_app.models import Company, DoorDevice, User
-from mysign_app.routes.helpers import AdminRequiredMixin, admin_required, refresh_screens
+from mysign_app.routes.helpers import (AdminRequiredMixin, admin_required,
+                                       refresh_screens)
 from mysign_app.serializers import (CompanySerializer, DoorDeviceSerializer,
                                     UserSerializer)
 
@@ -83,6 +84,7 @@ class DoorDevices(AdminRequiredMixin, DataTablesView):
 
     def model_saved(self, model):
         refresh_screens(door_devices=model)
+
 
 class Companies(AdminRequiredMixin, DataTablesView):
     model = Company
