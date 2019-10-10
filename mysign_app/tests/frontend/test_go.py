@@ -10,11 +10,6 @@ from pytest import mark
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.support import wait
 
-DEFAULT_ENGINE = 'django.db.backends.sqlite3'
-
-HOMEPAGE = 'http://localhost:8000/'
-TODAY = date.today()
-
 
 def test_index(selenium, live_server):
     selenium.get(live_server.url)
