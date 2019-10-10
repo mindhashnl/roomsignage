@@ -65,9 +65,11 @@ class CompanyRequiredMixin(AccessMixin):
         return super().dispatch(request, *args, **kwargs)
 
 
-def refresh_screens(company):
+def refresh_screens(company=None, door_devices=None):
     channel_layer = layers.get_channel_layer()
-    for door_device in company.door_devices:
+    if company:
+        door_devices = company.door_devices
+    for door_device in door_devices:
         async_to_sync(channel_layer.group_send)(
             str(door_device.id),
             {
