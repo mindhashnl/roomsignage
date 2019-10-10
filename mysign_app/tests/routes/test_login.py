@@ -8,9 +8,9 @@ from mysign_app.tests.routes.helpers import messages_to_list
 
 
 def create_user(**kwargs):
-    User.objects.create_user(email='info@example.com',
-                             password='123456',
-                             **kwargs)
+    return User.objects.create_user(email='info@example.com',
+                                    password='123456',
+                                    **kwargs)
 
 
 """
@@ -43,34 +43,48 @@ def test_login_correct_credentials(client):
 
 
 @mark.django_db
+def test_login_case_insensitive(client):
+    user = create_user(is_admin=True)
+
+    response = client.post(reverse('login'), {'username': 'INFO@example.com', 'password': '123456'})
+
+    assert response.status_code == 302
+    assert response.url == reverse('admin_door_devices')
+    assert int(client.session.get('_auth_user_id')) == user.id
+
+
+@mark.django_db
 def test_login_admin(client):
-    create_user(is_admin=True)
+    user = create_user(is_admin=True)
 
     response = client.post(reverse('login'), {'username': 'info@example.com', 'password': '123456'})
 
     assert response.status_code == 302
     assert response.url == reverse('admin_door_devices')
+    assert int(client.session.get('_auth_user_id')) == user.id
 
 
 @mark.django_db
 def test_login_company(client):
     company = CompanyFactory()
-    create_user(company=company)
+    user = create_user(company=company)
 
     response = client.post(reverse('login'), {'username': 'info@example.com', 'password': '123456'})
 
     assert response.status_code == 302
     assert response.url == reverse('company_index')
+    assert int(client.session.get('_auth_user_id')) == user.id
 
 
 @mark.django_db
 def test_login_staff(client):
-    create_user(is_staff=True)
+    user = create_user(is_staff=True)
 
     response = client.post(reverse('login'), {'username': 'info@example.com', 'password': '123456'})
 
     assert response.status_code == 302
     assert response.url == '/django_admin'
+    assert int(client.session.get('_auth_user_id')) == user.id
 
 
 @mark.django_db
