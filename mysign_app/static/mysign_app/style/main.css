@@ -84,8 +84,8 @@ img {
 }
 
 .row-dt-form {
+    height: 60%;
     padding: 10px;
-    position: fixed;
 }
 
 .row-data-table {
