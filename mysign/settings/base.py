@@ -61,7 +61,7 @@ WSGI_APPLICATION = 'mysign.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
-DATABASES = {
+'''DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': os.environ.get('POSTGRES_DATABASE'),
@@ -70,15 +70,13 @@ DATABASES = {
         'HOST': os.environ.get('POSTGRES_HOST'),
         'PORT': '5432',
     },
+}'''
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': 'MySign.db'},
 }
-
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': 'MySign.db'
-#     },
-# }
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
@@ -130,6 +128,5 @@ SENDGRID_ECHO_TO_STDOUT = True
 TEMPLATED_EMAIL_BACKEND = 'templated_email.backends.vanilla_django.TemplateBackend'
 TEMPLATED_EMAIL_FILE_EXTENSION = 'email'
 DEFAULT_FROM_EMAIL = 'Gebouw-N <info@utsign.nl>'
-
 
 PWA_SERVICE_WORKER_PATH = os.path.join(BASE_DIR, 'mysign_app', 'static/mysign_app/js/serviceworker.js')
