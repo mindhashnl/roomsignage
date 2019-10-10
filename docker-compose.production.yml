@@ -4,6 +4,7 @@ services:
     build: .
     env_file: .env
     command: gunicorn mysign.wsgi -b 0.0.0.0:8000
+    restart: always
     depends_on:
       - db
     volumes:
@@ -16,11 +17,18 @@ services:
   db:
     image: postgres:12
     env_file: .env
+    restart: always
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
+  redis:
+    restart: always
+    image: redis
+
+
   nginx:
     image: nginx
+    restart: always
     volumes:
       - ${PWD}/static:/usr/share/nginx/html
     labels:
