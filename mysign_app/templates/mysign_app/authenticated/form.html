@@ -12,7 +12,7 @@
                             {{ form|crispy }}
                         </div>
                     </div>
-                  
+
                     <div class="row align-items-end h-25 pb-5">
                         <div class="col">
                             {% if not form.readonly %}
@@ -24,7 +24,7 @@
                             {% if not form.no_delete %}
                                 <button id="deleteButton" name="delete" type="submit" value="Delete"
                                         class="btn btn-danger btn-block" role="button"
-                                        onclick="confirm('Weet je zeker dat je dit wilt verwijderen?')">
+                                        onclick="return confirm('Weet je zeker dat je dit wilt verwijderen?')">
                                     <i class="fas fa-trash"></i>
                                     Remove {{ form.model_class_name }}
                                 </button>
