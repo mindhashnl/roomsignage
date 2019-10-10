@@ -1,3 +1,5 @@
+from asgiref.sync import async_to_sync
+from channels import layers
 from django.contrib.auth import REDIRECT_FIELD_NAME
 from django.contrib.auth.decorators import user_passes_test
 from django.contrib.auth.mixins import AccessMixin
@@ -61,3 +63,17 @@ class CompanyRequiredMixin(AccessMixin):
         if not (request.user.is_authenticated and request.user.company):
             return self.handle_no_permission()
         return super().dispatch(request, *args, **kwargs)
+
+
+def refresh_screens(company=None, door_devices=None):
+    channel_layer = layers.get_channel_layer()
+    if company:
+        door_devices = company.door_devices
+    for door_device in door_devices:
+        async_to_sync(channel_layer.group_send)(
+            str(door_device.id),
+            {
+                "type": "message",
+                "action": "refresh",
+            },
+        )
