@@ -6,7 +6,7 @@ from dotenv import find_dotenv, load_dotenv
 load_dotenv(find_dotenv())
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
@@ -15,7 +15,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 INSTALLED_APPS = [
     'colorfield',
-    'crispy_forms',
+    'crispy_forms',  # Fancy bootstrap forms
+    'django_use_email_as_username.apps.DjangoUseEmailAsUsernameConfig',  # Email as username
     'mysign_app.apps.MysignAppConfig',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -23,6 +24,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'pwa',
 ]
 
 MIDDLEWARE = [
@@ -69,6 +71,7 @@ DATABASES = {
         'PORT': '5432',
     },
 }
+
 
 # DATABASES = {
 #     'default': {
@@ -121,3 +124,12 @@ MESSAGE_TAGS = {
     messages.WARNING: 'alert-warning',
     messages.ERROR: 'alert-danger',
 }
+EMAIL_BACKEND = "sendgrid_backend.SendgridBackend"
+SENDGRID_API_KEY = os.environ.get("SENDGRID_API_KEY")
+SENDGRID_ECHO_TO_STDOUT = True
+TEMPLATED_EMAIL_BACKEND = 'templated_email.backends.vanilla_django.TemplateBackend'
+TEMPLATED_EMAIL_FILE_EXTENSION = 'email'
+DEFAULT_FROM_EMAIL = 'Gebouw-N <info@utsign.nl>'
+
+
+PWA_SERVICE_WORKER_PATH = os.path.join(BASE_DIR, 'mysign_app', 'static/mysign_app/js/serviceworker.js')

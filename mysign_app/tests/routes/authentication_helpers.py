@@ -4,10 +4,10 @@ from mysign_app.tests.factories import CompanyFactory
 
 def client_login(client, **user_kwargs):
     client.logout()
-    User.objects.filter(username='test_user').delete()
+    User.objects.filter(email='test@user.nl').delete()
 
-    User.objects.create_user(username='test_user', password='1234', email='info@example.com', **user_kwargs)
-    client.login(username='test_user', password='1234')
+    User.objects.create_user(email='test@user.nl', password='1234', **user_kwargs)
+    client.login(username='test@user.nl', password='1234')
 
 
 def _test_unauthenticated(client, route):

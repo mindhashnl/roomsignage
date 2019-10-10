@@ -4,12 +4,12 @@ import uuid
 
 import stringcase as stringcase
 from colorfield.fields import ColorField
-from django.contrib.auth.models import AbstractUser
 from django.core.exceptions import ValidationError
 from django.core.validators import RegexValidator
 from django.db import models
 from django.db.models import BooleanField, ForeignKey
 from django.templatetags.static import static
+from django_use_email_as_username.models import BaseUser, BaseUserManager
 
 phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$',
                              message="Phone number must be entered in the format: "
@@ -32,12 +32,37 @@ class ClassStr:
         return stringcase.sentencecase(cls.__name__)
 
 
-class User(AbstractUser, ClassStr):
+class CaseInsensitiveFieldMixin:
+    """
+    Field mixin that uses case-insensitive lookup alternatives if they exist.
+    Source: https://ewp.gma.mybluehost.me/2018/10/27/case-insensitive-fields-in-django-models/
+    """
+    LOOKUP_CONVERSIONS = {
+        'exact': 'iexact',
+        'contains': 'icontains',
+        'startswith': 'istartswith',
+        'endswith': 'iendswith',
+        'regex': 'iregex',
+    }
+
+    def get_lookup(self, lookup_name):
+        converted = self.LOOKUP_CONVERSIONS.get(lookup_name, lookup_name)
+        return super().get_lookup(converted)
+
+
+class CIEmailField(CaseInsensitiveFieldMixin, models.EmailField):
+    pass
+
+
+class User(BaseUser, ClassStr):
     company = ForeignKey('Company', on_delete=models.CASCADE, null=True, blank=True)
     is_admin = BooleanField(default=False)
-    email = models.EmailField('email address', unique=True, blank=False)
+    email = CIEmailField('email', unique=True, blank=False)
+
+    objects = BaseUserManager()
 
     def clean(self, *args, **kwargs):
+        super().clean()
         # Validate company and is_admin not both set
         if self.company and self.is_admin:
             raise ValidationError("Company and is_admin cannot set both")

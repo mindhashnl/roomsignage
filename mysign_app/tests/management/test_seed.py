@@ -13,17 +13,17 @@ def test_objects_are_seeded():
     assert Company.objects.count() == 20
     assert DoorDevice.objects.count() == 20
 
-    assert User.objects.filter(username='HMO').count() == 1
-    assert User.objects.filter(username='HMO').first().check_password('123456')
+    assert User.objects.filter(email='HMO@utsign.nl').count() == 1
+    assert User.objects.filter(email='HMO@utsign.nl').first().check_password('123456')
 
-    assert User.objects.filter(username='company').count() == 1
-    assert User.objects.filter(username='company').first().check_password('123456')
-    assert User.objects.filter(username='company').first().company_id
+    assert User.objects.filter(email='company@utsign.nl').count() == 1
+    assert User.objects.filter(email='company@utsign.nl').first().check_password('123456')
+    assert User.objects.filter(email='company@utsign.nl').first().company_id
 
-    assert User.objects.filter(username='developer').count() == 1
-    assert User.objects.filter(username='developer').first().check_password('123456')
-    assert User.objects.filter(username='developer').first().is_staff
-    assert User.objects.filter(username='developer').first().is_superuser
+    assert User.objects.filter(email='developer@utsign.nl').count() == 1
+    assert User.objects.filter(email='developer@utsign.nl').first().check_password('123456')
+    assert User.objects.filter(email='developer@utsign.nl').first().is_staff
+    assert User.objects.filter(email='developer@utsign.nl').first().is_superuser
 
 
 @mark.django_db

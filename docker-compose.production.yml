@@ -26,7 +26,7 @@ services:
     labels:
       - traefik.enable=true
       - traefik.port=8000
-      - traefik.frontend.rule=Host:utsign.nl;PathPrefixStrip:/static
+      - traefik.frontend.rule=Host:utsign.nl;PathPrefix:/static,/uploads
 
   traefik:
     image: traefik

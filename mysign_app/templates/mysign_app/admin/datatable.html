@@ -1,9 +1,10 @@
 {% extends 'mysign_app/authenticated/base.html' %}
 {% load static %}
+{% load to_name %}
 
 {% block content %}
-    <div class="col-md-9 h-100">
-        <div class="row-dt h-100">
+    <div class="col-sm-9 pt-3 pb-3">
+        <div class="row-data-table">
             {# <img src='{% static "mysign_app/promo-fallback.png" %}'>#}
             <script type="text/javascript">
                 $(document).ready(function () {
@@ -12,11 +13,11 @@
             </script>
 
 
-            <table id="register" class="table table-hover w-100 table-responsive" cellspacing="0">
-                <thead>
+            <table id="register" class="table table-hover w-100 table-responsive cards" cellspacing="0">
+                <thead hidden>
                     <tr>
                         {% for field in list_fields %}
-                            <th> {{ field }} </th>
+                            <th> {{ field | to_name }} </th>
                         {% endfor %}
                     </tr>
                 </thead>

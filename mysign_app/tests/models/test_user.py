@@ -14,6 +14,15 @@ def test_admin_create():
 
 
 @mark.django_db
+def test_email_case_insensitive():
+    UserFactory(is_admin=True, email='info@example.com')
+    user = UserFactory.build(is_admin=True, email='INFO@example.com')
+
+    with pytest.raises(ValidationError):
+        user.save()
+
+
+@mark.django_db
 def test_company_create():
     company = CompanyFactory()
     UserFactory(company=company)
