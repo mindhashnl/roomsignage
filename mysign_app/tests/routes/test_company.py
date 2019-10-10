@@ -2,7 +2,6 @@ from django.urls import reverse
 from pytest import mark
 
 from mysign_app.forms import CompanyViewForm
-from mysign_app.models import Company
 from mysign_app.tests.factories import CompanyFactory
 from mysign_app.tests.routes.authentication_helpers import (client_login,
                                                             is_company_route)
