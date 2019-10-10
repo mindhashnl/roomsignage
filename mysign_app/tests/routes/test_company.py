@@ -1,7 +1,8 @@
 from django.urls import reverse
 from pytest import mark
 
-from mysign_app.forms import CompanyForm
+from mysign_app.forms import CompanyViewForm
+from mysign_app.models import Company
 from mysign_app.tests.factories import CompanyFactory
 from mysign_app.tests.routes.authentication_helpers import (client_login,
                                                             is_company_route)
@@ -19,10 +20,12 @@ def test_update(client):
     client_login(client, company=company)
 
     company.name = 'New name'
-    payload = payload_from_form(CompanyForm(instance=company))
+    payload = payload_from_form(CompanyViewForm(instance=company))
     response = client.post(reverse('company_index'), payload)
 
-    assert response.status_code == 200
+    assert response.status_code == 302
+    assert response.url == reverse('company_index')
+    assert Company.objects.first().name == 'New name'
 
 
 @mark.django_db
@@ -32,7 +35,7 @@ def test_update_other_company(client):
 
     other_company = CompanyFactory()
     other_company.name = 'New name'
-    payload = payload_from_form(CompanyForm(instance=other_company))
+    payload = payload_from_form(CompanyViewForm(instance=other_company))
     response = client.post(reverse('company_index'), payload)
 
     assert response.status_code == 403
