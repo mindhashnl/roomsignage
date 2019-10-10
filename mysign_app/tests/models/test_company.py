@@ -18,7 +18,20 @@ def test_phone_number():
     company = CompanyFactory.build(phone_number='belmij!')
 
     with pytest.raises(ValidationError):
-        assert not company.full_clean()
+        company.full_clean()
+
+
+def test_website():
+    company = CompanyFactory.build(website='no-site')
+
+    with pytest.raises(ValidationError):
+        company.full_clean()
+
+    company = CompanyFactory.build(website='http://example.com')
+    company.full_clean()
+
+    company = CompanyFactory.build(website='example.com')
+    company.full_clean()
 
 
 def test_str():
