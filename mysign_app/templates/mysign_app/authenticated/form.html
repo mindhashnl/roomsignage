@@ -2,18 +2,18 @@
 {% load static %}
 {% if form %}
     <div class="col-sm-3 auth-container">
-        <div class="row-dt-form">
+        <div class="row-dt-form h-100">
             {# <img src='{% static "mysign_app/promo-fallback.png" %}'>#}
             <form method="post" enctype=multipart/form-data class="h-100">
-                <fieldset id="form-fieldset">
-                    <div class="row h-75">
+                <fieldset id="form-fieldset" class="h-100">
+                    <div class="row">
                         <div class="col-md-12">
                             {% csrf_token %}
                             {{ form|crispy }}
                         </div>
                     </div>
 
-                    <div class="row align-items-end h-25 pb-5">
+                    <div class="row align-items-end pb-5">
                         <div class="col">
                             {% if not form.readonly %}
                                 <button id="submitButton" type="submit" class="btn btn-primary btn-block">
