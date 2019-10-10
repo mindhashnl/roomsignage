@@ -58,6 +58,11 @@ function createDataTable(dataJson, listFields) {
 				labels.push($(this).text());
 			});
 
+			let max = 185;
+			$('#register tr').each(function () {
+				max = Math.max($(this).height(), max);
+			}).height(max);
+
 			// Add data-label attribute to each cell
 			$('#register').find('tbody tr').each(function () {
 				$(this).find('td').each(function (column) {
