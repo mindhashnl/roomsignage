@@ -9,3 +9,8 @@ pytest.register_assert_rewrite("mysign_app.tests.routes.form_helpers")
 def _email_backend_setup(settings):
     # Keep mailing local during test
     settings.EMAIL_BACKEND = 'django.core.mail.backends.locmem.EmailBackend'
+
+    # Set websockets to memory store
+    settings.CHANNEL_LAYERS = {"default": {
+        "BACKEND": "channels.layers.InMemoryChannelLayer"
+    }}
