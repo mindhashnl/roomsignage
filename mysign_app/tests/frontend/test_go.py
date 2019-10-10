@@ -8,6 +8,7 @@ import chromedriver_binary
 from selenium import webdriver
 from pytest import mark
 
+
 # @pytest.fixture(scope="module")
 # def driver():
 #     driver = webdriver.Chrome()
@@ -53,3 +54,24 @@ def test_logout_HMO(selenium, live_server):
     logout_btn.click()
 
     assert selenium.current_url == live_server.url + "/admin/door_devices/"
+
+
+def test_navbar_companies(selenium, live_server):
+    btn = selenium.find_element_by_id("Companies")
+    btn.click()
+
+    assert selenium.current_url == live_server.url + "/admin/companies/"
+
+
+def test_navbar_devices(selenium, live_server):
+    btn = selenium.find_element_by_id("Devices")
+    btn.click()
+
+    assert selenium.current_url == live_server.url + "/admin/device_overview/"
+
+
+def test_navbar_users(selenium, live_server):
+    btn = selenium.find_element_by_id("Users")
+    btn.click()
+
+    assert selenium.current_url == live_server.url + "/admin/users/"
