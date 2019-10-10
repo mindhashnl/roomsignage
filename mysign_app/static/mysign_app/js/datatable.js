@@ -90,6 +90,7 @@ function createDataTable(dataJson, listFields) {
 						$(fieldName).val(value);
 					}
 				}
+				$("#id").change();
 			}
 
 			$('#form-fieldset').attr('disabled', false);
