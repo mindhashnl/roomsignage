@@ -91,7 +91,7 @@ class Users(AdminRequiredMixin, DataTablesView):
     model = User
     form_class = UserForm
     form_kwargs = {'no_delete': True}
-    list_fields = ['first_name', 'last_name', 'company.name']
+    list_fields = ['name', 'company.name']
     serializer = UserSerializer
 
 
