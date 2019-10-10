@@ -91,6 +91,10 @@ class Company(models.Model, ClassStr):
             return self.logo.url
         return static('mysign_app/logo-fallback.png')
 
+    @property
+    def door_devices(self):
+        return DoorDevice.objects.filter(company_id=self.id)
+
     def __str__(self):
         return self.name
 
