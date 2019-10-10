@@ -75,3 +75,4 @@ def test_navbar_users(selenium, live_server):
     btn.click()
 
     assert selenium.current_url == live_server.url + "/admin/users/"
+
