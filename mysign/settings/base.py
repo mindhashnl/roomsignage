@@ -25,6 +25,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'pwa',
+    'channels'
 ]
 
 MIDDLEWARE = [
@@ -133,3 +134,6 @@ DEFAULT_FROM_EMAIL = 'Gebouw-N <info@utsign.com>'
 
 
 PWA_SERVICE_WORKER_PATH = os.path.join(BASE_DIR, 'mysign_app', 'static/mysign_app/js/serviceworker.js')
+
+# Channels
+ASGI_APPLICATION = 'mysign.routing.application'

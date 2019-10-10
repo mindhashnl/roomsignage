@@ -27,6 +27,21 @@
                     window.location.reload();
                 });
             });
+
+
+            const chatSocket = new WebSocket(
+                'ws://' + window.location.host +
+                '/ws/screen/1/');
+
+            chatSocket.onmessage = function(e) {
+                // var data = JSON.parse(e.data);
+                // var message = data['message'];
+                console.log('MESSAGE')
+            };
+
+            chatSocket.onclose = function(e) {
+                console.error('Chat socket closed unexpectedly');
+            };
         </script>
     </head>
     <body>
