@@ -1,5 +1,5 @@
-$(function(){
-   $('*.form :input').change(function(e){
-           $("#collapseDiv").collapse();
-   });
+$(function () {
+	$('*.form :input').change(function () {
+		$('#collapseDiv').collapse();
+	});
 });
