@@ -34,9 +34,9 @@
             chatSocket.onmessage = function(e) {
                 var data = JSON.parse(e.data);
                 if(data['action'] === 'refresh'){
-                	window.location.reload()
+                    window.location.reload()
                 } else {
-                	console.error('Unknown action received' + data)
+                    console.error('Unknown action received' + data)
                 }
 
             };
