@@ -64,7 +64,9 @@ img {
     padding-right: 0.3125rem;
 }
 
-.btn-primary, .btn-primary:disabled {
+.btn-primary, .btn-primary:disabled,
+.btn-primary:hover,
+.btn-primary:not(:disabled):not(.disabled):active {
     height: 43px;
     color: white;
     border-color: var(--save-btn);
@@ -72,7 +74,9 @@ img {
 
 }
 
-.btn-danger, .btn-danger:disabled {
+.btn-danger, .btn-danger:disabled,
+.btn-danger:hover,
+.btn-danger:not(:disabled):not(.disabled):active {
     height: 43px;
     color: white;
     border-color: var(--delete-btn);
