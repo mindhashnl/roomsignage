@@ -1,5 +1,6 @@
 import json
 
+from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from django.http import HttpResponse
@@ -115,7 +116,7 @@ def company_add(request):
             # No return value, so we cant store last save. Since we dont need it for email, keep it at the old user
             user.save()
             send_templated_mail(template_name="welcome_mail",
-                                from_email="Gebouw-N <info@utsign.com",
+                                from_email=settings.DEFAULT_FROM_EMAIL,
                                 recipient_list=[user_form.cleaned_data['email']],
                                 context={
                                     'naam': user.get_full_name(),
