@@ -14,7 +14,7 @@ $(document).ready(function () {
 
 			reader.readAsDataURL(event.target.files[0]);
 		} else if (event.target.name === 'text_color') {
-			textFields = $('.company-info').css('color', event.target.jscolor.toHEXString())
+			$('.company-info').css('color', event.target.jscolor.toHEXString());
 		} else {
 			selector.text(event.target.value);
 		}
