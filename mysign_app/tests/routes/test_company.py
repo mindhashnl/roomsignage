@@ -21,11 +21,12 @@ def test_update(client):
 
     company.name = 'New name'
     payload = payload_from_form(CompanyViewForm(instance=company))
+    payload['color'] = payload['color'][1:]
     response = client.post(reverse('company_index'), payload)
 
+    assert Company.objects.first().name == 'New name'
     assert response.status_code == 302
     assert response.url == reverse('company_index')
-    assert Company.objects.first().name == 'New name'
 
 
 @mark.django_db
