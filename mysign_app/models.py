@@ -32,14 +32,37 @@ class ClassStr:
         return stringcase.sentencecase(cls.__name__)
 
 
+class CaseInsensitiveFieldMixin:
+    """
+    Field mixin that uses case-insensitive lookup alternatives if they exist.
+    Source: https://ewp.gma.mybluehost.me/2018/10/27/case-insensitive-fields-in-django-models/
+    """
+    LOOKUP_CONVERSIONS = {
+        'exact': 'iexact',
+        'contains': 'icontains',
+        'startswith': 'istartswith',
+        'endswith': 'iendswith',
+        'regex': 'iregex',
+    }
+
+    def get_lookup(self, lookup_name):
+        converted = self.LOOKUP_CONVERSIONS.get(lookup_name, lookup_name)
+        return super().get_lookup(converted)
+
+
+class CIEmailField(CaseInsensitiveFieldMixin, models.EmailField):
+    pass
+
+
 class User(BaseUser, ClassStr):
     company = ForeignKey('Company', on_delete=models.CASCADE, null=True, blank=True)
     is_admin = BooleanField(default=False)
-    email = models.EmailField('email', unique=True, blank=False)
+    email = CIEmailField('email', unique=True, blank=False)
 
     objects = BaseUserManager()
 
     def clean(self, *args, **kwargs):
+        super().clean()
         # Validate company and is_admin not both set
         if self.company and self.is_admin:
             raise ValidationError("Company and is_admin cannot set both")
