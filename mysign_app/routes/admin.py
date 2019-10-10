@@ -14,7 +14,8 @@ from templated_email import send_templated_mail
 from mysign_app.forms import (AddCompanyUserForm, CompanyForm, DoorDeviceForm,
                               UserForm)
 from mysign_app.models import Company, DoorDevice, User
-from mysign_app.routes.helpers import AdminRequiredMixin, admin_required
+from mysign_app.routes.helpers import (AdminRequiredMixin, admin_required,
+                                       refresh_screens)
 from mysign_app.serializers import (CompanySerializer, DoorDeviceSerializer,
                                     UserSerializer)
 
@@ -45,6 +46,7 @@ class DataTablesView(TemplateView, FormView):
                 if form.is_valid():
                     form.save()
                     messages.success(request, f'{self.model.class_name()} succesfully updated')
+                    self.model_saved(model)
 
         form = self.form_class()
         context = self.get_context_data(form=form, **kwargs)
@@ -57,6 +59,9 @@ class DataTablesView(TemplateView, FormView):
             'list_fields': self.list_fields,
             'json': self.models_json(),
         }
+
+    def model_saved(self, model):
+        pass
 
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
@@ -77,6 +82,9 @@ class DoorDevices(AdminRequiredMixin, DataTablesView):
     form_class = DoorDeviceForm
     list_fields = ['id', 'company.name']
     serializer = DoorDeviceSerializer
+
+    def model_saved(self, model):
+        refresh_screens(door_devices=model)
 
 
 class Companies(AdminRequiredMixin, DataTablesView):
