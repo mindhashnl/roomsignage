@@ -1,21 +1,21 @@
+from asgiref.sync import async_to_sync
 from channels.generic.websocket import WebsocketConsumer
 import json
 
 
 class ScreenConsumer(WebsocketConsumer):
     def connect(self):
-        print('CONNECTED!!')
         self.accept()
 
+        # Link to group of door device id
+        screen_id = self.scope["url_route"]["kwargs"]["screen_id"]
+        async_to_sync(self.channel_layer.group_add)(screen_id, self.channel_name)
+
     def disconnect(self, close_code):
-        print("DISCONNECTED!!")
-        pass
+        # Disconnect from group
+        screen_id = self.scope["url_route"]["kwargs"]["screen_id"]
+        async_to_sync(self.channel_layer.group_discard)(screen_id, self.channel_name)
 
-    def receive(self, text_data):
-        print("DID RECEIVE!")
-        text_data_json = json.loads(text_data)
-        message = text_data_json['message']
-
-        self.send(text_data=json.dumps({
-            'message': message
-        }))
+    def message(self, data):
+        # Forward the messages
+        self.send(text_data=json.dumps(data))

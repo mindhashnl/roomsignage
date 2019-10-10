@@ -29,14 +29,16 @@
             });
 
 
-            const chatSocket = new WebSocket(
-                'ws://' + window.location.host +
-                '/ws/screen/1/');
+            var chatSocket = new WebSocket('ws://' + window.location.host + '/ws/screen/' +  {{ device.id }} +  '/');
 
             chatSocket.onmessage = function(e) {
-                // var data = JSON.parse(e.data);
-                // var message = data['message'];
-                console.log('MESSAGE')
+                var data = JSON.parse(e.data);
+                if(data['action'] === 'refresh'){
+                	window.location.reload()
+                } else {
+                	console.error('Unknown action received' + data)
+                }
+
             };
 
             chatSocket.onclose = function(e) {
