@@ -24,6 +24,7 @@ def test_update(client):
     response = client.post(reverse('company_index'), payload)
     assert response.status_code == 200
 
+
 @mark.django_db
 def test_update_other_company(client):
     company = CompanyFactory()
