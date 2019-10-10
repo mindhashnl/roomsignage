@@ -6,7 +6,7 @@ from dotenv import find_dotenv, load_dotenv
 load_dotenv(find_dotenv())
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
@@ -24,6 +24,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'pwa',
 ]
 
 MIDDLEWARE = [
@@ -129,3 +130,6 @@ SENDGRID_ECHO_TO_STDOUT = True
 TEMPLATED_EMAIL_BACKEND = 'templated_email.backends.vanilla_django.TemplateBackend'
 TEMPLATED_EMAIL_FILE_EXTENSION = 'email'
 DEFAULT_FROM_EMAIL = 'Gebouw-N <info@utsign.com>'
+
+
+PWA_SERVICE_WORKER_PATH = os.path.join(BASE_DIR, 'mysign_app', 'static/mysign_app/js/serviceworker.js')

@@ -13,8 +13,8 @@
             </script>
 
 
-            <table id="register" class="table table-hover w-100 table-responsive" cellspacing="0">
-                <thead>
+            <table id="register" class="table table-hover w-100 table-responsive cards" cellspacing="0">
+                <thead hidden>
                     <tr>
                         {% for field in list_fields %}
                             <th> {{ field | to_name }} </th>
