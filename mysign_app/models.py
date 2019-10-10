@@ -84,6 +84,7 @@ class Company(models.Model, ClassStr):
     website = models.URLField(max_length=50)
     logo = models.ImageField(upload_to=logo_upload, blank=True)
     color = ColorField(blank=True)
+    textcolor = ColorField(blank=True, default='#ffffff')
 
     def logo_url_or_default(self):
         if self.logo:

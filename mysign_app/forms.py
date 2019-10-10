@@ -61,7 +61,7 @@ class AddCompanyUserForm(ModelForm, ModelClassMixin):
 class CompanyViewForm(NoDeleteToggleableForm, ModelClassMixin):
     class Meta:
         model = Company
-        fields = ['name', 'email', 'phone_number', 'website', 'logo', 'color']
+        fields = ['name', 'email', 'phone_number', 'website', 'logo', 'color', 'textcolor']
         widgets = {
             'color': ColorWidget()
         }
