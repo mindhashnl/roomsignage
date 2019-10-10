@@ -22,9 +22,9 @@ self.addEventListener('fetch', function (event) {
 				return fetch(event.request).then(function (response) {
 					cache.put(event.request, response.clone());
 					return response;
-				}).catch(function(){
-				    return response
-                });
+				}).catch(function () {
+					return response;
+				});
 			});
 		})
 	);
