@@ -6,8 +6,8 @@
             {# <img src='{% static "mysign_app/promo-fallback.png" %}'>#}
             <form method="post" enctype=multipart/form-data class="h-100">
                 <fieldset id="form-fieldset" class="h-100">
-                    <div class="row">
-                        <div class="col-md-12 h-75">
+                    <div class="row h-75">
+                        <div class="col-md-12">
                             {% csrf_token %}
                             {{ form|crispy }}
                         </div>
