@@ -1,22 +1,8 @@
-import os
-from asyncio import sleep
-from datetime import date, time
-
-from django.conf import settings
-import pytest
-import chromedriver_binary
-from selenium import webdriver
 from pytest import mark
-
-
-# @pytest.fixture(scope="module")
-# def driver():
-#     driver = webdriver.Chrome()
-#     yield driver
+from mysign_app.tests.frontend.helpers import authenticate_selenium
 
 
 def test_index(selenium, live_server):
-    print(live_server.url)
     selenium.get(live_server.url)
     assert selenium.title == "MySign"
 
@@ -47,13 +33,17 @@ def test_login_admin(selenium, live_server):
     assert selenium.current_url == live_server.url + "/admin/door_devices/"
 
 
-def test_logout_HMO(selenium, live_server):
+def test_logout_HMO(selenium, live_server, client):
+    authenticate_selenium(selenium, live_server, is_admin=True)
+
     selenium.get(live_server.url + "/admin/door_devices")
+
+    assert selenium.current_url == live_server.url + '/admin/door_devices/'
 
     logout_btn = selenium.find_element_by_id("logout")
     logout_btn.click()
 
-    assert selenium.current_url == live_server.url + "/admin/door_devices/"
+    assert selenium.current_url == live_server.url + "/login/"
 
 
 def test_navbar_companies(selenium, live_server):
