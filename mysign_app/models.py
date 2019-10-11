@@ -86,7 +86,7 @@ class Company(models.Model, ClassStr):
     email = models.EmailField(max_length=50)
     website = models.CharField(max_length=50, validators=[domain_regex])
     logo = models.ImageField(upload_to=logo_upload, blank=True)
-    color = ColorField(blank=True)
+    color = ColorField(blank=True, default='#e3eff3')  # Keep default in sync with background color
     text_color = ColorField(blank=True, default='#ffffff')
 
     def logo_url_or_default(self):
