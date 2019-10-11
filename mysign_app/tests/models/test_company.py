@@ -3,7 +3,7 @@ from django.core.exceptions import ValidationError
 from pytest import mark
 
 from mysign_app.models import Company, logo_upload
-from mysign_app.tests.factories import CompanyFactory
+from mysign_app.tests.factories import CompanyFactory, DoorDeviceFactory
 
 
 @mark.django_db
@@ -48,3 +48,17 @@ def test_logo_fallback():
 
 def test_class_name():
     assert Company.class_name() == 'Company'
+
+
+@mark.django_db
+def test_door_devices():
+    company = CompanyFactory()
+
+    assert company.door_devices.count() == 0
+
+    door_device = DoorDeviceFactory.build()
+    door_device.company = company
+    door_device.save()
+
+    assert company.door_devices.count() == 1
+    assert company.door_devices.first() == door_device

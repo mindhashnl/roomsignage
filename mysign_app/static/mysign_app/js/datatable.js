@@ -95,6 +95,8 @@ function createDataTable(dataJson, listFields) {
 						$(fieldName).val(value);
 					}
 				}
+
+				$('#id').change();
 			}
 
 			$('#form-fieldset').attr('disabled', false);
@@ -108,4 +110,11 @@ function createDataTable(dataJson, listFields) {
 			$('input').prop('checked', false); // Checkboxes
 			$('select').val(null); // Dropdowns
 		});
+
+	// Clicking on the tr doesn't work. This makes the tr click also click on the td
+	$('#register tr').on('click', function (event) {
+		if (event.target.cells) {
+			event.target.cells[0].click(0);
+		}
+	});
 }
