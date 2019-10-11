@@ -7,7 +7,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('mysign_app', '0007_company_text_color'),
+        ('mysign_app', '0008_auto_20191011_1114'),
     ]
 
     operations = [
