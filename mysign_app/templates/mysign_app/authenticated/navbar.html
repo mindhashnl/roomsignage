@@ -28,6 +28,10 @@
                 <li class="nav-item d-sm-none {% if url_name == 'admin_company_add' %} active {% endif %}">
                     <a class="nav-link" href="{% url 'admin_company_add' %}">Add company </a>
                 </li>
+                <li class="nav-item d-sm-none {% if url_name == 'admin_users_add' %} active {% endif %}">
+                    <a class="nav-link" href="{% url 'admin_users_add' %}">Add user </a>
+                </li>
+
                 <li class="nav-item d-sm-none">
                     <a class="nav-link" href="{% url 'logout' %}">Logout </a>
                 </li>
@@ -39,6 +43,12 @@
                     <a href="{% url 'admin_company_add' %}" class="btn navbar-btn mt-auto" role="button">
                         <i class="fas fa-plus"></i>
                         Add company
+                    </a>
+                {% endif %}
+                {% if url_name == 'admin_users' %}
+                    <a href="{% url 'admin_users_add' %}" class="btn navbar-btn mt-auto" role="button">
+                        <i class="fas fa-plus"></i>
+                        Add user
                     </a>
                 {% endif %}
                 <a href="{% url 'logout' %}" class="btn navbar-btn ml-2" role="button">

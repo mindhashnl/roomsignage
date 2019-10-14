@@ -12,7 +12,7 @@ from django.views.generic import FormView, TemplateView
 from templated_email import send_templated_mail
 
 from mysign_app.forms import (AddCompanyUserForm, CompanyForm, DoorDeviceForm,
-                              UserForm)
+                              UserForm, AddUserForm)
 from mysign_app.models import Company, DoorDevice, User
 from mysign_app.routes.helpers import (AdminRequiredMixin, admin_required,
                                        refresh_screens)
@@ -136,5 +136,33 @@ def company_add(request):
     context = {
         'user_form': user_form,
         'company_form': company_form,
+    }
+    return HttpResponse(template.render(context, request))
+
+
+@admin_required
+def user_add(request):
+    if request.method == 'POST':
+        user_form = AddUserForm(request.POST, prefix='user')
+        if user_form.is_valid():
+            user = user_form.save()
+            send_templated_mail(template_name="welcome_mail",
+                                from_email=settings.DEFAULT_FROM_EMAIL,
+                                recipient_list=[user_form.cleaned_data['email']],
+                                context={
+                                    'naam': user.get_full_name(),
+                                    'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+                                    'token':
+                                        PasswordResetTokenGenerator().make_token(
+                                            user=user),
+                                })
+
+            return redirect('admin_users')
+    else:
+        user_form = AddUserForm(prefix='user')
+
+    template = loader.get_template('mysign_app/admin/user_add.html')
+    context = {
+        'user_form': user_form,
     }
     return HttpResponse(template.render(context, request))
