@@ -11,8 +11,8 @@ from django.utils.http import urlsafe_base64_encode
 from django.views.generic import FormView, TemplateView
 from templated_email import send_templated_mail
 
-from mysign_app.forms import (AddCompanyUserForm, CompanyForm, DoorDeviceForm,
-                              UserForm, AddUserForm)
+from mysign_app.forms import (AddCompanyUserForm, AddUserForm, CompanyForm,
+                              DoorDeviceForm, UserForm)
 from mysign_app.models import Company, DoorDevice, User
 from mysign_app.routes.helpers import (AdminRequiredMixin, admin_required,
                                        refresh_screens)
