@@ -8,20 +8,6 @@ from mysign_app.management.commands.seed import Command
 from mysign_app.tests.Frontend.hmo.helpers import authenticate_selenium
 
 
-def test_index(selenium, live_server):
-    selenium.maximize_window()
-    selenium.get(live_server.url)
-
-    assert selenium.title == "MySign"
-
-
-def test_get_login(selenium, live_server):
-    selenium.maximize_window()
-    selenium.get(live_server.url + "/login/")
-    expected = "MySign"
-    assert selenium.title == expected
-
-
 @mark.django_db
 def test_login_admin(selenium, live_server):
     selenium.maximize_window()

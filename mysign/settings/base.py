@@ -62,7 +62,7 @@ WSGI_APPLICATION = 'mysign.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
-'''DATABASES = {
+DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': os.environ.get('POSTGRES_DATABASE'),
@@ -71,13 +71,13 @@ WSGI_APPLICATION = 'mysign.wsgi.application'
         'HOST': os.environ.get('POSTGRES_HOST'),
         'PORT': '5432',
     },
-}'''
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'MySign.db'},
 }
+
+# DATABASES = {
+#    'default': {
+#        'ENGINE': 'django.db.backends.sqlite3',
+#        'NAME': 'MySign.db'},
+# }
 
 
 # Password validation
