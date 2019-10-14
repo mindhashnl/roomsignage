@@ -13,8 +13,8 @@ def test_objects_are_seeded():
     assert Company.objects.count() == 20
     assert DoorDevice.objects.count() == 20
 
-    assert User.objects.filter(email='HMO@utsign.nl').count() == 1
-    assert User.objects.filter(email='HMO@utsign.nl').first().check_password('123456')
+    assert User.objects.filter(email='hmo@utsign.nl').count() == 1
+    assert User.objects.filter(email='hmo@utsign.nl').first().check_password('123456')
 
     assert User.objects.filter(email='company@utsign.nl').count() == 1
     assert User.objects.filter(email='company@utsign.nl').first().check_password('123456')
