@@ -97,7 +97,7 @@ def test_navbar_add_user(selenium, live_server):
     assert selenium.current_url == live_server.url + "/admin/users/add"
 
 
-def test_navbar_add_user(selenium, live_server):
+def test_navbar_add_company(selenium, live_server):
     selenium.maximize_window()
     authenticate_selenium(selenium, live_server, is_admin=True)
     selenium.get(live_server.url + "/admin/companies/")
