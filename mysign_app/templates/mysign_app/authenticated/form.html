@@ -1,19 +1,22 @@
 {% load crispy_forms_tags %}
 {% load static %}
 {% if form %}
-    <div class="col-sm-3 auth-container">
+    <div class="col-sm-3 auth-container ">
         <div class="row-dt-form">
             {# <img src='{% static "mysign_app/promo-fallback.png" %}'>#}
-            <form method="post" enctype=multipart/form-data class="h-100">
-                <fieldset id="form-fieldset">
-                    <div class="row h-75">
-                        <div class="col-md-12">
+            <form method="post" enctype=multipart/form-data class="h-100 form">
+                <div id="collapseDiv" class="collapse" style="background-color:var(--delete-btn)">
+                    You have unsaved changes, please dont forget to save
+                </div>
+                <fieldset id="form-fieldset" class="h-100">
+                    <div class="row">
+                        <div class="col-md-12 h-75">
                             {% csrf_token %}
                             {{ form|crispy }}
                         </div>
                     </div>
 
-                    <div class="row align-items-end h-25 pb-5">
+                    <div class="row align-items-end h-25 pt-5">
                         <div class="col">
                             {% if not form.readonly %}
                                 <button id="submitButton" type="submit" class="btn btn-primary btn-block">
@@ -31,7 +34,7 @@
                             {% endif %}
                         </div>
                     </div>
-                    <input hidden id="id" name="id" value="{{ form.instance.id|default:"" }}">
+                    <input hidden id="id" type="hidden" name="id" value="{{ form.instance.id|default:"" }}">
                 </fieldset>
             </form>
         </div>

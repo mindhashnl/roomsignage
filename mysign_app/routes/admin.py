@@ -11,10 +11,11 @@ from django.utils.http import urlsafe_base64_encode
 from django.views.generic import FormView, TemplateView
 from templated_email import send_templated_mail
 
-from mysign_app.forms import (AddCompanyUserForm, CompanyForm, DoorDeviceForm,
-                              UserForm)
+from mysign_app.forms import (AddCompanyUserForm, AddUserForm, CompanyForm,
+                              DoorDeviceForm, UserForm)
 from mysign_app.models import Company, DoorDevice, User
-from mysign_app.routes.helpers import AdminRequiredMixin, admin_required
+from mysign_app.routes.helpers import (AdminRequiredMixin, admin_required,
+                                       refresh_screens)
 from mysign_app.serializers import (CompanySerializer, DoorDeviceSerializer,
                                     UserSerializer)
 
@@ -45,6 +46,7 @@ class DataTablesView(TemplateView, FormView):
                 if form.is_valid():
                     form.save()
                     messages.success(request, f'{self.model.class_name()} succesfully updated')
+                    self.model_saved(model)
 
         form = self.form_class()
         context = self.get_context_data(form=form, **kwargs)
@@ -57,6 +59,9 @@ class DataTablesView(TemplateView, FormView):
             'list_fields': self.list_fields,
             'json': self.models_json(),
         }
+
+    def model_saved(self, model):
+        pass
 
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
@@ -78,6 +83,9 @@ class DoorDevices(AdminRequiredMixin, DataTablesView):
     list_fields = ['id', 'company.name']
     serializer = DoorDeviceSerializer
 
+    def model_saved(self, model):
+        refresh_screens(door_devices=model)
+
 
 class Companies(AdminRequiredMixin, DataTablesView):
     model = Company
@@ -91,7 +99,7 @@ class Users(AdminRequiredMixin, DataTablesView):
     model = User
     form_class = UserForm
     form_kwargs = {'no_delete': True}
-    list_fields = ['first_name', 'last_name', 'company.name']
+    list_fields = ['name', 'company.name']
     serializer = UserSerializer
 
 
@@ -128,5 +136,33 @@ def company_add(request):
     context = {
         'user_form': user_form,
         'company_form': company_form,
+    }
+    return HttpResponse(template.render(context, request))
+
+
+@admin_required
+def user_add(request):
+    if request.method == 'POST':
+        user_form = AddUserForm(request.POST, prefix='user')
+        if user_form.is_valid():
+            user = user_form.save()
+            send_templated_mail(template_name="welcome_mail",
+                                from_email=settings.DEFAULT_FROM_EMAIL,
+                                recipient_list=[user_form.cleaned_data['email']],
+                                context={
+                                    'naam': user.get_full_name(),
+                                    'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+                                    'token':
+                                        PasswordResetTokenGenerator().make_token(
+                                            user=user),
+                                })
+
+            return redirect('admin_users')
+    else:
+        user_form = AddUserForm(prefix='user')
+
+    template = loader.get_template('mysign_app/admin/user_add.html')
+    context = {
+        'user_form': user_form,
     }
     return HttpResponse(template.render(context, request))

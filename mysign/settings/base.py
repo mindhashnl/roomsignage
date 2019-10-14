@@ -25,6 +25,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'pwa',
+    'channels'
 ]
 
 MIDDLEWARE = [
@@ -78,6 +79,7 @@ DATABASES = {
         'NAME': 'MySign.db'},
 }
 
+
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
 
@@ -130,3 +132,14 @@ TEMPLATED_EMAIL_FILE_EXTENSION = 'email'
 DEFAULT_FROM_EMAIL = 'Gebouw-N <info@utsign.nl>'
 
 PWA_SERVICE_WORKER_PATH = os.path.join(BASE_DIR, 'mysign_app', 'static/mysign_app/js/serviceworker.js')
+
+# Channels
+ASGI_APPLICATION = 'mysign.routing.application'
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [(os.environ.get('REDIS_HOST'), 6379)],
+        },
+    },
+}

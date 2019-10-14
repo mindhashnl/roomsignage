@@ -25,9 +25,9 @@ img {
     background-color: var(--primary-dark);
 }
 
+
 .authenticated-padding {
-    padding-bottom: 15px;
-    padding-top: 70.86px;
+    padding-top: 71px;
 }
 
 /* Pad it under the navbar (82.02) and give soma padding (15) */
@@ -52,7 +52,7 @@ img {
 .navbar-btn {
     color: var(--primary-light);
     background-color: var(--secondary-dark);
-    border: 0.5px solid var(--primary-light);
+    border: 0.1rem solid var(--primary-light);
 }
 
 .bar-logo {
@@ -84,18 +84,13 @@ img {
 }
 
 .row-dt-form {
-    padding-top: 10px;
-    padding-left: 10px;
-    padding-right: 10px;
-    padding-bottom: 10px;
+    height: 60%;
+    padding: 10px;
 }
 
 .row-data-table {
     border-radius: 15px;
-    padding-top: 10px;
-    padding-left: 10px;
-    padding-right: 10px;
-    padding-bottom: 10px;
+    padding: 10px;
     background-color: var(--primary-dark);
     box-shadow: 0.2rem 0.2rem 0.4rem rgba(0, 0, 0, 0.25);
 }
