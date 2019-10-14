@@ -33,12 +33,12 @@ def test_login_admin(selenium, live_server):
 def test_logout_HMO(selenium, live_server, client):
     selenium.maximize_window()
     authenticate_selenium(selenium, live_server, is_admin=True)
-    selenium.get(live_server.url + "/admin/door_devices")
 
     assert selenium.current_url == live_server.url + '/admin/door_devices/'
 
     selenium.find_element_by_id('logout-icon').click()
-
+    selenium.get(live_server.url + "/admin/door_devices")
+    
     assert selenium.current_url == live_server.url + "/login/"
 
 
