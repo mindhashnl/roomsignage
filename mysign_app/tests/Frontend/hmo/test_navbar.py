@@ -9,11 +9,14 @@ from mysign_app.tests.Frontend.hmo.helpers import authenticate_selenium
 
 
 def test_index(selenium, live_server):
+    selenium.maximize_window()
     selenium.get(live_server.url)
+
     assert selenium.title == "MySign"
 
 
 def test_get_login(selenium, live_server):
+    selenium.maximize_window()
     selenium.get(live_server.url + "/login/")
     expected = "MySign"
     assert selenium.title == expected
@@ -21,6 +24,7 @@ def test_get_login(selenium, live_server):
 
 @mark.django_db
 def test_login_admin(selenium, live_server):
+    selenium.maximize_window()
     Command().handle()
 
     selenium.get(live_server.url + "/login/")
@@ -41,39 +45,30 @@ def test_login_admin(selenium, live_server):
 
 @mark.django_db
 def test_logout_HMO(selenium, live_server, client):
+    selenium.maximize_window()
     authenticate_selenium(selenium, live_server, is_admin=True)
-
     selenium.get(live_server.url + "/admin/door_devices")
 
     assert selenium.current_url == live_server.url + '/admin/door_devices/'
 
-    selenium.find_element_by_xpath("//*[@class='navbar-toggler-icon']").click()
-
-    # button = WebDriverWait(selenium, 10).until(EC.element_to_be_clickable((By.CLASS_NAME('btn navbar-btn ml-2'))))
-    # button.click()
-    time.sleep(3)
-    selenium.find_element_by_id('logout').click()
+    selenium.find_element_by_id('logout-icon').click()
 
     assert selenium.current_url == live_server.url + "/login/"
 
 
 def test_navbar_companies(selenium, live_server):
+    selenium.maximize_window()
     authenticate_selenium(selenium, live_server, is_admin=True)
     selenium.get(live_server.url + "/admin/door_devices")
 
-    selenium.find_element_by_xpath("//*[@class='navbar-toggler-icon']").click()
-    time.sleep(1)
     selenium.find_element_by_id("Companies").click()
-
     assert selenium.current_url == live_server.url + "/admin/companies/"
 
 
 def test_navbar_devices(selenium, live_server):
+    selenium.maximize_window()
     authenticate_selenium(selenium, live_server, is_admin=True)
     selenium.get(live_server.url + "/admin/door_devices")
-
-    selenium.find_element_by_xpath("//*[@class='navbar-toggler-icon']").click()
-    time.sleep(1)
 
     btn = selenium.find_element_by_id("Devices")
     btn.click()
@@ -82,13 +77,9 @@ def test_navbar_devices(selenium, live_server):
 
 
 def test_navbar_users(selenium, live_server):
+    selenium.maximize_window()
     authenticate_selenium(selenium, live_server, is_admin=True)
     selenium.get(live_server.url + "/admin/door_devices")
 
-    selenium.find_element_by_xpath("//*[@class='navbar-toggler-icon']").click()
-    time.sleep(1)
-
-    btn = selenium.find_element_by_id("Users")
-    btn.click()
-
+    selenium.find_element_by_id("Users").click()
     assert selenium.current_url == live_server.url + "/admin/users/"
