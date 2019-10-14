@@ -83,3 +83,27 @@ def test_navbar_users(selenium, live_server):
 
     selenium.find_element_by_id("Users").click()
     assert selenium.current_url == live_server.url + "/admin/users/"
+
+
+def test_navbar_add_user(selenium, live_server):
+    selenium.maximize_window()
+    authenticate_selenium(selenium, live_server, is_admin=True)
+    selenium.get(live_server.url + "/admin/users/")
+
+    assert selenium.current_url == live_server.url + "/admin/users/"
+
+    selenium.find_element_by_id('user-add-icon').click()
+
+    assert selenium.current_url == live_server.url + "/admin/users/add"
+
+
+def test_navbar_add_user(selenium, live_server):
+    selenium.maximize_window()
+    authenticate_selenium(selenium, live_server, is_admin=True)
+    selenium.get(live_server.url + "/admin/companies/")
+
+    assert selenium.current_url == live_server.url + "/admin/companies/"
+
+    selenium.find_element_by_id('company-add-icon').click()
+
+    assert selenium.current_url == live_server.url + "/admin/companies/add/"
