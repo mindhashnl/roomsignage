@@ -49,6 +49,23 @@ def test_company_add(client):
 
 
 @mark.django_db
+def test_user_add(client):
+    is_admin_route(client, reverse('admin_user_add'))
+
+    client_login(client, is_admin=True)
+    user_payload = payload_from_form(AddCompanyUserForm(instance=UserFactory.build()), prefix='user')
+    payload = {**user_payload}
+
+    response = client.post(reverse('admin_user_add'), payload)
+
+    assert response.status_code == 302
+    assert response.url == reverse('admin_users')
+    assert len(mail.outbox) == 1
+    assert mail.outbox[0].subject == 'Welkom'
+    assert User.objects.count() == 2  # One is logged in user, other created user
+
+
+@mark.django_db
 def test_users(client):
     is_admin_route(client, reverse('admin_users'))
 

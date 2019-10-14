@@ -58,6 +58,12 @@ class AddCompanyUserForm(ModelForm, ModelClassMixin):
         fields = ['first_name', 'last_name', 'email', ]
 
 
+class AddUserForm(ModelForm, ModelClassMixin):
+    class Meta:
+        model = User
+        fields = ['first_name', 'last_name', 'email', 'company', 'is_admin']
+
+
 class CompanyViewForm(NoDeleteToggleableForm, ModelClassMixin):
     class Meta:
         model = Company

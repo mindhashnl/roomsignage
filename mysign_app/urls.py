@@ -24,6 +24,7 @@ urlpatterns = [
     path('admin/companies/', admin.Companies.as_view(), name='admin_companies'),
     path('admin/companies/add/', admin.company_add, name='admin_company_add'),
     path('admin/users/', admin.Users.as_view(), name='admin_users'),
+    path('admin/users/add', admin.user_add, name='admin_user_add'),
 
     path('company/', company.CompanyIndex.as_view(), name='company_index'),
 
