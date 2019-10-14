@@ -1,11 +1,7 @@
-import time
 from pytest import mark
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.wait import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
 
 from mysign_app.management.commands.seed import Command
-from mysign_app.tests.Frontend.hmo.helpers import authenticate_selenium
+from mysign_app.tests.frontend.hmo.helpers import authenticate_selenium
 
 
 @mark.django_db

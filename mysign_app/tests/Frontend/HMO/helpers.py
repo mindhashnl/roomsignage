@@ -1,15 +1,9 @@
-import os
-from asyncio import sleep
-from datetime import date, time
-
+import chromedriver_binary  # noqa: F401
 from django.conf import settings
-import pytest
-import chromedriver_binary
 from django.conf.global_settings import SESSION_COOKIE_NAME
-from django.contrib.auth import SESSION_KEY, BACKEND_SESSION_KEY, HASH_SESSION_KEY
+from django.contrib.auth import (BACKEND_SESSION_KEY, HASH_SESSION_KEY,
+                                 SESSION_KEY)
 from django.contrib.sessions.backends.db import SessionStore
-from selenium import webdriver
-from pytest import mark
 
 from mysign_app.models import User
 
