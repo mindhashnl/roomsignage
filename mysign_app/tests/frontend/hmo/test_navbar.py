@@ -1,13 +1,15 @@
+import time
+
 from pytest import mark
 
-from mysign_app.management.commands.seed import Command
+from mysign_app.models import User
 from mysign_app.tests.frontend.hmo.helpers import authenticate_selenium
 
 
 @mark.django_db
 def test_login_admin(selenium, live_server):
     selenium.maximize_window()
-    Command().handle()
+    user = User.objects.create_user(email='HMO@utsign.nl', password='123456', is_admin=True)
 
     selenium.get(live_server.url + "/login/")
     assert selenium.title == "MySign"
@@ -25,12 +27,10 @@ def test_login_admin(selenium, live_server):
     assert selenium.current_url == live_server.url + "/admin/door_devices/"
 
 
-@mark.django_db
 def test_logout_HMO(selenium, live_server, client):
     selenium.maximize_window()
     authenticate_selenium(selenium, live_server, is_admin=True)
     selenium.get(live_server.url + "/admin/door_devices")
-
     assert selenium.current_url == live_server.url + '/admin/door_devices/'
 
     selenium.find_element_by_id('logout-icon').click()
