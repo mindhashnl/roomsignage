@@ -20,8 +20,8 @@ def test_update(client):
 
     company.name = 'New name'
     payload = payload_from_form(CompanyViewForm(instance=company))
+    payload['color'] = payload['color'][1:]
     response = client.post(reverse('company_index'), payload)
-
     assert response.status_code == 200
 
 

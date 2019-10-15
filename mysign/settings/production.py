@@ -18,3 +18,6 @@ SECURE_BROWSER_XSS_FILTER = True
 X_FRAME_OPTIONS = 'DENY'
 
 SENDGRID_SANDBOX_MODE_IN_DEBUG = False
+
+ADMINS = [('Martijn', 'm.h.woudstra@student.utwente.nl'), ('Matthijs', 'm.vos@student.utwente.nl'),
+          ('Sander', 's.t.tenbrinke@student.utwente.nl'), ('Luc', 'l.w.l.jansen@student.utwente.nl')]
