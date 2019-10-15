@@ -16,7 +16,7 @@ def _email_backend_setup(settings):
     }}
 
 
-@pytest.fixture
+@pytest.fixture()
 def chrome_options(chrome_options):
     chrome_options.add_argument('headless')
     return chrome_options
