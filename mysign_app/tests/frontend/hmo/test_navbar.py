@@ -1,5 +1,3 @@
-import time
-
 from pytest import mark
 
 from mysign_app.models import User
