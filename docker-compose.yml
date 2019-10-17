@@ -7,6 +7,7 @@ services:
       - "8000:8000"
     links:
       - db
+      - chromedriver
   redis:
     container_name: redis
     image: redis
