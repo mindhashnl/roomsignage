@@ -9,16 +9,16 @@ RUN apk add nodejs npm
 RUN wget https://github.com/mozilla/geckodriver/releases/download/v0.24.0/geckodriver-v0.24.0-linux64.tar.gz
 RUN tar -xvzf geckodriver*
 RUN chmod +x geckodriver
-RUN mv geckodriver /usr/local/bin/
+RUN mv geckodriver /usr/bin/
 RUN rm geckodriver-v0.24.0-linux64.tar.gz
-RUN export PATH=$PATH:/usr/local/bin/.
+RUN export PATH=$PATH:/usr/bin/
 
 RUN wget https://chromedriver.storage.googleapis.com/2.29/chromedriver_linux64.zip
 RUN unzip chromedriver_linux64.zip
 RUN chmod +x chromedriver
-RUN mv chromedriver /usr/local/bin/
+RUN mv chromedriver /usr/bin/
 RUN rm chromedriver_linux64.zip
-RUN export PATH=$PATH:/usr/local/bin/.
+RUN export PATH=$PATH:/usr/bin/
 
 
 COPY requirements.txt /app/requirements.txt
