@@ -9,6 +9,7 @@ from mysign_app.models import User
 
 
 def authenticate_selenium(selenium, live_server, **user_kwargs):
+    chromedriver_binary.add_chromedriver_to_path()
     user = User.objects.create_user(email='test@user.nl', password='1234', **user_kwargs)
 
     session = SessionStore()
