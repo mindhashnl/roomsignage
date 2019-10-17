@@ -48,5 +48,18 @@ services:
       - ${PWD}/traefik.toml:/traefik.toml
       - ${PWD}/acme.json:/acme.json
 
+  chromedriver:
+    image: blueimp/chromedriver
+    tmpfs: /tmp
+    restart: always
+    environment:
+      - DISABLE_X11=false
+      - ENABLE_VNC=true
+      - EXPOSE_X11=true
+    volumes:
+      - ./assets:/home/webdriver/assets:ro
+    ports:
+      - 127.0.0.1:5900:5900
+
 volumes:
   postgres_data:
