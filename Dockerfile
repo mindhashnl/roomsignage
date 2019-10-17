@@ -10,7 +10,16 @@ RUN wget https://github.com/mozilla/geckodriver/releases/download/v0.24.0/geckod
 RUN tar -xvzf geckodriver*
 RUN chmod +x geckodriver
 RUN mv geckodriver /usr/local/bin/
+RUN rm geckodriver-v0.24.0-linux64.tar.gz
 RUN export PATH=$PATH:/usr/local/bin/.
+
+RUN wget https://chromedriver.storage.googleapis.com/2.29/chromedriver_linux64.zip
+RUN unzip chromedriver_linux64.zip
+RUN sudo chmod +x chromedriver
+RUN sudo mv chromedriver /usr/local/bin/
+RUN rm chromedriver_linux64.zip
+RUN export PATH=$PATH:/usr/local/bin/.
+
 
 COPY requirements.txt /app/requirements.txt
 RUN pip install --no-cache-dir -r /app/requirements.txt
