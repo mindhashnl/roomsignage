@@ -1,5 +1,6 @@
 FROM python:3.7-alpine
 
+ENV PATH /usr/local/bin:$PATH
 
 RUN apk add --no-cache postgresql-dev gcc musl-dev libffi-dev libxml2-dev libxslt-dev
 RUN apk add jpeg-dev zlib-dev

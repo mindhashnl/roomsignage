@@ -17,7 +17,7 @@ services:
     volumes:
       - ./assets:/home/webdriver/assets:ro
     ports:
-      - 127.0.0.1:5950:5950
+      - 127.0.0.1:4444:4444
   app:
     build: .
     depends_on:
