@@ -6,6 +6,12 @@ RUN apk add --no-cache postgresql-dev gcc musl-dev libffi-dev libxml2-dev libxsl
 RUN apk add jpeg-dev zlib-dev
 RUN apk add nodejs npm
 
+RUN wget https://github.com/mozilla/geckodriver/releases/download/v0.24.0/geckodriver-v0.24.0-linux64.tar.gz
+RUN tar -xvzf geckodriver*
+RUN chmod +x geckodriver
+RUN mv geckodriver /usr/local/bin/
+RUN export PATH=$PATH:/usr/local/bin/.
+
 COPY requirements.txt /app/requirements.txt
 RUN pip install --no-cache-dir -r /app/requirements.txt
 
