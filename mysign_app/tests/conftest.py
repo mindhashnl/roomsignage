@@ -14,3 +14,9 @@ def _email_backend_setup(settings):
     settings.CHANNEL_LAYERS = {"default": {
         "BACKEND": "channels.layers.InMemoryChannelLayer"
     }}
+
+
+@pytest.fixture()
+def chrome_options(chrome_options):
+    chrome_options.add_argument('headless')
+    return chrome_options
