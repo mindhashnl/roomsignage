@@ -7,10 +7,22 @@ services:
       - POSTGRES_USER=test
       - POSTGRES_DATABASE=test
       - POSTGRES_PASSWORD=test
+  chromedriver:
+    image: blueimp/chromedriver
+    tmpfs: /tmp
+    environment:
+      - DISABLE_X11=false
+      - ENABLE_VNC=true
+      - EXPOSE_X11=true
+    volumes:
+      - ./assets:/home/webdriver/assets:ro
+    ports:
+      - 127.0.0.1:5900:5900   
   app:
     build: .
     depends_on:
       - db
+      - chromedriver
     environment:
       - POSTGRES_USER=test
       - POSTGRES_DATABASE=test
