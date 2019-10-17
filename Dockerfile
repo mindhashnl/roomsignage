@@ -15,8 +15,8 @@ RUN export PATH=$PATH:/usr/local/bin/.
 
 RUN wget https://chromedriver.storage.googleapis.com/2.29/chromedriver_linux64.zip
 RUN unzip chromedriver_linux64.zip
-RUN sudo chmod +x chromedriver
-RUN sudo mv chromedriver /usr/local/bin/
+RUN chmod +x chromedriver
+RUN mv chromedriver /usr/local/bin/
 RUN rm chromedriver_linux64.zip
 RUN export PATH=$PATH:/usr/local/bin/.
 
