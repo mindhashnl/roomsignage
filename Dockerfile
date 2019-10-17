@@ -17,8 +17,8 @@ RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apk add
 RUN echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list
 
 # Update the package list and install chrome
-RUN apt-get update -y
-RUN apt-get install -y google-chrome-stable
+RUN apk update
+RUN apk add google-chrome-stable
 
 # Set up Chromedriver Environment variables
 ENV CHROMEDRIVER_VERSION 77.0.3865.40
