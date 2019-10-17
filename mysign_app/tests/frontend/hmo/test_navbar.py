@@ -1,4 +1,5 @@
 from pytest import mark
+from selenium import webdriver
 
 from mysign_app.management.commands.seed import Command
 from mysign_app.tests.frontend.hmo.helpers import authenticate_selenium
@@ -6,9 +7,9 @@ from mysign_app.tests.frontend.hmo.helpers import authenticate_selenium
 
 @mark.django_db
 def test_login_admin(selenium, live_server):
+    selenium = webdriver.Chrome('/usr/local/bin/')
     selenium.maximize_window()
     Command().handle()
-
     selenium.get(live_server.url + "/login/")
     assert selenium.title == "MySign"
 
