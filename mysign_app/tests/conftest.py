@@ -15,7 +15,7 @@ def _email_backend_setup(settings):
         "BACKEND": "channels.layers.InMemoryChannelLayer"
     }}
 
-    
+
 @pytest.fixture()
 def chrome_options(chrome_options):
     # https://stackoverflow.com/questions/50642308/webdriverexception-unknown-error-devtoolsactiveport-file-doesnt-exist-while-t
@@ -32,4 +32,3 @@ def firefox_options(firefox_options):
     firefox_options.add_argument("--width=1920")
     firefox_options.add_argument("--height=1080")
     return firefox_options
-
