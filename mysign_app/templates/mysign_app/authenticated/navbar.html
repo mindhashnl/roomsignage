@@ -20,7 +20,7 @@
             <ul class="navbar-nav mr-auto">
                 {% for link, name in menu_items.items %}
                     <li class="nav-item {% if url_name == link %} active {% endif %}">
-                        <a class="nav-link" href="{% url link %}">{{ name }} </a>
+                        <a class="nav-link" id={{ name }} href="{% url link %}">{{ name }} </a>
                     </li>
                 {% endfor %}
 
@@ -33,26 +33,29 @@
                 </li>
 
                 <li class="nav-item d-sm-none">
-                    <a class="nav-link" href="{% url 'logout' %}">Logout </a>
+                    <a class="nav-link" id="logout" href="{% url 'logout' %}">Logout </a>
                 </li>
             </ul>
 
             {# ---- action buttons (not for mobile) --- #}
             <ul class="nav nav-pills d-none d-md-block">
                 {% if url_name == 'admin_companies' %}
-                    <a href="{% url 'admin_company_add' %}" class="btn navbar-btn mt-auto" role="button">
-                        <i class="fas fa-plus"></i>
+                    <a href="{% url 'admin_company_add' %}" id="add_company" class="btn navbar-btn mt-auto"
+                       role="button">
+                        <i class="fas fa-plus" id="company-add-icon"></i>
                         Add company
                     </a>
                 {% endif %}
+
                 {% if url_name == 'admin_users' %}
                     <a href="{% url 'admin_user_add' %}" class="btn navbar-btn mt-auto" role="button">
-                        <i class="fas fa-plus"></i>
+                        <i class="fas fa-plus" id="user-add-icon"></i>
                         Add user
                     </a>
                 {% endif %}
                 <a href="{% url 'logout' %}" class="btn navbar-btn ml-2" role="button">
-                    <i class="fas fa-user"></i>
+                    <i class="fas fa-user" id="logout-icon"></i>
+
                     Logout
                 </a>
             </ul>
