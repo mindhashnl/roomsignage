@@ -13,12 +13,12 @@ def device_setup(selenium, live_server):
     DoorDevice.objects.create()
     DoorDevice.objects.create()
 
-    authenticate_selenium(selenium, live_server, is_admin=True)
+    authenticate_selenium(selenium, is_admin=True)
     selenium.maximize_window()
     selenium.get(live_server.url + "/admin/door_devices/")
 
 
-def test_card_selected(selenium, live_server):
+def test_card_selected(selenium):
     card_1 = selenium.find_element_by_xpath("//td[@class='id sorting_1' and text()='1']")
     card_2 = selenium.find_element_by_xpath("//td[@class='id sorting_1' and text()='2']")
 
@@ -37,7 +37,7 @@ def test_card_selected(selenium, live_server):
     assert "selected" in card_2_parent.get_attribute("class")
 
 
-def test_card_form_data(selenium, live_server):
+def test_card_form_data(selenium):
     card_1 = selenium.find_element_by_xpath("//td[@class='id sorting_1' and text()='3']")
     card_2 = selenium.find_element_by_xpath("//td[@class='id sorting_1' and text()='4']")
 
@@ -59,7 +59,7 @@ def test_card_form_data(selenium, live_server):
     assert '4' == selenium.find_element_by_id('id_company').get_attribute('value')
 
 
-def test_disabled_if_none_selected(selenium, live_server):
+def test_disabled_if_none_selected(selenium):
     assert not selenium.find_element_by_id('id_company').is_enabled()
     assert not selenium.find_element_by_id('submitButton').is_enabled()
     assert not selenium.find_element_by_id('deleteButton').is_enabled()
@@ -70,7 +70,7 @@ def test_disabled_if_none_selected(selenium, live_server):
     assert selenium.find_element_by_id('deleteButton').is_enabled()
 
 
-def test_save_door_device(selenium, live_server):
+def test_save_door_device(selenium):
     card = selenium.find_element_by_xpath("//td[@class='id sorting_1' and text()='7']")
     card_parent = card.find_element_by_xpath('..')
 
@@ -96,7 +96,7 @@ def test_save_door_device(selenium, live_server):
     assert 'Test' == card_parent.find_element_by_xpath("//td[@class='company.name active']").text
 
 
-def test_remove_button(selenium, live_server):
+def test_remove_button(selenium):
     card = selenium.find_element_by_xpath("//td[@class='id sorting_1' and text()='9']")
 
     cards = selenium.find_elements_by_xpath("//td[@class='id sorting_1']")
@@ -118,7 +118,7 @@ def test_remove_button(selenium, live_server):
     assert len(cards) == 1
 
 
-def test_search(selenium, live_server):
+def test_search(selenium):
     # search for cards with id 1
     search = selenium.find_element_by_xpath("//input[@class='form-control w-100']")
     search.send_keys("11")
