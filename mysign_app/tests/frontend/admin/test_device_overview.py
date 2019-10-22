@@ -1,11 +1,11 @@
-from pytest import mark
+from pytest import mark, fixture
 from selenium.webdriver.common.keys import Keys
 
 from mysign_app.models import Company, DoorDevice
 from mysign_app.tests.frontend.helpers import authenticate_selenium
 
 
-@mark.django_db
+@fixture(autouse=True)
 def device_setup(selenium, live_server):
     Company.objects.create(name="Test", email="test@test.com")
     Company.objects.create(name="Test_2", email="test_2@test.com")
@@ -18,9 +18,7 @@ def device_setup(selenium, live_server):
     selenium.get(live_server.url + "/admin/door_devices/")
 
 
-@mark.django_db
 def test_card_selected(selenium, live_server):
-    device_setup(selenium, live_server)
     card_1 = selenium.find_element_by_xpath("//td[@class='id sorting_1' and text()='1']")
     card_2 = selenium.find_element_by_xpath("//td[@class='id sorting_1' and text()='2']")
 
@@ -39,9 +37,7 @@ def test_card_selected(selenium, live_server):
     assert "selected" in card_2_parent.get_attribute("class")
 
 
-@mark.django_db
 def test_card_form_data(selenium, live_server):
-    device_setup(selenium, live_server)
     card_1 = selenium.find_element_by_xpath("//td[@class='id sorting_1' and text()='3']")
     card_2 = selenium.find_element_by_xpath("//td[@class='id sorting_1' and text()='4']")
 
@@ -63,9 +59,7 @@ def test_card_form_data(selenium, live_server):
     assert '4' == selenium.find_element_by_id('id_company').get_attribute('value')
 
 
-@mark.django_db
 def test_disabled_if_none_selected(selenium, live_server):
-    device_setup(selenium, live_server)
     assert not selenium.find_element_by_id('id_company').is_enabled()
     assert not selenium.find_element_by_id('submitButton').is_enabled()
     assert not selenium.find_element_by_id('deleteButton').is_enabled()
@@ -76,10 +70,7 @@ def test_disabled_if_none_selected(selenium, live_server):
     assert selenium.find_element_by_id('deleteButton').is_enabled()
 
 
-@mark.django_db
 def test_save_door_device(selenium, live_server):
-    device_setup(selenium, live_server)
-
     card = selenium.find_element_by_xpath("//td[@class='id sorting_1' and text()='7']")
     card_parent = card.find_element_by_xpath('..')
 
@@ -105,9 +96,7 @@ def test_save_door_device(selenium, live_server):
     assert 'Test' == card_parent.find_element_by_xpath("//td[@class='company.name active']").text
 
 
-@mark.django_db
 def test_remove_button(selenium, live_server):
-    device_setup(selenium, live_server)
     card = selenium.find_element_by_xpath("//td[@class='id sorting_1' and text()='9']")
 
     cards = selenium.find_elements_by_xpath("//td[@class='id sorting_1']")
@@ -129,10 +118,7 @@ def test_remove_button(selenium, live_server):
     assert len(cards) == 1
 
 
-@mark.django_db
 def test_search(selenium, live_server):
-    device_setup(selenium, live_server)
-
     # search for cards with id 1
     search = selenium.find_element_by_xpath("//input[@class='form-control w-100']")
     search.send_keys("11")

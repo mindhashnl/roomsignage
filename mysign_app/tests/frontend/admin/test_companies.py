@@ -1,8 +1,11 @@
+from pytest import fixture
+
 from mysign_app.models import Company
 from mysign_app.tests.frontend.helpers import authenticate_selenium
 
 
-def company_setup(selenium, live_server):
+@fixture(autouse=True)
+def setup_company(selenium, live_server):
     Company.objects.create(name="Test", email="test@test.com")
     Company.objects.create(name="Test_2", email="test_2@test.com")
     authenticate_selenium(selenium, live_server, is_admin=True)
@@ -10,8 +13,7 @@ def company_setup(selenium, live_server):
     selenium.get(live_server.url + "/admin/companies/")
 
 
-def test_card_form_data(selenium, live_server):
-    company_setup(selenium, live_server)
+def test_card_form_data(selenium):
     card_1 = selenium.find_element_by_xpath("//td[@class='name sorting_1' and text()='Test']")
     card_2 = selenium.find_element_by_xpath("//td[@class='name sorting_1' and text()='Test_2']")
 
@@ -19,6 +21,9 @@ def test_card_form_data(selenium, live_server):
     assert "" == selenium.find_element_by_id('id_name').get_attribute('value')
     # email
     assert "" == selenium.find_element_by_id('id_email').get_attribute('value')
+
+    assert not selenium.find_element_by_id('id_name').is_enabled()
+    assert not selenium.find_element_by_id('id_email').is_enabled()
 
     card_1.click()
     assert 'Test' == selenium.find_element_by_id('id_name').get_attribute('value')
@@ -28,9 +33,12 @@ def test_card_form_data(selenium, live_server):
     assert 'Test_2' == selenium.find_element_by_id('id_name').get_attribute('value')
     assert 'test_2@test.com' == selenium.find_element_by_id('id_email').get_attribute('value')
 
+    card_2.click()
+    assert "" == selenium.find_element_by_id('id_name').get_attribute('value')
+    assert "" == selenium.find_element_by_id('id_email').get_attribute('value')
 
-def test_form_fields_disabled(selenium, live_server):
-    company_setup(selenium, live_server)
+
+def test_form_fields_disabled(selenium):
     card_1 = selenium.find_element_by_xpath("//td[@class='name sorting_1' and text()='Test']")
     card_1.click()
 
@@ -39,18 +47,15 @@ def test_form_fields_disabled(selenium, live_server):
 
     name_field.send_keys("MySign")
     assert text_name == name_field.get_attribute('value')
-    assert not text_name == "MySign"
 
     email_field = selenium.find_element_by_id('id_email')
     text_email = email_field.get_attribute('value')
 
     email_field.send_keys("MySign")
     assert text_email == email_field.get_attribute('value')
-    assert not text_email == "MySign"
 
 
-def test_card_selected(selenium, live_server):
-    company_setup(selenium, live_server)
+def test_card_selected(selenium):
     card_1 = selenium.find_element_by_xpath("//td[@class='name sorting_1' and text()='Test']")
     card_2 = selenium.find_element_by_xpath("//td[@class='name sorting_1' and text()='Test_2']")
 
@@ -69,23 +74,18 @@ def test_card_selected(selenium, live_server):
     assert "selected" in card_2_parent.get_attribute("class")
 
 
-def test_remove_button_disabled(selenium, live_server):
-    company_setup(selenium, live_server)
-
+def test_remove_button_disabled(selenium):
     assert not selenium.find_element_by_id("deleteButton").is_enabled()
 
 
-def test_remove_button_enabled(selenium, live_server):
-    company_setup(selenium, live_server)
-
+def test_remove_button_enabled(selenium):
     assert not selenium.find_element_by_id("deleteButton").is_enabled()
 
     selenium.find_element_by_xpath("//td[@class='name sorting_1' and text()='Test']").click()
     assert selenium.find_element_by_id("deleteButton").is_enabled()
 
 
-def test_alert_present(selenium, live_server):
-    company_setup(selenium, live_server)
+def test_alert_present(selenium):
     card_1 = selenium.find_element_by_xpath("//td[@class='name sorting_1' and text()='Test']")
 
     card_1.click()
@@ -94,8 +94,7 @@ def test_alert_present(selenium, live_server):
     assert selenium.switch_to_alert
 
 
-def test_remove_button(selenium, live_server):
-    company_setup(selenium, live_server)
+def test_remove_button(selenium):
     card_1 = selenium.find_element_by_xpath("//td[@class='name sorting_1' and text()='Test']")
 
     cards = selenium.find_elements_by_xpath("//td[@class='name sorting_1']")
@@ -117,9 +116,7 @@ def test_remove_button(selenium, live_server):
     assert len(cards) == 1
 
 
-def test_search(selenium, live_server):
-    company_setup(selenium, live_server)
-
+def test_search(selenium):
     cards = selenium.find_elements_by_xpath("//td[@class='name sorting_1']")
     assert len(cards) == 2
 
