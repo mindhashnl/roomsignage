@@ -39,7 +39,6 @@ def test_card_selected(selenium):
 
 def test_card_form_data(selenium):
     card_1 = selenium.find_elements_by_xpath("//td[@class='id sorting_1']")[0]
-    card_2 = selenium.find_elements_by_xpath("//td[@class='id sorting_1']")[1]
 
     # name
     assert "" == selenium.find_element_by_id('id_company').get_attribute('value')
@@ -48,14 +47,17 @@ def test_card_form_data(selenium):
     # Click other company, and check if company changed
     card_1.click()
     assert '' == selenium.find_element_by_id('id_company').get_attribute('value')
-    company_id = selenium.find_element_by_xpath("// select[ @ id = 'id_company'] / option[text() = 'Test']").get_attribute(
+    company_id = selenium.find_element_by_xpath(
+        "// select[ @ id = 'id_company'] / option[text() = 'Test']").get_attribute(
         'value')
     selenium.find_element_by_xpath("// select[ @ id = 'id_company'] / option[text() = 'Test']").click()
     assert company_id == selenium.find_element_by_id('id_company').get_attribute('value')
-    company_id = selenium.find_element_by_xpath("// select[ @ id = 'id_company'] / option[text() = 'Test_2']").get_attribute(
+    company_id = selenium.find_element_by_xpath(
+        "// select[ @ id = 'id_company'] / option[text() = 'Test_2']").get_attribute(
         'value')
     selenium.find_element_by_xpath("// select[ @ id = 'id_company'] / option[text() = 'Test_2']").click()
     assert company_id == selenium.find_element_by_id('id_company').get_attribute('value')
+
 
 def test_disabled_if_none_selected(selenium):
     assert not selenium.find_element_by_id('id_company').is_enabled()
