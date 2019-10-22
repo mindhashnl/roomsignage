@@ -18,6 +18,12 @@
 
                     <div class="row align-items-end h-25 pt-5">
                         <div class="col">
+
+                            {% with request.resolver_match.url_name as url_name %}
+                                {% if  url_name == 'admin_door_devices' %}
+                                    <a href="{% url 'admin_user_add' %}"></a>
+                                {% endif %}
+                            {% endwith %}
                             {% if not form.readonly %}
                                 <button id="submitButton" type="submit" class="btn btn-primary btn-block">
                                     <i class="fas fa-save"></i>
