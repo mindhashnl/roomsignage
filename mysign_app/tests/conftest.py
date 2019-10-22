@@ -15,8 +15,11 @@ def _email_backend_setup(settings):
         "BACKEND": "channels.layers.InMemoryChannelLayer"
     }}
 
-#
-# @pytest.fixture()
-# def chrome_options(chrome_options):
-#     chrome_options.add_argument('headless')
-#     return chrome_options
+@pytest.fixture()
+def chrome_options(chrome_options):
+    # https://stackoverflow.com/questions/50642308/webdriverexception-unknown-error-devtoolsactiveport-file-doesnt-exist-while-t
+    chrome_options.add_argument('disable-dev-shm-usage')
+    chrome_options.add_argument('no-sandbox')
+    chrome_options.add_argument('headless')
+    chrome_options.add_argument('window-size=1920x1080')
+    return chrome_options
