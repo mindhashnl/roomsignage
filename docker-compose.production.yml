@@ -3,7 +3,7 @@ services:
   web:
     build: .
     env_file: .env
-    command: gunicorn mysign.wsgi -b 0.0.0.0:8000
+    command: daphne mysign.asci:application -b 0.0.0.0
     restart: always
     depends_on:
       - db

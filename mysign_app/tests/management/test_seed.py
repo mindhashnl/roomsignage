@@ -34,3 +34,14 @@ def test_database_is_cleared():
     Command().handle()
 
     assert Company.objects.filter(name="really awesome company").count() == 0
+
+
+@mark.django_db
+def test_production_seed():
+    Command().handle(production=True)
+
+    assert Company.objects.count() == 0
+    assert DoorDevice.objects.count() == 0
+
+    assert User.objects.count() == 1
+    assert User.objects.first().check_password('R34llyS4ve')
