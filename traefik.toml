@@ -1,5 +1,5 @@
 logLevel = "INFO"
-defaultEntryPoints = ["https", "http"]
+defaultEntryPoints = ["https", "http", "ws", "wss"]
 
 # Force HTTPS
 [entryPoints]
