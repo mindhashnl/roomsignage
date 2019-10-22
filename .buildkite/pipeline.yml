@@ -8,7 +8,7 @@ steps:
   - wait
 
   - label: ":pytest: Test"
-    command: ["sh .buildkite/wait-for-it.sh", "db:5432", '--', 'pytest', '-k', 'not frontend']
+    command: ["sh .buildkite/wait-for-it.sh", "db:5432", '--', 'pytest', '-k', '"not frontend"']
     plugins:
       - docker-compose#v2.6.0:
           run: app
