@@ -1,5 +1,5 @@
 from mysign_app.models import Company
-from mysign_app.tests.frontend.hmo.helpers import authenticate_selenium
+from mysign_app.tests.frontend.helpers import authenticate_selenium
 
 
 def company_setup(selenium, live_server):
@@ -20,6 +20,9 @@ def test_card_form_data(selenium, live_server):
     # email
     assert "" == selenium.find_element_by_id('id_email').get_attribute('value')
 
+    assert not selenium.find_element_by_id('id_name').is_enabled()
+    assert not selenium.find_element_by_id('id_email').is_enabled()
+
     card_1.click()
     assert 'Test' == selenium.find_element_by_id('id_name').get_attribute('value')
     assert 'test@test.com' == selenium.find_element_by_id('id_email').get_attribute('value')
@@ -27,6 +30,10 @@ def test_card_form_data(selenium, live_server):
     card_2.click()
     assert 'Test_2' == selenium.find_element_by_id('id_name').get_attribute('value')
     assert 'test_2@test.com' == selenium.find_element_by_id('id_email').get_attribute('value')
+
+    card_2.click()
+    assert "" == selenium.find_element_by_id('id_name').get_attribute('value')
+    assert "" == selenium.find_element_by_id('id_email').get_attribute('value')
 
 
 def test_form_fields_disabled(selenium, live_server):
@@ -39,14 +46,12 @@ def test_form_fields_disabled(selenium, live_server):
 
     name_field.send_keys("MySign")
     assert text_name == name_field.get_attribute('value')
-    assert not text_name == "MySign"
 
     email_field = selenium.find_element_by_id('id_email')
     text_email = email_field.get_attribute('value')
 
     email_field.send_keys("MySign")
     assert text_email == email_field.get_attribute('value')
-    assert not text_email == "MySign"
 
 
 def test_card_selected(selenium, live_server):
