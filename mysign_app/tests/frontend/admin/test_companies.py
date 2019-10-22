@@ -1,5 +1,5 @@
 from mysign_app.models import Company
-from mysign_app.tests.frontend.hmo.helpers import authenticate_selenium
+from mysign_app.tests.frontend.helpers import authenticate_selenium
 
 
 def company_setup(selenium, live_server):

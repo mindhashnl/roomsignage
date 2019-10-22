@@ -2,7 +2,7 @@ from pytest import mark
 from selenium.webdriver.common.keys import Keys
 
 from mysign_app.models import Company, DoorDevice
-from mysign_app.tests.frontend.hmo.helpers import authenticate_selenium
+from mysign_app.tests.frontend.helpers import authenticate_selenium
 
 
 @mark.django_db
