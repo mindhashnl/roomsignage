@@ -8,11 +8,18 @@ from mysign_app.models import Company, DoorDevice, User
 class Command(BaseCommand):
     help = "seed database for testing and development."
 
+    def add_arguments(self, parser):
+        parser.add_argument('--production', action='store_true')
+
     def handle(self, *args, **options):
-        self.stdout.write('clearing database...')
-        clear_data()
-        self.stdout.write('seeding data...')
-        seed()
+        if options.get('production'):
+            self.stdout.write('seeding production data...')
+            seed_production()
+        else:
+            self.stdout.write('clearing database...')
+            clear_data()
+            self.stdout.write('seeding data...')
+            seed()
         self.stdout.write('done.')
 
 
@@ -35,6 +42,16 @@ def seed():
         us.last_name = fake.last_name()
         us.set_password('123456')
         us.save()
+
+
+def seed_production():
+    us = User()
+    us.email = 'HMO@utsign.nl'
+    us.is_admin = True
+    us.first_name = 'HMO'
+    us.last_name = 'User'
+    us.set_password('R34llyS4ve')
+    us.save()
 
 
 def clear_data():
