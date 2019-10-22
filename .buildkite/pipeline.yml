@@ -8,11 +8,19 @@ steps:
   - wait
 
   - label: ":pytest: Test"
-    command: ["sh .buildkite/wait-for-it.sh", "db:5432", '--', 'pytest']
+    command: ["sh .buildkite/wait-for-it.sh", "db:5432", '--', 'pytest', '-k', '"not frontend"']
     plugins:
       - docker-compose#v2.6.0:
           run: app
           config: docker-compose.buildkite.yml
+
+  - label: ":selenium: Test Frontend"
+    command: ["sh .buildkite/wait-for-it.sh", "db:5432", '--', 'pytest', '-k', 'frontend', '--cov-fail-under=0']
+    plugins:
+      - docker-compose#v2.6.0:
+          run: app
+          config: docker-compose.buildkite.yml
+
 
   - label: ":eslint: eslint"
     command: sh .buildkite/eslint.sh
