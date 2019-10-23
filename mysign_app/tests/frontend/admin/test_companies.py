@@ -14,8 +14,8 @@ def setup_company(selenium, live_server):
 
 
 def test_card_form_data(selenium):
-    card_1 = selenium.find_element_by_xpath("//td[@class='name sorting_1' and text()='Test']")
-    card_2 = selenium.find_element_by_xpath("//td[@class='name sorting_1' and text()='Test_2']")
+    card_1 = selenium.find_elements_by_xpath("//td[@class='id sorting_1']")[0]
+    card_2 = selenium.find_elements_by_xpath("//td[@class='id sorting_1']")[1]
 
     # name
     assert "" == selenium.find_element_by_id('id_name').get_attribute('value')
@@ -39,7 +39,7 @@ def test_card_form_data(selenium):
 
 
 def test_form_fields_disabled(selenium):
-    card_1 = selenium.find_element_by_xpath("//td[@class='name sorting_1' and text()='Test']")
+    card_1 = selenium.find_elements_by_xpath("//td[@class='id sorting_1']")[0]
     card_1.click()
 
     name_field = selenium.find_element_by_id('id_name')
@@ -56,8 +56,8 @@ def test_form_fields_disabled(selenium):
 
 
 def test_card_selected(selenium):
-    card_1 = selenium.find_element_by_xpath("//td[@class='name sorting_1' and text()='Test']")
-    card_2 = selenium.find_element_by_xpath("//td[@class='name sorting_1' and text()='Test_2']")
+    card_1 = selenium.find_elements_by_xpath("//td[@class='id sorting_1']")[0]
+    card_2 = selenium.find_elements_by_xpath("//td[@class='id sorting_1']")[1]
 
     card_1_parent = card_1.find_element_by_xpath('..')
     card_2_parent = card_2.find_element_by_xpath('..')
@@ -81,12 +81,12 @@ def test_remove_button_disabled(selenium):
 def test_remove_button_enabled(selenium):
     assert not selenium.find_element_by_id("deleteButton").is_enabled()
 
-    selenium.find_element_by_xpath("//td[@class='name sorting_1' and text()='Test']").click()
+    selenium.find_elements_by_xpath("//td[@class='id sorting_1']")[0].click()
     assert selenium.find_element_by_id("deleteButton").is_enabled()
 
 
 def test_alert_present(selenium):
-    card_1 = selenium.find_element_by_xpath("//td[@class='name sorting_1' and text()='Test']")
+    card_1 = selenium.find_elements_by_xpath("//td[@class='id sorting_1']")[0]
 
     card_1.click()
     selenium.find_element_by_id("deleteButton").click()
@@ -95,7 +95,7 @@ def test_alert_present(selenium):
 
 
 def test_remove_button(selenium):
-    card_1 = selenium.find_element_by_xpath("//td[@class='name sorting_1' and text()='Test']")
+    card_1 = selenium.find_elements_by_xpath("//td[@class='id sorting_1']")[0]
 
     cards = selenium.find_elements_by_xpath("//td[@class='name sorting_1']")
     assert len(cards) == 2

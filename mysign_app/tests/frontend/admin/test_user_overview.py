@@ -1,7 +1,7 @@
 from selenium.webdriver.common.keys import Keys
 
 from mysign_app.models import Company, User
-from mysign_app.tests.frontend.hmo.helpers import authenticate_selenium
+from mysign_app.tests.frontend.admin.helpers import authenticate_selenium
 
 
 def user_setup(selenium, live_server):
