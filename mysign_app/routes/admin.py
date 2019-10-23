@@ -33,6 +33,7 @@ class DataTablesView(TemplateView, FormView):
 
     def post(self, request, *args, **kwargs):
         """ Only clicked buttons get their name send, so this checks if the button with name 'delete' is pressed """
+        form = self.form_class()
         if request.POST.get("delete"):
             model = self.model.objects.filter(id=request.POST.get('id'))
             if model.count() == 1:
@@ -48,7 +49,6 @@ class DataTablesView(TemplateView, FormView):
                     messages.success(request, f'{self.model.class_name()} succesfully updated')
                     self.model_saved(model)
 
-        form = self.form_class()
         context = self.get_context_data(form=form, **kwargs)
         return self.render_to_response(context)
 
