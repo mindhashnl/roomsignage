@@ -140,7 +140,7 @@ def test_search(selenium):
     assert len(cards) == 1
 
     # search for cards with non-existing id
-    search.send_keys("1000")
+    search.send_keys("-1")
     cards = selenium.find_elements_by_xpath("//td[@class='id sorting_1']")
     assert len(cards) == 0
 

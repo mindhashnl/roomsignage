@@ -67,10 +67,6 @@ function createDataTable(dataJson, listFields) {
 			$('#register').find('tbody tr').each(function () {
 				$(this).find('td').each(function (column) {
 					$(this).attr('data-label', labels[column]);
-					// Hif (labels[column] === ' id ') {
-					// 	console.log($(this).text());
-					// $(this).parent().prop('id', $(this).text());
-					// }
 				});
 			});
 		}
