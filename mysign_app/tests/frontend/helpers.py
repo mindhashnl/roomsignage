@@ -1,4 +1,3 @@
-import chromedriver_binary  # noqa: F401
 from django.conf import settings
 from django.conf.global_settings import SESSION_COOKIE_NAME
 from django.contrib.auth import (BACKEND_SESSION_KEY, HASH_SESSION_KEY,
