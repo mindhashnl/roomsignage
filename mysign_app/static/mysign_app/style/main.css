@@ -55,6 +55,15 @@ img {
     border: 0.1rem solid var(--primary-light);
 }
 
+.screen-preview-style {
+    padding: 50px;
+    background-color: #1d1c1c;
+    border-radius: 4%;
+}
+
+.screen-preview-border {
+    padding: 60px 180px
+}
 
 .bar-logo {
     width: 40px;

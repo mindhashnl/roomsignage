@@ -3,8 +3,7 @@
 {% block content %}
 
     {% include 'mysign_app/authenticated/form.html' %}
-
-    <div class="col-9 h-75 pr-2 no-overflow">
+    <div class="col-9 h-100 no-overflow p-0">
         {% include 'partials/company_screen.html' with company=form.instance %}
     </div>
 
