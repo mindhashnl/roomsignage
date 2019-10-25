@@ -7,7 +7,7 @@ from mysign_app.tests.frontend.helpers import authenticate_selenium
 def user_setup(selenium, live_server):
     Company.objects.create(name="Mindhash", email="info@mindhash.com")
     Company.objects.create(name="Test", email="test@test.com")
-    User.objects.create(first_name="Lasse", last_name="Licht", email="lasse@mindhash.nl", is_admin=False)
+    User.objects.create(first_name="John", last_name="Doe", email="john@doe.nl", is_admin=False)
     User.objects.create(first_name="Jan", last_name="Janssen", email="jan@janssen.nl", is_admin=True)
 
     authenticate_selenium(selenium, live_server, is_admin=True, first_name="admin")
@@ -17,8 +17,8 @@ def user_setup(selenium, live_server):
 
 def test_card_selected(selenium, live_server):
     user_setup(selenium, live_server)
-    card_1 = selenium.find_element_by_xpath("//td[@class='name sorting_1' and text()='Lasse Licht']")
-    card_2 = selenium.find_element_by_xpath("//td[@class='name sorting_1' and text()='Jan Janssen']")
+    card_1 = selenium.find_elements_by_xpath("//td[@class='name sorting_1']")[0]
+    card_2 = selenium.find_elements_by_xpath("//td[@class='name sorting_1']")[1]
 
     card_1_parent = card_1.find_element_by_xpath('..')
     card_2_parent = card_2.find_element_by_xpath('..')
@@ -37,8 +37,8 @@ def test_card_selected(selenium, live_server):
 
 def test_card_form_data(selenium, live_server):
     user_setup(selenium, live_server)
-    card_1 = selenium.find_element_by_xpath("//td[@class='name sorting_1' and text()='Lasse Licht']")
-    card_2 = selenium.find_element_by_xpath("//td[@class='name sorting_1' and text()='Jan Janssen']")
+    card_1 = selenium.find_elements_by_xpath("//td[@class='name sorting_1']")[1]
+    card_2 = selenium.find_elements_by_xpath("//td[@class='name sorting_1']")[2]
 
     # first name
     assert "" == selenium.find_element_by_id('id_first_name').get_attribute('value')
@@ -49,10 +49,10 @@ def test_card_form_data(selenium, live_server):
     # company
     assert "" == selenium.find_element_by_id('id_company').get_attribute('value')
 
-    card_1.click()
-    assert 'Lasse' == selenium.find_element_by_id('id_first_name').get_attribute('value')
-    assert 'Licht' == selenium.find_element_by_id('id_last_name').get_attribute('value')
-    assert 'lasse@mindhash.nl' == selenium.find_element_by_id('id_email').get_attribute('value')
+    selenium.find_elements_by_xpath("//td[@class='name sorting_1']").click()
+    assert 'John' == selenium.find_element_by_id('id_first_name').get_attribute('value')
+    assert 'Doe' == selenium.find_element_by_id('id_last_name').get_attribute('value')
+    assert 'john@doe.nl' == selenium.find_element_by_id('id_email').get_attribute('value')
     assert '' == selenium.find_element_by_id('id_company').get_attribute('value')
     assert not selenium.find_element_by_id('id_is_admin').is_selected()
 
@@ -74,7 +74,7 @@ def test_disabled_if_none_selected(selenium, live_server):
     assert not selenium.find_element_by_id('submitButton').is_enabled()
     # assert not selenium.find_element_by_id('deleteButton').is_enabled()
 
-    selenium.find_element_by_xpath("//td[@class='name sorting_1' and text()='Lasse Licht']").click()
+    selenium.find_element_by_xpath("//td[@class='name sorting_1' and text()='John Doe']").click()
     assert selenium.find_element_by_id('id_company').is_enabled()
     assert selenium.find_element_by_id('id_first_name').is_enabled()
     assert selenium.find_element_by_id('id_last_name').is_enabled()
@@ -87,7 +87,7 @@ def test_disabled_if_none_selected(selenium, live_server):
 def test_save_button(selenium, live_server):
     user_setup(selenium, live_server)
 
-    card = selenium.find_element_by_xpath("//td[@class='name sorting_1' and text()='Lasse Licht']")
+    card = selenium.find_elements_by_xpath("//td[@class='name sorting_1']")[1]
     card_parent = card.find_element_by_xpath('..')
 
     # check if card has no company data
@@ -113,7 +113,7 @@ def test_save_button(selenium, live_server):
     selenium.find_element_by_id('submitButton').click()
 
     # reload cards
-    card = selenium.find_element_by_xpath("//td[@class='name active sorting_1' and text()='Las Ligt']")
+    card = selenium.find_element_by_xpath("//td[@class='name active sorting_1']")[1]
     card_parent = card.find_element_by_xpath('..')
     card.click()
     # check if card now does have company data
@@ -148,7 +148,7 @@ def test_search(selenium, live_server):
     search.send_keys(Keys.ENTER)
 
     # link company
-    card = selenium.find_element_by_xpath("//td[@class='name sorting_1' and text()='Lasse Licht']")
+    card = selenium.find_elements_by_xpath("//td[@class='name sorting_1']")[1]
     card.click()
     selenium.find_element_by_xpath("// select[ @ id = 'id_company'] / option[text() = 'Mindhash']").click()
     selenium.find_element_by_id('submitButton').click()
