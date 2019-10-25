@@ -1,9 +1,11 @@
+from pytest import fixture
 from selenium.webdriver.common.keys import Keys
 
 from mysign_app.models import Company, User
 from mysign_app.tests.frontend.helpers import authenticate_selenium
 
 
+@fixture(autouse=True)
 def user_setup(selenium, live_server):
     Company.objects.create(name="Mindhash", email="info@mindhash.com")
     Company.objects.create(name="Test", email="test@test.com")
@@ -15,8 +17,7 @@ def user_setup(selenium, live_server):
     selenium.get(live_server.url + "/admin/users/")
 
 
-def test_card_selected(selenium, live_server):
-    user_setup(selenium, live_server)
+def test_card_selected(selenium):
     card_1 = selenium.find_elements_by_xpath("//td[@class='name sorting_1']")[0]
     card_2 = selenium.find_elements_by_xpath("//td[@class='name sorting_1']")[1]
 
@@ -35,11 +36,8 @@ def test_card_selected(selenium, live_server):
     assert "selected" in card_2_parent.get_attribute("class")
 
 
-def test_card_form_data(selenium, live_server):
-    user_setup(selenium, live_server)
-    card_1 = selenium.find_elements_by_xpath("//td[@class='name sorting_1']")[1]
-    card_2 = selenium.find_elements_by_xpath("//td[@class='name sorting_1']")[2]
-
+def test_card_form_data(selenium):
+    # checks if form data is empty when no card is selected
     # first name
     assert "" == selenium.find_element_by_id('id_first_name').get_attribute('value')
     # last name
@@ -49,23 +47,34 @@ def test_card_form_data(selenium, live_server):
     # company
     assert "" == selenium.find_element_by_id('id_company').get_attribute('value')
 
-    selenium.find_elements_by_xpath("//td[@class='name sorting_1']").click()
+    # checks if form data is filled correctly
+    selenium.find_element_by_xpath("//td[@class='name sorting_1 and text()='John Doe']").click()
     assert 'John' == selenium.find_element_by_id('id_first_name').get_attribute('value')
     assert 'Doe' == selenium.find_element_by_id('id_last_name').get_attribute('value')
     assert 'john@doe.nl' == selenium.find_element_by_id('id_email').get_attribute('value')
     assert '' == selenium.find_element_by_id('id_company').get_attribute('value')
     assert not selenium.find_element_by_id('id_is_admin').is_selected()
 
-    card_2.click()
+    selenium.find_element_by_xpath("//td[@class='name sorting_1 and text()='Jan Janssen']").click()
     assert 'Jan' == selenium.find_element_by_id('id_first_name').get_attribute('value')
     assert 'Janssen' == selenium.find_element_by_id('id_last_name').get_attribute('value')
     assert 'jan@janssen.nl' == selenium.find_element_by_id('id_email').get_attribute('value')
     assert '' == selenium.find_element_by_id('id_company').get_attribute('value')
     assert selenium.find_element_by_id('id_is_admin').is_selected()
 
+    # checks if form data is empty when card is deselected
+    selenium.find_element_by_xpath("//td[@class='name sorting_1 and text()='Jan Janssen']").click()
+    # first name
+    assert "" == selenium.find_element_by_id('id_first_name').get_attribute('value')
+    # last name
+    assert "" == selenium.find_element_by_id('id_last_name').get_attribute('value')
+    # email
+    assert "" == selenium.find_element_by_id('id_email').get_attribute('value')
+    # company
+    assert "" == selenium.find_element_by_id('id_company').get_attribute('value')
 
-def test_disabled_if_none_selected(selenium, live_server):
-    user_setup(selenium, live_server)
+
+def test_disabled_if_none_selected(selenium):
     assert not selenium.find_element_by_id('id_company').is_enabled()
     assert not selenium.find_element_by_id('id_first_name').is_enabled()
     assert not selenium.find_element_by_id('id_last_name').is_enabled()
@@ -84,10 +93,8 @@ def test_disabled_if_none_selected(selenium, live_server):
     # assert selenium.find_element_by_id('deleteButton').is_enabled()
 
 
-def test_save_button(selenium, live_server):
-    user_setup(selenium, live_server)
-
-    card = selenium.find_elements_by_xpath("//td[@class='name sorting_1']")[1]
+def test_save_button(selenium):
+    card = selenium.find_elements_by_xpath("//td[@class='name sorting_1 and text()='John Doe']")
     card_parent = card.find_element_by_xpath('..')
 
     # check if card has no company data
@@ -113,7 +120,7 @@ def test_save_button(selenium, live_server):
     selenium.find_element_by_id('submitButton').click()
 
     # reload cards
-    card = selenium.find_element_by_xpath("//td[@class='name active sorting_1']")[1]
+    card = selenium.find_element_by_xpath("//td[@class='name active sorting_1 and text()='John Doe']")
     card_parent = card.find_element_by_xpath('..')
     card.click()
     # check if card now does have company data
@@ -122,14 +129,12 @@ def test_save_button(selenium, live_server):
     assert 'las@mindhash.nl' == selenium.find_element_by_id('id_email').get_attribute('value')
 
 
-def test_search(selenium, live_server):
-    user_setup(selenium, live_server)
-
+def test_search(selenium):
     cards = selenium.find_elements_by_xpath("//td[@class='name sorting_1']")
     assert len(cards) == 3
 
     search = selenium.find_element_by_xpath("//input[@class='form-control w-100']")
-    search.send_keys("Las")
+    search.send_keys("John")
 
     cards = selenium.find_elements_by_xpath("//td[@class='name sorting_1']")
     assert len(cards) == 1
