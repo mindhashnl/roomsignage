@@ -24,6 +24,6 @@ stringcase
 Pillow==6.1.0
 django-sendgrid-v5
 django-templated-email
-uvicorn
-selenium
-chromedriver_binary==77.0.3865.40
+daphne
+#selenium
+#chromedriver_binary==77.0.3865.40
