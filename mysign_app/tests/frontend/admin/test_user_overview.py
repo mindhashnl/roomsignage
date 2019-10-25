@@ -83,7 +83,6 @@ def test_disabled_if_none_selected(selenium):
     assert not selenium.find_element_by_id('id_is_admin').is_enabled()
 
     assert not selenium.find_element_by_id('submitButton').is_enabled()
-    assert not selenium.find_element_by_id('deleteButton').is_enabled()
 
     selenium.find_element_by_xpath("//td[@class='name sorting_1' and text()='John Doe']").click()
     assert selenium.find_element_by_id('id_company').is_enabled()
@@ -92,7 +91,6 @@ def test_disabled_if_none_selected(selenium):
     assert selenium.find_element_by_id('id_is_admin').is_enabled()
 
     assert selenium.find_element_by_id('submitButton').is_enabled()
-    assert selenium.find_element_by_id('deleteButton').is_enabled()
 
 
 def test_save_button(selenium):
