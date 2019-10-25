@@ -117,10 +117,9 @@ def test_save_button(selenium):
     selenium.find_element_by_id('id_email').send_keys("las@mindhash.nl")
 
     # check if save reminder shows up
-    # assert "You have unsaved changes, please dont forget to save" == selenium.find_element_by_id('collapseDiv').text
-    # save
     assert selenium.find_element_by_id('collapseDiv').is_displayed()
 
+    # save
     selenium.find_element_by_id('submitButton').click()
 
     # reload cards
