@@ -48,14 +48,16 @@ def test_card_form_data(selenium):
     assert "" == selenium.find_element_by_id('id_company').get_attribute('value')
 
     # checks if form data is filled correctly
-    selenium.find_element_by_xpath("//td[@class='name sorting_1 and text()='John Doe']").click()
+    assert len(selenium.find_elements_by_xpath("//td[@class='name sorting_1']")) == 3
+
+    selenium.find_element_by_xpath("//td[@class='name sorting_1' and text()='John Doe']").click()
     assert 'John' == selenium.find_element_by_id('id_first_name').get_attribute('value')
     assert 'Doe' == selenium.find_element_by_id('id_last_name').get_attribute('value')
     assert 'john@doe.nl' == selenium.find_element_by_id('id_email').get_attribute('value')
     assert '' == selenium.find_element_by_id('id_company').get_attribute('value')
     assert not selenium.find_element_by_id('id_is_admin').is_selected()
 
-    selenium.find_element_by_xpath("//td[@class='name sorting_1 and text()='Jan Janssen']").click()
+    selenium.find_element_by_xpath("//td[@class='name sorting_1' and text()='Jan Janssen']").click()
     assert 'Jan' == selenium.find_element_by_id('id_first_name').get_attribute('value')
     assert 'Janssen' == selenium.find_element_by_id('id_last_name').get_attribute('value')
     assert 'jan@janssen.nl' == selenium.find_element_by_id('id_email').get_attribute('value')
@@ -63,7 +65,7 @@ def test_card_form_data(selenium):
     assert selenium.find_element_by_id('id_is_admin').is_selected()
 
     # checks if form data is empty when card is deselected
-    selenium.find_element_by_xpath("//td[@class='name sorting_1 and text()='Jan Janssen']").click()
+    selenium.find_element_by_xpath("//td[@class='name sorting_1' and text()='Jan Janssen']").click()
     # first name
     assert "" == selenium.find_element_by_id('id_first_name').get_attribute('value')
     # last name
@@ -94,7 +96,7 @@ def test_disabled_if_none_selected(selenium):
 
 
 def test_save_button(selenium):
-    card = selenium.find_elements_by_xpath("//td[@class='name sorting_1 and text()='John Doe']")
+    card = selenium.find_element_by_xpath("//td[@class='name sorting_1' and text()='John Doe']")
     card_parent = card.find_element_by_xpath('..')
 
     # check if card has no company data
@@ -120,7 +122,7 @@ def test_save_button(selenium):
     selenium.find_element_by_id('submitButton').click()
 
     # reload cards
-    card = selenium.find_element_by_xpath("//td[@class='name active sorting_1 and text()='John Doe']")
+    card = selenium.find_element_by_xpath("//td[@class='name active sorting_1' and text()='Las Ligt']")
     card_parent = card.find_element_by_xpath('..')
     card.click()
     # check if card now does have company data
@@ -155,9 +157,11 @@ def test_search(selenium):
     # link company
     card = selenium.find_elements_by_xpath("//td[@class='name sorting_1']")[1]
     card.click()
-    selenium.find_element_by_xpath("// select[ @ id = 'id_company'] / option[text() = 'Mindhash']").click()
-    selenium.find_element_by_id('submitButton').click()
 
+    selenium.find_element_by_xpath("// select[ @ id = 'id_company'] / option[text() = 'Mindhash']").click()
+    if selenium.find_element_by_id('id_is_admin').is_selected():
+        selenium.find_element_by_id('id_is_admin').click()
+    selenium.find_element_by_id('submitButton').click()
     # search for company
     search = selenium.find_element_by_xpath("//input[@class='form-control w-100']")
     search.send_keys("Mind")
