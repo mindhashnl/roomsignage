@@ -1,7 +1,10 @@
+from pytest import fixture
+
 from mysign_app.models import Company
-from mysign_app.tests.frontend.hmo.helpers import authenticate_selenium
+from mysign_app.tests.frontend.helpers import authenticate_selenium
 
 
+@fixture(autouse=True)
 def setup_user_test(selenium, live_server):
     Company.objects.create(name="Mindhash", email="info@mindhash.com")
     Company.objects.create(name="Test", email="test@test.com")
@@ -11,7 +14,7 @@ def setup_user_test(selenium, live_server):
     selenium.get(live_server.url + "/admin/users/add")
 
 
-def fill_form(selenium, live_server):
+def fill_form(selenium):
     selenium.find_element_by_id('id_user-first_name').send_keys("Test")
     selenium.find_element_by_id('id_user-last_name').send_keys("One")
     selenium.find_element_by_id('id_user-email').send_keys("test@one.com")
@@ -20,9 +23,7 @@ def fill_form(selenium, live_server):
 
 
 # tests if the form is clear when page is loaded
-def test_form_clear(selenium, live_server):
-    setup_user_test(selenium, live_server)
-
+def test_form_clear(selenium):
     assert selenium.find_element_by_id('id_user-first_name').get_attribute('value') == ''
     assert selenium.find_element_by_id('id_user-last_name').get_attribute('value') == ''
     assert selenium.find_element_by_id('id_user-email').get_attribute('value') == ''
@@ -32,7 +33,6 @@ def test_form_clear(selenium, live_server):
 
 # tests save button and adding of user
 def test_save(selenium, live_server):
-    setup_user_test(selenium, live_server)
     selenium.get(live_server.url + "/admin/users")
 
     # starting amount of user cards
@@ -41,7 +41,7 @@ def test_save(selenium, live_server):
     assert len(cards_not_active) + len(cards_active) == 1
 
     selenium.get(live_server.url + "/admin/users/add")
-    fill_form(selenium, live_server)
+    fill_form(selenium)
     # deselect is_admin
     selenium.find_element_by_id('id_user-is_admin').click()
     # click submit
@@ -57,8 +57,7 @@ def test_save(selenium, live_server):
 
 # tests if a user can be added without email
 def test_save_no_email(selenium, live_server):
-    setup_user_test(selenium, live_server)
-    fill_form(selenium, live_server)
+    fill_form(selenium)
     selenium.find_element_by_id('id_user-email').clear()
 
     selenium.find_element_by_id('submit_button').click()
@@ -68,8 +67,7 @@ def test_save_no_email(selenium, live_server):
 
 # tests if a user can be added with both a company and as admin
 def test_save_company_admin(selenium, live_server):
-    setup_user_test(selenium, live_server)
-    fill_form(selenium, live_server)
+    fill_form(selenium)
 
     selenium.find_element_by_id('submit_button').click()
     # this should be denied, so the current page should still be the add user page
@@ -78,8 +76,7 @@ def test_save_company_admin(selenium, live_server):
 
 # Tests if a user can be added with only is_admin
 def test_save_no_company_admin(selenium, live_server):
-    setup_user_test(selenium, live_server)
-    fill_form(selenium, live_server)
+    fill_form(selenium)
 
     selenium.find_element_by_xpath("// select[ @ id = 'id_user-company'] / option[text() = '---------']").click()
     selenium.find_element_by_id('submit_button').click()
@@ -88,8 +85,7 @@ def test_save_no_company_admin(selenium, live_server):
 
 # Tests if a user can be saved with only company selected and not admin
 def test_save_company_no_admin(selenium, live_server):
-    setup_user_test(selenium, live_server)
-    fill_form(selenium, live_server)
+    fill_form(selenium)
 
     selenium.find_element_by_id('id_user-is_admin').click()
     selenium.find_element_by_id('submit_button').click()
@@ -98,7 +94,6 @@ def test_save_company_no_admin(selenium, live_server):
 
 # tests cancel button
 def test_cancel(selenium, live_server):
-    setup_user_test(selenium, live_server)
     selenium.get(live_server.url + "/admin/users")
 
     # starting amount of cards
@@ -107,7 +102,7 @@ def test_cancel(selenium, live_server):
     assert len(cards_not_active) + len(cards_active) == 1
 
     selenium.get(live_server.url + "/admin/users/add")
-    fill_form(selenium, live_server)
+    fill_form(selenium)
 
     # click cancel
     selenium.find_element_by_id('cancel_button').click()
