@@ -83,7 +83,7 @@ def test_disabled_if_none_selected(selenium):
     assert not selenium.find_element_by_id('id_is_admin').is_enabled()
 
     assert not selenium.find_element_by_id('submitButton').is_enabled()
-    # assert not selenium.find_element_by_id('deleteButton').is_enabled()
+    assert not selenium.find_element_by_id('deleteButton').is_enabled()
 
     selenium.find_element_by_xpath("//td[@class='name sorting_1' and text()='John Doe']").click()
     assert selenium.find_element_by_id('id_company').is_enabled()
@@ -92,7 +92,7 @@ def test_disabled_if_none_selected(selenium):
     assert selenium.find_element_by_id('id_is_admin').is_enabled()
 
     assert selenium.find_element_by_id('submitButton').is_enabled()
-    # assert selenium.find_element_by_id('deleteButton').is_enabled()
+    assert selenium.find_element_by_id('deleteButton').is_enabled()
 
 
 def test_save_button(selenium):
@@ -104,6 +104,7 @@ def test_save_button(selenium):
     assert '' == card_parent.find_element_by_xpath("//td[@class='company.name']").text
 
     # select a new company
+    assert not selenium.find_element_by_id('collapseDiv').is_displayed()
     selenium.find_element_by_xpath("// select[ @ id = 'id_company'] / option[text() = 'Mindhash']").click()
 
     selenium.find_element_by_id('id_first_name').clear()
@@ -116,9 +117,10 @@ def test_save_button(selenium):
     selenium.find_element_by_id('id_email').send_keys("las@mindhash.nl")
 
     # check if save reminder shows up
-    assert "You have unsaved changes, please dont forget to save" == selenium.find_element_by_id('collapseDiv').text
-
+    # assert "You have unsaved changes, please dont forget to save" == selenium.find_element_by_id('collapseDiv').text
     # save
+    assert selenium.find_element_by_id('collapseDiv').is_displayed()
+
     selenium.find_element_by_id('submitButton').click()
 
     # reload cards
