@@ -33,7 +33,7 @@ class DataTablesView(TemplateView, FormView):
 
     def post(self, request, *args, **kwargs):
         """ Only clicked buttons get their name send, so this checks if the button with name 'delete' is pressed """
-        form = self.form_class()
+        form = self.get_form()
         if request.POST.get("delete"):
             model = self.model.objects.filter(id=request.POST.get('id'))
             if model.count() == 1:
@@ -43,7 +43,7 @@ class DataTablesView(TemplateView, FormView):
             """ Update the model """
             model = self.model.objects.filter(id=request.POST.get('id'))
             if model.count() == 1:
-                form = self.form_class(request.POST, instance=model[0])
+                form = self.form_class(instance=model[0], **self.get_form_kwargs())
                 if form.is_valid():
                     form.save()
                     messages.success(request, f'{self.model.class_name()} succesfully updated')
@@ -98,9 +98,12 @@ class Companies(AdminRequiredMixin, DataTablesView):
 class Users(AdminRequiredMixin, DataTablesView):
     model = User
     form_class = UserForm
-    form_kwargs = {'no_delete': True}
     list_fields = ['name', 'company.name']
     serializer = UserSerializer
+
+    @property
+    def form_kwargs(self):
+        return {'user': self.request.user, 'no_delete': True}
 
 
 @admin_required
