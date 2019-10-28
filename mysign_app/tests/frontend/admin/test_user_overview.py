@@ -145,6 +145,28 @@ def test_invalid_save(selenium):
     assert error_card.text == 'Company and is_admin cannot set both'
 
 
+def test_remove_button(selenium):
+    cards = selenium.find_elements_by_xpath("//td[@class='name sorting_1']")
+    # check that the total amount of cards is 2
+    assert len(cards) == 3
+
+    # select the card and press delete
+    cards[0].click()
+    selenium.find_element_by_id("deleteButton").click()
+
+    # check chrome popup, click "Cancel"
+    selenium.switch_to.alert.dismiss()
+    cards = selenium.find_elements_by_xpath("//td[@class='name sorting_1']")
+    assert len(cards) == 3
+
+    selenium.find_element_by_id("deleteButton").click()
+
+    # check chrome popup, click Accept"
+    selenium.switch_to.alert.accept()
+    cards = selenium.find_elements_by_xpath("//td[@class='name sorting_1']")
+    assert len(cards) == 2
+
+
 def test_search(selenium):
     cards = selenium.find_elements_by_xpath("//td[@class='name sorting_1']")
     assert len(cards) == 3

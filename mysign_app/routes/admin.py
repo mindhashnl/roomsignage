@@ -111,7 +111,7 @@ class Users(AdminRequiredMixin, DataTablesView):
 
     @property
     def form_kwargs(self):
-        return {'user': self.request.user, 'no_delete': True}
+        return {'user': self.request.user}
 
 
 @admin_required

@@ -66,6 +66,19 @@ def test_user_add(client):
 
 
 @mark.django_db
+def test_user_delete(client):
+    client_login(client, is_admin=True)
+
+    user = User()
+
+    payload = payload_from_form(UserForm(instance=user), delete=True)
+    response = client.post(reverse('admin_users'), payload)
+
+    assert response.status_code == 200
+    assert DoorDevice.objects.filter(id=user.id).count() == 0
+
+
+@mark.django_db
 def test_users(client):
     is_admin_route(client, reverse('admin_users'))
 
