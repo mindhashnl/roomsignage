@@ -2,7 +2,7 @@ import pytest
 from django.core.exceptions import ValidationError
 from pytest import mark
 
-from mysign_app.models import Company, logo_upload, image_upload
+from mysign_app.models import Company, image_upload, logo_upload
 from mysign_app.tests.factories import CompanyFactory, DoorDeviceFactory
 
 
