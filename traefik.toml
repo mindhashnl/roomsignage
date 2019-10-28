@@ -7,7 +7,7 @@ defaultEntryPoints = ["https", "http"]
   address = ":80"
     [entryPoints.http.redirect]
     entrypoint = "https"
-    permanent = true
+    #permanent = true
 
   [entryPoints.https]
   address = ":443"
@@ -28,6 +28,7 @@ defaultEntryPoints = ["https", "http"]
 
     [[acme.domains]]
         main = "utsign.nl"
+	    sans = ['www.utsign.nl']
 
 # Connection to docker host system (docker.sock)
 [docker]
