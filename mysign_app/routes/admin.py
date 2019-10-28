@@ -33,22 +33,23 @@ class DataTablesView(TemplateView, FormView):
 
     def post(self, request, *args, **kwargs):
         """ Only clicked buttons get their name send, so this checks if the button with name 'delete' is pressed """
+        form = self.get_form()
         if request.POST.get("delete"):
             model = self.model.objects.filter(id=request.POST.get('id'))
             if model.count() == 1:
                 model[0].delete()
                 messages.success(request, f'{self.model.class_name()} succesfully deleted')
+                self.model_deleted(request.POST.get('id'))
         else:
             """ Update the model """
             model = self.model.objects.filter(id=request.POST.get('id'))
             if model.count() == 1:
-                form = self.form_class(request.POST, instance=model[0])
+                form = self.form_class(instance=model[0], **self.get_form_kwargs())
                 if form.is_valid():
                     form.save()
                     messages.success(request, f'{self.model.class_name()} succesfully updated')
                     self.model_saved(model)
 
-        form = self.form_class()
         context = self.get_context_data(form=form, **kwargs)
         return self.render_to_response(context)
 
@@ -61,6 +62,9 @@ class DataTablesView(TemplateView, FormView):
         }
 
     def model_saved(self, model):
+        pass
+
+    def model_deleted(self, model_id):
         pass
 
     def get_form_kwargs(self):
@@ -86,6 +90,10 @@ class DoorDevices(AdminRequiredMixin, DataTablesView):
     def model_saved(self, model):
         refresh_screens(door_devices=model)
 
+    def model_deleted(self, model_id):
+        # Refresh all screens to /
+        refresh_screens(door_device_id=model_id, action='load_base')
+
 
 class Companies(AdminRequiredMixin, DataTablesView):
     model = Company
@@ -98,9 +106,12 @@ class Companies(AdminRequiredMixin, DataTablesView):
 class Users(AdminRequiredMixin, DataTablesView):
     model = User
     form_class = UserForm
-    form_kwargs = {'no_delete': True}
     list_fields = ['name', 'company.name']
     serializer = UserSerializer
+
+    @property
+    def form_kwargs(self):
+        return {'user': self.request.user, 'no_delete': True}
 
 
 @admin_required

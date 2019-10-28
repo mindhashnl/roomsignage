@@ -1,5 +1,6 @@
 from colorfield.fields import ColorWidget
 from django import forms
+from django.core.exceptions import ValidationError
 from django.forms import ModelForm
 
 from mysign_app.models import Company, DoorDevice, User
@@ -51,6 +52,15 @@ class UserForm(NoDeleteToggleableForm, ModelClassMixin):
         model = User
         fields = ['first_name', 'last_name', 'email', 'company', 'is_admin']
 
+    def __init__(self, *args, **kwargs):
+        self.request_user = kwargs.pop('user', None)
+        super().__init__(*args, **kwargs)
+
+    def clean(self):
+        if self.instance == self.request_user and self.instance.is_admin != self.cleaned_data['is_admin']:
+            raise ValidationError('Cannot unset is_admin property on own user', code='invalid_is_admin')
+        return super().clean()
+
 
 class AddCompanyUserForm(ModelForm, ModelClassMixin):
     class Meta:
@@ -67,7 +77,7 @@ class AddUserForm(ModelForm, ModelClassMixin):
 class CompanyViewForm(NoDeleteToggleableForm, ModelClassMixin):
     class Meta:
         model = Company
-        fields = ['name', 'email', 'phone_number', 'website', 'logo', 'color', 'text_color']
+        fields = ['name', 'email', 'phone_number', 'website', 'logo', 'image', 'color', 'text_color']
         widgets = {
             'color': ColorWidget()
         }
