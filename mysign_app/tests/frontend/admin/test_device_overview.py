@@ -85,7 +85,7 @@ def test_save_door_device(selenium):
     assert id == selenium.find_element_by_id('id_company').get_attribute('value')
 
     # check if save reminder shows up
-    assert "You have unsaved changes, please dont forget to save" == selenium.find_element_by_id('collapseDiv').text
+    assert "You have unsaved changes" == selenium.find_element_by_id('collapseDiv').text
 
     # save
     selenium.find_element_by_id('submitButton').click()
