@@ -35,6 +35,8 @@
                 var data = JSON.parse(e.data);
                 if(data['action'] === 'refresh'){
                     window.location.reload()
+                } else if(data['action'] === 'load_base'){
+                    window.location = '/'
                 } else {
                     console.error('Unknown action received' + data)
                 }

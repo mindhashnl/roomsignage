@@ -39,6 +39,7 @@ class DataTablesView(TemplateView, FormView):
             if model.count() == 1:
                 model[0].delete()
                 messages.success(request, f'{self.model.class_name()} succesfully deleted')
+                self.model_deleted(request.POST.get('id'))
         else:
             """ Update the model """
             model = self.model.objects.filter(id=request.POST.get('id'))
@@ -63,6 +64,9 @@ class DataTablesView(TemplateView, FormView):
     def model_saved(self, model):
         pass
 
+    def model_deleted(self, model_id):
+        pass
+
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
         if self.form_kwargs:
@@ -85,6 +89,10 @@ class DoorDevices(AdminRequiredMixin, DataTablesView):
 
     def model_saved(self, model):
         refresh_screens(door_devices=model)
+
+    def model_deleted(self, model_id):
+        # Refresh all screens to /
+        refresh_screens(door_device_id=model_id, action='load_base')
 
 
 class Companies(AdminRequiredMixin, DataTablesView):
