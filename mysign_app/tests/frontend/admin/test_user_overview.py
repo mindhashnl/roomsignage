@@ -1,3 +1,5 @@
+import time
+
 from pytest import fixture
 from selenium.webdriver.common.keys import Keys
 
@@ -128,6 +130,21 @@ def test_save_button(selenium):
     assert 'Mindhash' == card_parent.find_element_by_xpath("//td[@class='company.name active']").text
     assert 'Las Ligt' == card.text
     assert 'las@mindhash.nl' == selenium.find_element_by_id('id_email').get_attribute('value')
+
+
+def test_invalid_save(selenium):
+    card = selenium.find_element_by_xpath("//td[@class='name sorting_1' and text()='Jan Janssen']")
+    card.click()
+
+    # Make form invalid (by setting admin and company)
+    assert selenium.find_element_by_id('id_is_admin').is_selected()
+    selenium.find_element_by_xpath("// select[ @ id = 'id_company'] / option[text() = 'Mindhash']").click()
+    selenium.find_element_by_id('submitButton').click()
+
+    # Check that there is a error in the form
+    error_card = selenium.find_element_by_xpath("//div[@class='alert alert-block alert-danger']")
+    assert error_card
+    assert error_card.text == 'Company and is_admin cannot set both'
 
 
 def test_search(selenium):
