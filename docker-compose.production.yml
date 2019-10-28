@@ -3,7 +3,7 @@ services:
   web:
     build: .
     env_file: .env
-    command: daphne mysign.asci:application -b 0.0.0.0
+    command: daphne mysign.asgi:application -b 0.0.0.0 --access-log - --verbosity 2
     restart: always
     depends_on:
       - db
@@ -12,7 +12,7 @@ services:
     labels:
       - traefik.enable=true
       - traefik.port=8000
-      - traefik.frontend.rule=Host:utsign.nl
+      - traefik.frontend.rule=Host:${HOST}
 
   db:
     image: postgres:12
@@ -34,10 +34,10 @@ services:
     labels:
       - traefik.enable=true
       - traefik.port=8000
-      - traefik.frontend.rule=Host:utsign.nl;PathPrefix:/static,/uploads
+      - traefik.frontend.rule=Host:${HOST};PathPrefix:/static,/uploads
 
   traefik:
-    image: traefik
+    image: traefik:1.7
     container_name: traefik
     restart: always
     ports:
