@@ -29,6 +29,11 @@ def logo_upload(instance, filename):
     return f"companies/logos/{uuid.uuid4()}.{extension}"
 
 
+def image_upload(instance, filename):
+    name, extension = filename.split('.', 1)
+    return f"companies/images/{uuid.uuid4()}.{extension}"
+
+
 class ClassStr:
     @classmethod
     def class_name(cls):
@@ -86,6 +91,7 @@ class Company(models.Model, ClassStr):
     email = models.EmailField(max_length=50)
     website = models.CharField(max_length=50, validators=[domain_regex])
     logo = models.ImageField(upload_to=logo_upload, blank=True)
+    image = models.ImageField(upload_to=image_upload, blank=True)
     color = ColorField(blank=True, default='#e3eff3')  # Keep default in sync with background color
     text_color = ColorField(blank=True, default='#ffffff')
 
@@ -93,6 +99,11 @@ class Company(models.Model, ClassStr):
         if self.logo:
             return self.logo.url
         return static('mysign_app/logo-fallback.png')
+
+    def image_url_or_default(self):
+        if self.image:
+            return self.image.url
+        return static('mysign_app/image-fallback.png')
 
     @property
     def door_devices(self):

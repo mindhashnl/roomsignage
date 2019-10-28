@@ -85,6 +85,19 @@ def test_users_update(client):
 
 
 @mark.django_db
+def test_users_update_own(client):
+    user = client_login(client, is_admin=True)
+
+    user.is_admin = False
+    payload = payload_from_form(UserForm(instance=user))
+    response = client.post(reverse('admin_users'), payload)
+
+    assert response.status_code == 200
+    # Check that is admin is not updated
+    assert User.objects.get(id=user.id).is_admin
+
+
+@mark.django_db
 def test_door_device_update(client):
     client_login(client, is_admin=True)
 
