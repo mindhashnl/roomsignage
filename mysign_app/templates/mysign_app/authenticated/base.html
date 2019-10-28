@@ -5,16 +5,15 @@
         {% include 'partials/head.html' %}
     </head>
     <body>
-    {% include 'mysign_app/authenticated/navbar.html' %}
-    <div class="container-fluid authenticated-padding h-100">
-        <div class="col-md-3 offset-md-3" style="height: 0; z-index: 1">
-            {% include 'partials/messages.html' %}
+        {% include 'mysign_app/authenticated/navbar.html' %}
+        <div class="container-fluid authenticated-padding h-100">
+            <div class="col-md-3 offset-md-3" style="height: 0; z-index: 1">
+                {% include 'partials/messages.html' %}
+            </div>
+            <div class="row h-100">
+                {% block content %}
+                {% endblock %}
+            </div>
         </div>
-        <div class="row h-100">
-            {% block content %}
-            {% endblock %}
-        </div>
-    </div>
-
     </body>
 </html>
