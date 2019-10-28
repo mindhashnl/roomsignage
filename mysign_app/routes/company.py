@@ -14,6 +14,11 @@ class CompanyIndex(CompanyRequiredMixin, SuccessMessageMixin, UpdateView):
     model = Company
     form_class = CompanyViewForm
 
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['no_delete'] = True
+        return kwargs
+
     def form_valid(self, form):
         response = super().form_valid(form)
         refresh_screens(self.object)
