@@ -2,7 +2,7 @@ import pytest
 from django.core.exceptions import ValidationError
 from pytest import mark
 
-from mysign_app.models import Company, logo_upload
+from mysign_app.models import Company, logo_upload, image_upload
 from mysign_app.tests.factories import CompanyFactory, DoorDeviceFactory
 
 
@@ -47,6 +47,13 @@ def test_logo_upload_helper():
     assert path.startswith('companies/logos/')
 
 
+def test_image_upload_helper():
+    path = image_upload(None, 'file.png')
+
+    assert path.endswith('.png')
+    assert path.startswith('companies/images/')
+
+
 def test_logo_fallback():
     company = CompanyFactory.build()
 
@@ -57,6 +64,18 @@ def test_logo_fallback():
 
     assert not company.logo
     assert company.logo_url_or_default() == '/static/mysign_app/logo-fallback.png'
+
+
+def test_image_fallback():
+    company = CompanyFactory.build()
+
+    assert company.image
+    assert company.image_url_or_default() == company.image.url
+
+    company = CompanyFactory.build(image=None)
+
+    assert not company.image
+    assert company.image_url_or_default() == '/static/mysign_app/image-fallback.png'
 
 
 def test_class_name():
