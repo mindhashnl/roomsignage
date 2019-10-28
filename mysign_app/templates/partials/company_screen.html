@@ -1,33 +1,31 @@
 {% load static %}
 
-<div class="row h-100 screen-preview-border">
-    <div class="row h-100 screen-preview-style">
-        <div class="col-md-5 h-100" id="screen_display_info" style="background: {{ company.color }};">
-            <div class="row h-50">
-                <div class="col-md-12 mh-100 text-center">
-                    <img class="mh-100 align-self-center" onclick="fullScreen()" id="screen_display_logo"
-                         src="{{ company.logo_url_or_default }}">
-                </div>
-
+<div class="row h-100">
+    <div class="col-md-5 h-100" id="screen_display_info" style="background: {{ company.color }};">
+        <div class="row h-50">
+            <div class="col-md-12 mh-100 text-center">
+                <img class="mh-100 align-self-center" onclick="fullScreen()" id="screen_display_logo"
+                     src="{{ company.logo_url_or_default }}">
             </div>
-            <div class="row h-50 align-items-center company-info" style="color: {{ company.text_color }};">
-                <div class="mx-auto">
-                    <i class="fa fa-fw fa-2x fa-phone"></i>
-                    <span id="screen_display_phone_number">{{ company.phone_number |default:'Preview' }}</span>
-                    <br/>
-                    <i class="fa fa-fw fa-2x fa-envelope"></i>
-                    <span id="screen_display_email">{{ company.email |default:'Preview' }}</span>
-                    <br/>
-                    <i class="fa fa-fw fa-2x fa-globe"></i>
-                    <span id="screen_display_website">{{ company.website |default:'Preview' }}</span>
-                    <br/>
-                </div>
+
+        </div>
+        <div class="row h-50 align-items-center company-info" style="color: {{ company.text_color }};">
+            <div class="mx-auto">
+                <i class="fa fa-fw fa-2x fa-phone"></i>
+                <span id="screen_display_phone_number">{{ company.phone_number |default:'Preview' }}</span>
+                <br/>
+                <i class="fa fa-fw fa-2x fa-envelope"></i>
+                <span id="screen_display_email">{{ company.email |default:'Preview' }}</span>
+                <br/>
+                <i class="fa fa-fw fa-2x fa-globe"></i>
+                <span id="screen_display_website">{{ company.website |default:'Preview' }}</span>
+                <br/>
             </div>
         </div>
-        <div class="col-md-7">
-            <div class="row h-100 no-overflow">
-                <img src='{% static "mysign_app/promo-fallback.png" %}'>
-            </div>
+    </div>
+    <div class="col-md-7">
+        <div class="row h-100 no-overflow">
+            <img src='{% static "mysign_app/promo-fallback.png" %}'>
         </div>
     </div>
 </div>

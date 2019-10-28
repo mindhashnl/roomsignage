@@ -135,9 +135,20 @@ PWA_SERVICE_WORKER_PATH = os.path.join(BASE_DIR, 'mysign_app', 'static/mysign_ap
 
 # Channels
 ASGI_APPLICATION = 'mysign.routing.application'
-CHANNEL_LAYERS = {"default": {
-        "BACKEND": "channels.layers.InMemoryChannelLayer"
-    }}
+
+
+# CHANNEL_LAYERS = {"default": {
+#         "BACKEND": "channels.layers.InMemoryChannelLayer"
+#     }}
+
+
+CHANNEL_LAYERS = {	"default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [(os.environ.get('REDIS_HOST'), 6379)],
+        },
+    },
+}
 
 
 PWA_APP_NAME = 'MySign'
