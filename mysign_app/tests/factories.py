@@ -31,6 +31,7 @@ class CompanyFactory(factory.DjangoModelFactory):
     email = factory.Faker('ascii_company_email')
     website = factory.Faker('url')
     logo = factory.django.ImageField(color='blue')
+    image = factory.django.ImageField(color='blue')
 
 
 class DoorDeviceFactory(factory.DjangoModelFactory):
