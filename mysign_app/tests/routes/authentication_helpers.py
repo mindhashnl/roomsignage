@@ -6,8 +6,10 @@ def client_login(client, **user_kwargs):
     client.logout()
     User.objects.filter(email='test@user.nl').delete()
 
-    User.objects.create_user(email='test@user.nl', password='1234', **user_kwargs)
+    user = User.objects.create_user(email='test@user.nl', password='1234', **user_kwargs)
     client.login(username='test@user.nl', password='1234')
+
+    return user
 
 
 def _test_unauthenticated(client, route):
