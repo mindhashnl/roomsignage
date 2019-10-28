@@ -55,6 +55,16 @@ img {
     border: 0.1rem solid var(--primary-light);
 }
 
+.screen-preview-style {
+    padding: 50px;
+    background-color: #1d1c1c;
+    border-radius: 4%;
+}
+
+.screen-preview-border {
+    padding: 60px 180px
+}
+
 .bar-logo {
     width: 40px;
 }
@@ -93,6 +103,14 @@ img {
     padding: 10px;
     background-color: var(--primary-dark);
     box-shadow: 0.2rem 0.2rem 0.4rem rgba(0, 0, 0, 0.25);
+}
+
+.unsaved-style {
+    background-color:var(--delete-btn);
+    border-radius: 15px;
+    text-align: center;
+    color: white;
+    font-size: 1.5rem;
 }
 
 .no-overflow {
