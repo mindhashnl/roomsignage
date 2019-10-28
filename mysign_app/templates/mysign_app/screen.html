@@ -9,19 +9,6 @@
         {% progressive_web_app_meta %}
 
         <script>
-            function fullScreen() {
-                var docElm = document.documentElement;
-                if (docElm.requestFullscreen) {
-                    docElm.requestFullscreen();
-                } else if (docElm.msRequestFullscreen) {
-                    docElm.msRequestFullscreen();
-                } else if (docElm.mozRequestFullScreen) {
-                    docElm.mozRequestFullScreen();
-                } else if (docElm.webkitRequestFullScreen) {
-                    docElm.webkitRequestFullScreen();
-                }
-            }
-
             window.addEventListener('load', function () {
                 window.addEventListener('online', function () {
                     window.location.reload();
@@ -97,7 +84,12 @@
                                 </h5>
                             </div>
                         </div>
-                        <button id="btn-install-app" class="btn btn-primary">Install App</button>
+                        <div class="row align-items-center justify-content-center">
+                            <div class="col-md-12 text-center">
+                                <button id="btn-install-app" class="btn btn-primary">Install App</button>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
 
