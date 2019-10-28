@@ -1,5 +1,3 @@
-from time import sleep
-
 from pytest import fixture
 from selenium.webdriver.common.keys import Keys
 
