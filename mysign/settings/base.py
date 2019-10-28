@@ -161,7 +161,7 @@ PWA_APP_ORIENTATION = 'any'
 PWA_APP_START_URL = '/screen/'
 PWA_APP_ICONS = [
     {
-        'src': '/static/mysign_app/favicon/android-icon-192x192.png',
+        'src': '/static/mysign_app/favicon.ico',
         'sizes': '192x192'
     }
 ]
