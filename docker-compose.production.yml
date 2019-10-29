@@ -33,7 +33,7 @@ services:
       - ${PWD}/static:/usr/share/nginx/html
     labels:
       - traefik.enable=true
-      - traefik.port=8000
+      - traefik.port=80
       - traefik.frontend.rule=Host:${HOST};PathPrefix:/static,/uploads
 
   traefik:

@@ -150,4 +150,5 @@ img {
 .custom-file-label {
     position: relative;
     width: 100%;
+    top: -10px;
 }
