@@ -1,16 +1,6 @@
 /* eslint-disable-next-line no-unused-vars */
 function createDataTable(dataJson, listFields) {
-	const columns = [
-		// TODO Reuse this for the images
-		//     "orderable": false, "data": "Photo", "name": "Photo", "defaultContent": "",
-		//     "visible": true, "className": "text-center", "width": "20px",
-		//     "createdCell": function (td, cellData, rowData, row, col) {
-		//         console.log(cellData)
-		//         var $ctl = $('<i class="fa fa-user fa-fw"></i>');
-		//         $(td).append($ctl);
-		//     }
-		// }
-	];
+	const columns = [];
 
 	Object.values(listFields).forEach(function (key) {
 		columns.push({
