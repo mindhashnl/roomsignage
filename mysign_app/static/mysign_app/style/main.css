@@ -141,3 +141,13 @@ img {
     transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
 }
 
+/* Monkey patch for file upload. Since Bootstrap uses position absolute and django does not render html 100% correct the layout is broken otherwise. */
+
+.custom-file-input{
+    height: 0; /* Height is in the label, so we hide this element (it is empty) */
+}
+
+.custom-file-label {
+    position: relative;
+    width: 100%;
+}
