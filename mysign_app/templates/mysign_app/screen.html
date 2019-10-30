@@ -9,6 +9,7 @@
         {% progressive_web_app_meta %}
 
         <script>
+            // Auto reload when app goes from offline to online
             window.addEventListener('load', function () {
                 window.addEventListener('online', function () {
                     window.location.reload();
@@ -16,10 +17,11 @@
             });
 
 
-            var chatSocket = new WebSocket('wss://' + window.location.host + '/ws/screen/' +  {{ device.id }} +  '/');
+            // Websockets to refresh when something changes in backend
+            let ws = new ReconnectingWebSocket('wss://' + window.location.host + '/ws/screen/' +  {{ device.id }} +  '/');
 
-            chatSocket.onmessage = function(e) {
-                var data = JSON.parse(e.data);
+            ws.onmessage = function(e) {
+                const data = JSON.parse(e.data);
                 if(data['action'] === 'refresh'){
                     window.location.reload()
                 } else if(data['action'] === 'load_base'){
@@ -30,13 +32,7 @@
 
             };
 
-            chatSocket.onclose = function(e) {
-                console.error('Chat socket closed unexpectedly');
-            };
-
-
-
-
+        // PWA Installation
         let deferredPrompt;
 
         window.addEventListener('beforeinstallprompt', e => {
