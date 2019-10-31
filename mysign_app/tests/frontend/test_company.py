@@ -44,10 +44,13 @@ def test_live_reload(selenium, live_server):
 
     # Test field updating
     set_info(selenium.find_element_by_id('id_email'), '123456')
+    selenium.find_element_by_id('id_name').click()
     assert selenium.find_element_by_id('screen_display_email').text == '123456'
     set_info(selenium.find_element_by_id('id_phone_number'), '123456')
+    selenium.find_element_by_id('id_name').click()
     assert selenium.find_element_by_id('screen_display_phone_number').text == '123456'
     set_info(selenium.find_element_by_id('id_website'), '123456')
+    selenium.find_element_by_id('id_name').click()
     assert selenium.find_element_by_id('screen_display_website').text == '123456'
 
     # Test color updating
