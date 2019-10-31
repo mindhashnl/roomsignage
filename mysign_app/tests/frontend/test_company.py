@@ -82,3 +82,10 @@ def test_save(selenium):
     assert company.website == 'example.com'
     assert company.color == '#FFFFFF'
     assert company.text_color == '#000000'
+
+
+def test_save_invalid(selenium):
+    set_info(selenium.find_element_by_id('id_phone_number'), '1234')
+    selenium.find_element_by_id('submitButton').click()
+
+    assert selenium.find_element_by_id('error_1_id_phone_number')

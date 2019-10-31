@@ -23,7 +23,7 @@ def test_form_clear(selenium):
     assert selenium.find_element_by_id('id_user-email').get_attribute('value') == ''
 
 
-def test_save(selenium):
+def test_save(selenium, live_server):
     assert User.objects.count() == 1
     assert Company.objects.count() == 2
 
@@ -41,9 +41,13 @@ def test_save(selenium):
     assert user
     assert company
     assert user.first().company == company.first()
+    assert Company.objects.count() == 3
+
+    assert selenium.current_url == live_server + '/admin/companies/'
 
 
 def test_cancel(selenium, live_server):
     selenium.find_element_by_id('cancel_button').click()
 
     assert selenium.current_url == live_server + '/admin/companies/'
+    assert Company.objects.count() == 2
