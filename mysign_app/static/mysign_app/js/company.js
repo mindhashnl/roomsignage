@@ -1,7 +1,7 @@
 $(document).ready(function () {
 	// On change
 	$('input').change(function (event) {
-		const selector = $('#screen_display_' + event.target.name);
+		const selector = $('#screen_display_' + event.target.name.replace('-clear', ''));
 
 		if (event.target.name === 'color') {
 			$('#screen_display_info').css('background-color', event.target.jscolor.toHEXString());
@@ -13,6 +13,10 @@ $(document).ready(function () {
 			};
 
 			reader.readAsDataURL(event.target.files[0]);
+		} else if (event.target.name === 'image-clear') {
+			selector.attr('src', '/static/mysign_app/image-fallback.png');
+		} else if (event.target.name === 'logo-clear') {
+			selector.attr('src', '/static/mysign_app/logo-fallback.png');
 		} else if (event.target.name === 'text_color') {
 			$('.company-info').css('color', event.target.jscolor.toHEXString());
 		} else {
