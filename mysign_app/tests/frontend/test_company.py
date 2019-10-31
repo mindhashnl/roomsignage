@@ -1,5 +1,3 @@
-from time import sleep
-
 from pytest import fixture
 
 from mysign_app.models import Company
