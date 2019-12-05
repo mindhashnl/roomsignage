@@ -1,6 +1,6 @@
 channels
 channels_redis
-Django==2.2.5
+Django==2.2.8
 django-colorfield==0.1.15
 django-seed==0.1.9
 django-use-email-as-username
